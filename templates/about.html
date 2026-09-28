@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}About | {{ site.title }}{% endblock %}
+{% block og_image %}{% set hero = (gallery or [])|selectattr("main")|first %}{% if hero %}<meta property="og:image" content="{{ site.url }}{{ hero.large.url[site.base|length:] }}">{% else %}{{ super() }}{% endif %}{% endblock %}
 {% block head %}
 <script type="application/ld+json">{{ {
   "@context": "https://schema.org", "@type": "ProfilePage", "url": canonical,
@@ -13,8 +14,43 @@
 }|tojson_ld }}</script>
 {% endblock %}
 {% block main %}
-<section class="wrap page prose">
-  {% if body %}{{ body|safe }}{% else %}<h1>About {{ site.title }}</h1><p>{{ site.description }}</p>{% endif %}
+{% set hero = (gallery or [])|selectattr("main")|first %}
+{% set others = (gallery or [])|rejectattr("main")|list %}
+<article class="wrap page about">
+  <h1 class="about-h">{{ heading or ("About " ~ site.title) }}</h1>
+  {% if hero %}
+  <figure class="about-hero">
+    <button class="photo-open" type="button" data-photo="0" data-full="{{ hero.large.url }}" aria-label="Enlarge photo: {{ hero.caption }}">
+      <img src="{{ hero.large.url }}" srcset="{{ hero.thumb.url }} {{ hero.thumb.w }}w, {{ hero.large.url }} {{ hero.large.w }}w"
+           sizes="(max-width: 1000px) 100vw, 1000px" width="{{ hero.large.w }}" height="{{ hero.large.h }}" alt="{{ hero.caption }}" fetchpriority="high">
+    </button>
+    {% if hero.caption %}<figcaption>{{ hero.caption }}</figcaption>{% endif %}
+  </figure>
+  {% endif %}
+
+  <div class="prose">
+    {% if body %}{{ body|safe }}{% else %}<p>{{ site.description }}</p>{% endif %}
+  </div>
+
+  {% if others %}
+  <section class="memories" aria-labelledby="memories-h">
+    <h2 id="memories-h">Memories</h2>
+    <ul class="memory-grid">
+      {% for p in others %}
+      <li>
+        <figure class="memory">
+          <button class="photo-open" type="button" data-photo="{{ loop.index }}" data-full="{{ p.large.url }}" aria-label="Enlarge photo: {{ p.caption }}">
+            <img src="{{ p.thumb.url }}" width="{{ p.thumb.w }}" height="{{ p.thumb.h }}" alt="{{ p.caption }}" loading="lazy" decoding="async">
+          </button>
+          {% if p.caption %}<figcaption>{{ p.caption }}</figcaption>{% endif %}
+        </figure>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <div class="prose">
   {% if site.links %}
   <p class="social" id="contact">
     {% for l in site.links %}
@@ -32,5 +68,21 @@
   </p>
   {% endif %}
   <p class="muted">{{ quizzes|length }} quiz sets published so far.</p>
-</section>
+  </div>
+</article>
+
+{% if gallery %}
+<dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+  <figure>
+    <img id="lb-img" alt="">
+    <figcaption id="lb-cap"></figcaption>
+  </figure>
+  <button class="lb-btn lb-close" type="button" data-lb="close" aria-label="Close">✕</button>
+  {% if gallery|length > 1 %}
+  <button class="lb-btn lb-prev" type="button" data-lb="prev" aria-label="Previous photo">‹</button>
+  <button class="lb-btn lb-next" type="button" data-lb="next" aria-label="Next photo">›</button>
+  {% endif %}
+</dialog>
+{% endif %}
 {% endblock %}
+{% block scripts %}{% if gallery %}<script src="{{ site.base }}assets/gallery.js" defer></script>{% endif %}{% endblock %}

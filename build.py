@@ -561,6 +561,47 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
 # Rendering
 # --------------------------------------------------------------------------- #
 
+def build_gallery(base: str) -> list[dict]:
+    """About-page photos from pages/gallery.json, resized for the web (cached)."""
+    from PIL import Image, ImageOps
+    src_json = PAGES_DIR / "gallery.json"
+    if not src_json.exists():
+        return []
+    try:
+        entries = json.loads(src_json.read_text(encoding="utf-8")).get("photos", [])
+    except ValueError as exc:
+        print(f"  ! pages/gallery.json: {exc}", file=sys.stderr)
+        return []
+    out_dir = OUT_DIR / "assets" / "gallery"
+    cache = CACHE_DIR / "gallery"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    cache.mkdir(parents=True, exist_ok=True)
+    photos = []
+    for e in entries:
+        src = PAGES_DIR / "gallery" / str(e.get("file", ""))
+        if not src.is_file():
+            print(f"  ! gallery photo missing: {src.name}", file=sys.stderr)
+            continue
+        key = sha256(src)[:16]
+        made = {}
+        for label, size in (("large", 1800), ("thumb", 720)):
+            name = f"{slugify(src.stem)}-{key}-{size}.jpg"
+            cached = cache / name
+            if not cached.exists():
+                with Image.open(src) as im:
+                    im = ImageOps.exif_transpose(im).convert("RGB")
+                    im.thumbnail((size, size), Image.LANCZOS)
+                    im.save(cached, quality=84 if label == "large" else 80, optimize=True, progressive=True)
+            shutil.copy2(cached, out_dir / name)
+            with Image.open(cached) as im:
+                made[label] = {"url": f"{base}assets/gallery/{name}", "w": im.width, "h": im.height}
+        photos.append({"file": src.name, "caption": str(e.get("caption") or "").strip(), "main": bool(e.get("main")),
+                       "large": made["large"], "thumb": made["thumb"]})
+    if photos and not any(p["main"] for p in photos):
+        photos[0]["main"] = True
+    return photos
+
+
 def site_url(site: dict) -> str:
     url = (os.environ.get("SITE_URL") if not site.get("url") else site["url"]) or "http://localhost:8000/"
     return url.rstrip("/") + "/"
@@ -664,10 +705,18 @@ def build(site: dict) -> list[Quiz]:
         write(f"tags/{slugify(tag)}/index.html", "tag.html", tag=tag, quizzes=qs,
               canonical=page_url(f"tags/{slugify(tag)}/"))
 
+    gallery = build_gallery(base)
     about_md = PAGES_DIR / "about.md"
     about_html = markdown.markdown(about_md.read_text(encoding="utf-8")) if about_md.exists() else ""
-    write("about/index.html", "about.html", body=about_html, quizzes=quizzes,
+    # The page heading sits above the main photo, so split it off the Markdown body.
+    m = re.match(r"\s*<h1>(.*?)</h1>\s*", about_html, re.S)
+    about_title, about_html = (m.group(1), about_html[m.end():]) if m else ("", about_html)
+    write("about/index.html", "about.html", body=about_html, heading=about_title, quizzes=quizzes, gallery=gallery,
           canonical=page_url("about/"))
+    # The Manage page reads this to show thumbnails of the current About photos.
+    (OUT_DIR / "gallery.json").write_text(json.dumps(
+        [{"file": p["file"], "caption": p["caption"], "main": p["main"], "thumb": p["thumb"]["url"]} for p in gallery],
+        indent=2, ensure_ascii=False), encoding="utf-8")
     write("404.html", "404.html", canonical=url)
     write("upload/index.html", "upload.html", canonical=page_url("upload/"))
 
@@ -683,7 +732,7 @@ def build(site: dict) -> list[Quiz]:
         "downloads": {d.ext: url + d.url[len(base):] for d in q.downloads},
     } for q in quizzes], indent=2, ensure_ascii=False), encoding="utf-8")
 
-    shutil.copytree(ASSETS_DIR, OUT_DIR / "assets")
+    shutil.copytree(ASSETS_DIR, OUT_DIR / "assets", dirs_exist_ok=True)
     (OUT_DIR / ".nojekyll").touch()
     if site.get("indexnow_key"):
         (OUT_DIR / f"{site['indexnow_key']}.txt").write_text(site["indexnow_key"])

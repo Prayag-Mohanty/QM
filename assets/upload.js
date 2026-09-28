@@ -23,6 +23,7 @@
   var quizzes = {};   // stem -> {stem, files: [{path, ext, size}], yml: {path, sha} | null}
   var published = {}; // slug -> entry from quizzes.json
   var editing = null; // {stem, yml, entries, text}
+  var galleryRepo = { json: null, files: {} }; // pages/gallery.json sha, pages/gallery/<file> -> sha
 
   // ---- helpers -------------------------------------------------------------
   function request(method, path, body, onProgress) {
@@ -145,7 +146,10 @@
       return request("GET", "/repos/" + REPO + "/git/trees/" + ref.object.sha + "?recursive=1");
     }).then(function (tree) {
       quizzes = {};
+      galleryRepo = { json: null, files: {} };
       tree.tree.forEach(function (item) {
+        if (item.type === "blob" && item.path === "pages/gallery.json") galleryRepo.json = item.sha;
+        if (item.type === "blob" && item.path.indexOf("pages/gallery/") === 0) galleryRepo.files[item.path.slice(14)] = item.sha;
         if (item.type !== "blob" || item.path.indexOf("quizzes/") !== 0) return;
         var clip = /^quizzes\/(.+)\.media\/((\d+)-[^/]+?)(\.part\d+)?$/.exec(item.path);
         if (clip) {
@@ -177,6 +181,7 @@
       published = {};
       items.forEach(function (it) { published[it.url.replace(/\/$/, "").split("/").pop()] = it; });
       renderList();
+      return loadPhotos();
     });
   }
   function slugOf(stem) { return slugify(basename(stem)); }
@@ -212,16 +217,17 @@
 
   // ---- tabs & modes --------------------------------------------------------
   function showTab(which) {
-    var manage = which === "manage";
-    $("manage").hidden = !manage;
-    $("quiz-form").hidden = manage;
-    $("tab-new").classList.toggle("is-active", !manage);
-    $("tab-manage").classList.toggle("is-active", manage);
-    $("tab-new").setAttribute("aria-selected", String(!manage));
-    $("tab-manage").setAttribute("aria-selected", String(manage));
+    $("manage").hidden = which !== "manage";
+    $("photos").hidden = which !== "photos";
+    $("quiz-form").hidden = which !== "new";
+    ["new", "manage", "photos"].forEach(function (t) {
+      $("tab-" + t).classList.toggle("is-active", t === which);
+      $("tab-" + t).setAttribute("aria-selected", String(t === which));
+    });
   }
   $("tab-new").addEventListener("click", function () { if (editing) resetForm(); showTab("new"); });
   $("tab-manage").addEventListener("click", function () { showTab("manage"); });
+  $("tab-photos").addEventListener("click", function () { showTab("photos"); });
 
   function resetForm() {
     editing = null;
@@ -644,6 +650,169 @@
         return loadRepo();
       });
     });
+  });
+
+  // ---- About-page photos (pages/gallery.json + pages/gallery/*.jpg) ------------
+  var photos = [];        // [{file?, caption, main, thumb, blob?}] in display order
+  var photosSaved = "";   // JSON of the saved state, to spot unsaved changes
+  var PHOTO_MAX = 2000;   // longest side after resizing in the browser
+
+  function photoState() {
+    return JSON.stringify(photos.map(function (p) { return [p.file || p.thumb, p.caption, !!p.main]; }));
+  }
+  function loadPhotos() {
+    var load = galleryRepo.json
+      ? request("GET", "/repos/" + REPO + "/git/blobs/" + galleryRepo.json).then(function (b) { return JSON.parse(base64Utf8(b.content)).photos || []; })
+      : Promise.resolve([]);
+    var thumbs = fetch(BASE + "gallery.json?t=" + Date.now()).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; });
+    return Promise.all([load, thumbs]).then(function (res) {
+      var byFile = {};
+      res[1].forEach(function (t) { byFile[t.file] = t.thumb; });
+      photos = res[0].filter(function (e) { return e && galleryRepo.files[e.file]; }).map(function (e) {
+        return { file: e.file, caption: e.caption || "", main: !!e.main, thumb: byFile[e.file] || "" };
+      });
+      if (photos.length && !photos.some(function (p) { return p.main; })) photos[0].main = true;
+      photosSaved = photoState();
+      renderPhotos();
+    }).catch(function (err) {
+      $("photo-list").innerHTML = '<li class="muted">Couldn’t load the photos: ' + esc(err.message) + "</li>";
+    });
+  }
+  function renderPhotos() {
+    $("photo-count").textContent = photos.length || "";
+    $("photo-list").innerHTML = photos.map(function (p, i) {
+      return '<li class="photo-row' + (p.main ? " is-main" : "") + '">' +
+        (p.thumb ? '<img src="' + esc(p.thumb) + '" alt="">' : '<span class="manage-ph">publishing</span>') +
+        '<div class="photo-fields"><label class="sr-only" for="cap-' + i + '">Caption</label>' +
+        '<textarea id="cap-' + i + '" rows="2" data-photo-cap="' + i + '" placeholder="Caption — e.g. Winners, XYZ Quiz 2025, Mumbai">' + esc(p.caption) + "</textarea>" +
+        '<div class="photo-actions"><label class="check"><input type="radio" name="photo-main" data-photo-main="' + i + '"' + (p.main ? " checked" : "") + "> Main photo</label>" +
+        '<button class="btn btn-sm" type="button" data-photo-move="' + i + ':-1"' + (i ? "" : " disabled") + ' aria-label="Move up">↑</button>' +
+        '<button class="btn btn-sm" type="button" data-photo-move="' + i + ':1"' + (i < photos.length - 1 ? "" : " disabled") + ' aria-label="Move down">↓</button>' +
+        '<button class="btn btn-sm" type="button" data-photo-remove="' + i + '">Remove</button></div></div></li>';
+    }).join("") || '<li class="muted">No photos yet — add some above.</li>';
+  }
+  $("photo-list").addEventListener("input", function (e) {
+    var i = e.target.dataset.photoCap;
+    if (i !== undefined) photos[+i].caption = e.target.value;
+  });
+  $("photo-list").addEventListener("change", function (e) {
+    var i = e.target.dataset.photoMain;
+    if (i === undefined) return;
+    photos.forEach(function (p, j) { p.main = j === +i; });
+    renderPhotos();
+  });
+  $("photo-list").addEventListener("click", function (e) {
+    var b = e.target.closest("button");
+    if (!b) return;
+    if (b.dataset.photoMove) {
+      var m = b.dataset.photoMove.split(":"), i = +m[0], j = i + +m[1];
+      var t = photos[i]; photos[i] = photos[j]; photos[j] = t;
+    } else if (b.dataset.photoRemove !== undefined) {
+      var gone = photos.splice(+b.dataset.photoRemove, 1)[0];
+      if (gone.main && photos.length) photos[0].main = true;
+    } else return;
+    renderPhotos();
+  });
+
+  // Shrinks a phone photo (often 5–10 MB) to a sharp ~2000 px JPEG before upload.
+  function resizePhoto(file) {
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(file), img = new Image();
+      img.onload = function () {
+        var k = Math.min(1, PHOTO_MAX / Math.max(img.naturalWidth, img.naturalHeight));
+        var c = document.createElement("canvas");
+        c.width = Math.round(img.naturalWidth * k);
+        c.height = Math.round(img.naturalHeight * k);
+        var g = c.getContext("2d");
+        g.imageSmoothingQuality = "high";
+        g.drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        c.toBlob(function (blob) { blob ? resolve(blob) : reject(new Error("Couldn’t process " + file.name)); }, "image/jpeg", 0.88);
+      };
+      img.onerror = function () {
+        URL.revokeObjectURL(url);
+        reject(new Error(file.name + " couldn’t be opened. If it’s an iPhone HEIC photo, share it as JPG (or take a screenshot) and try again."));
+      };
+      img.src = url;
+    });
+  }
+  function addPhotos(list) {
+    var chosen = Array.prototype.filter.call(list, function (f) { return /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|heic)$/i.test(f.name); });
+    return chosen.reduce(function (p, f) {
+      return p.then(function () {
+        return resizePhoto(f).then(function (blob) {
+          photos.push({ caption: "", main: !photos.length, blob: blob, name: f.name, thumb: URL.createObjectURL(blob) });
+          renderPhotos();
+        }).catch(function (err) { alert(err.message); });
+      });
+    }, Promise.resolve()).then(function () { $("photo-files").value = ""; });
+  }
+  $("photo-files").addEventListener("change", function () { addPhotos($("photo-files").files); });
+  var pdrop = $("photo-drop");
+  ["dragenter", "dragover"].forEach(function (t) { pdrop.addEventListener(t, function (e) { e.preventDefault(); pdrop.classList.add("is-over"); }); });
+  ["dragleave", "drop"].forEach(function (t) { pdrop.addEventListener(t, function (e) { e.preventDefault(); pdrop.classList.remove("is-over"); }); });
+  pdrop.addEventListener("drop", function (e) { if (e.dataTransfer && e.dataTransfer.files.length) addPhotos(e.dataTransfer.files); });
+
+  function photoFileName(p, taken) {
+    var base = slugify((p.caption || p.name || "photo").replace(/\.[^.]+$/, "")).slice(0, 60).replace(/-+$/, "") || "photo";
+    var name = base + ".jpg", n = 2;
+    while (taken[name]) name = base + "-" + n++ + ".jpg";
+    taken[name] = true;
+    return name;
+  }
+  $("photos-save").addEventListener("click", function () {
+    var fresh = photos.filter(function (p) { return p.blob; });
+    if (!fresh.length && photoState() === photosSaved) return alert("Nothing has changed.");
+    if (photos.some(function (p) { return !p.caption.trim(); }) &&
+        !confirm("Some photos have no caption. Save anyway?")) return;
+    var btn = $("photos-save");
+    btn.disabled = true;
+    var entries = [], taken = {};
+    Object.keys(galleryRepo.files).forEach(function (f) { taken[f] = true; });
+    var total = fresh.reduce(function (s, p) { return s + p.blob.size; }, 0) || 1, done = 0;
+    progress(0.01, "Starting…");
+    fresh.reduce(function (chain, p) {
+      return chain.then(function () {
+        var name = photoFileName(p, taken);
+        progress(done / total * 0.85, "Uploading " + esc(p.name || name) + "…");
+        return readBase64(p.blob).then(function (b64) {
+          return request("POST", "/repos/" + REPO + "/git/blobs", { content: b64, encoding: "base64" }, function (frac) {
+            progress((done + frac * p.blob.size) / total * 0.85);
+          });
+        }).then(function (blob) {
+          done += p.blob.size;
+          p.file = name;
+          entries.push({ path: "pages/gallery/" + name, mode: "100644", type: "blob", sha: blob.sha });
+        });
+      });
+    }, Promise.resolve()).then(function () {
+      var keep = {};
+      photos.forEach(function (p) { keep[p.file] = true; });
+      Object.keys(galleryRepo.files).forEach(function (f) {
+        if (!keep[f]) entries.push({ path: "pages/gallery/" + f, mode: "100644", type: "blob", sha: null });
+      });
+      var json = JSON.stringify({ photos: photos.map(function (p) {
+        var o = { file: p.file, caption: p.caption.trim() };
+        if (p.main) o.main = true;
+        return o;
+      }) }, null, 1) + "\n";
+      return request("POST", "/repos/" + REPO + "/git/blobs", { content: utf8Base64(json), encoding: "base64" });
+    }).then(function (blob) {
+      entries.push({ path: "pages/gallery.json", mode: "100644", type: "blob", sha: blob.sha });
+      progress(0.88, "Saving…");
+      return commitTree(entries, "Update About photos");
+    }).then(function (sha) {
+      photos.forEach(function (p) { delete p.blob; });
+      photosSaved = photoState();
+      watchDeploy(sha, location.origin + BASE + "about/", "Your photos are on");
+      return loadRepo();
+    }).catch(function (err) {
+      if (err.status === 401) return showSignin("Your GitHub token has expired or was revoked. Please connect again.");
+      progress(0, "❌ Failed: " + esc(err.status === 403 && /not accessible/i.test(err.message) ? NO_WRITE : err.message));
+    }).then(function () { btn.disabled = false; });
+  });
+  window.addEventListener("beforeunload", function (e) {
+    if (photos.some(function (p) { return p.blob; }) || (photosSaved && photoState() !== photosSaved)) { e.preventDefault(); e.returnValue = ""; }
   });
 
   // ---- start ---------------------------------------------------------------

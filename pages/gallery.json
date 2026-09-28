@@ -1,0 +1,25 @@
+{
+  "photos": [
+    {
+      "file": "ntpc-electron-quiz-winners.jpg",
+      "caption": "1st Prize — NTPC Electron Quiz 2025–26, Western Region (Mumbai)",
+      "main": true
+    },
+    {
+      "file": "zerodha-varsity-mumbai-campus-winner.jpg",
+      "caption": "Winner — Zerodha Varsity Quiz, Mumbai Campus Edition 2026 (₹90,000)"
+    },
+    {
+      "file": "highest-quiz-in-the-world.jpg",
+      "caption": "“The Highest Quiz in the World” — Just Wing It!, an aero trivia quiz hosted mid-flight"
+    },
+    {
+      "file": "zerodha-varsity-mumbai-corporate.jpg",
+      "caption": "On the buzzer at the Zerodha Varsity Quiz, Mumbai Corporate Edition"
+    },
+    {
+      "file": "waves-bits-goa-quizmaster.jpg",
+      "caption": "Quizmastering at Waves, BITS Goa (2022) · Photo: Department of Photography, BITS Goa"
+    }
+  ]
+}

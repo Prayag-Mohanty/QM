@@ -30,12 +30,24 @@
     <div class="tabs" role="tablist">
       <button class="tab is-active" type="button" role="tab" id="tab-new" aria-selected="true">+ New quiz</button>
       <button class="tab" type="button" role="tab" id="tab-manage" aria-selected="false">Edit quizzes <span class="chip-n" id="quiz-count"></span></button>
+      <button class="tab" type="button" role="tab" id="tab-photos" aria-selected="false">About photos <span class="chip-n" id="photo-count"></span></button>
     </div>
 
     <div id="manage" hidden>
       <label class="sr-only" for="filter">Find a quiz</label>
       <input id="filter" class="filter" type="search" placeholder="Find a quiz…">
       <ul class="manage-list" id="manage-list"><li class="muted">Loading…</li></ul>
+    </div>
+
+    <div id="photos" class="panel stack" hidden>
+      <p class="muted small" style="margin:0">Photos for the <a href="{{ site.base }}about/" target="_blank" rel="noopener">About page</a> — quizzing memories, wins and milestones. The <b>main photo</b> shows big at the top; the rest appear under “Memories” in this order. Photos are resized automatically, so straight-from-the-phone JPEGs are fine.</p>
+      <label class="drop" id="photo-drop">
+        <input id="photo-files" type="file" multiple accept="image/*">
+        <strong>Add photos</strong>
+        <span class="muted small">JPG, PNG or WebP. Add a caption to each before saving.</span>
+      </label>
+      <ol class="photo-list" id="photo-list"><li class="muted">Loading…</li></ol>
+      <button class="btn btn-primary" type="button" id="photos-save">Save photos</button>
     </div>
 
     <form id="quiz-form" class="panel stack">
