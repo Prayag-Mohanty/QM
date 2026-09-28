@@ -68,8 +68,6 @@ svg { flex: none; }
 .topbar-inner { display: flex; align-items: center; gap: 20px; min-height: 60px; }
 .brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; font-weight: 800; font-size: 1.12rem; white-space: nowrap; }
 .brand-logo { width: 36px; height: 36px; display: block; flex: none; }
-.logo-dark, :root[data-theme="dark"] .logo-light { display: none; }
-:root[data-theme="dark"] .logo-dark { display: block; }
 .brand-mark { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 900; }
 .topsearch { flex: 1; max-width: 560px; position: relative; }
 .topsearch svg { position: absolute; left: 12px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
