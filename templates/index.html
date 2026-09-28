@@ -22,7 +22,7 @@
       <h1>{{ site.title }}</h1>
       <p class="lede">{{ site.tagline }}</p>
     </div>
-    <p class="banner-stats"><b>{{ quizzes|length }}</b> quiz set{{ '' if quizzes|length == 1 else 's' }} <span aria-hidden="true">·</span> <b>{{ quizzes|sum(attribute='slide_count') }}</b> slides</p>
+    <p class="banner-stats"><b>{{ quizzes|length }}</b> quiz set{{ '' if quizzes|length == 1 else 's' }}</p>
   </div>
   {% if tag_list %}
   <div class="wrap-wide">
