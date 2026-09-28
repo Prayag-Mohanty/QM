@@ -11,7 +11,7 @@
   --stage: #10162a;
   --radius: 14px;
   --shadow: 0 1px 2px rgba(23, 32, 58, .06), 0 6px 20px rgba(23, 32, 58, .06);
-  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  --font: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
