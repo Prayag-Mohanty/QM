@@ -12,7 +12,7 @@
     <link>{{ site.url }}quiz/{{ q.slug }}/</link>
     <guid isPermaLink="true">{{ site.url }}quiz/{{ q.slug }}/</guid>
     <pubDate>{{ q.date|rfc822 }}</pubDate>
-    <description>{{ q.description }}</description>
+    <description>{{ q.summary }}</description>
     {% for t in q.tags %}<category>{{ t }}</category>{% endfor %}
     <enclosure url="{{ absolute(q.thumb_url) }}" type="image/jpeg" length="0"/>
   </item>

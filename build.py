@@ -262,6 +262,7 @@ class Quiz:
     slug: str
     title: str
     description: str
+    summary: str
     date: dt.date
     tags: list[str]
     event: str
@@ -403,15 +404,16 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
 
         pages = info["pages"]
         media = find_media(docs, info["pdf"], len(pages), meta, fdir / "media", f"{base}files/{slug}/media/")
+        # Shown on the page only if you wrote one; search engines still get a summary.
         description = str(meta.get("description") or "").strip()
-        if not description:
-            qms = as_list(meta.get("quizmaster") or meta.get("quizmasters") or site["author"])
-            description = (f"{title}: a quiz set with questions and answers ({len(pages)} slides)"
-                           f" by {', '.join(qms)}. View online, download or share.")
+        qms = as_list(meta.get("quizmaster") or meta.get("quizmasters") or site["author"])
+        summary = description or (f"{title}: a quiz set with questions and answers ({len(pages)} slides)"
+                                  f" by {', '.join(qms)}. View online, download or share.")
         quizzes.append(Quiz(
             slug=slug,
             title=title,
             description=description,
+            summary=summary,
             date=date,
             tags=as_list(meta.get("tags")),
             event=str(meta.get("event") or ""),
@@ -486,7 +488,7 @@ def build(site: dict) -> list[Quiz]:
             "@id": page + "#quiz",
             "name": q.title,
             "headline": q.title,
-            "description": q.description,
+            "description": q.summary,
             "url": page,
             "image": absolute(q.thumb_url),
             "thumbnailUrl": absolute(q.thumb_url),
@@ -550,7 +552,7 @@ def build(site: dict) -> list[Quiz]:
     write("llms.txt", "llms.txt", quizzes=quizzes)
     write("llms-full.txt", "llms-full.txt", quizzes=quizzes)
     (OUT_DIR / "quizzes.json").write_text(json.dumps([{
-        "title": q.title, "url": page_url(f"quiz/{q.slug}/"), "description": q.description,
+        "title": q.title, "url": page_url(f"quiz/{q.slug}/"), "description": q.summary,
         "date": q.date.isoformat(), "tags": q.tags, "event": q.event,
         "slides": q.slide_count, "cover": url + q.thumb_url[len(base):],
         "downloads": {d.ext: url + d.url[len(base):] for d in q.downloads},

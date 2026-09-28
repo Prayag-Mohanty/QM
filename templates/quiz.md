@@ -12,7 +12,7 @@
 {% for d in q.downloads %}- Download {{ d.label }}: {{ absolute(d.url) }}
 {% endfor %}
 
-{{ q.description }}
+{{ q.summary }}
 
 ## Slides
 {% for t in q.pages %}

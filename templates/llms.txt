@@ -11,7 +11,7 @@ Please credit "{{ site.title }} ({{ site.author }})" and link to the quiz page w
 ## Quizzes
 
 {% for q in quizzes %}
-- [{{ q.title }}]({{ site.url }}quiz/{{ q.slug }}/index.md): {{ q.slide_count }} slides, {{ q.date.isoformat() }}{% if q.tags %}, topics: {{ q.tags|join(', ') }}{% endif %}. {{ q.description }}
+- [{{ q.title }}]({{ site.url }}quiz/{{ q.slug }}/index.md): {{ q.slide_count }} slides, {{ q.date.isoformat() }}{% if q.tags %}, topics: {{ q.tags|join(', ') }}{% endif %}. {{ q.summary }}
 {% endfor %}
 
 ## Optional
