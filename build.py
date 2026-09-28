@@ -48,7 +48,7 @@ VIEWABLE = {".pdf"}
 CONVERTIBLE = {".pptx", ".ppt", ".pps", ".ppsx", ".odp", ".key", ".docx", ".doc", ".odt"}
 SUPPORTED = VIEWABLE | CONVERTIBLE
 METADATA = {".yml", ".yaml"}
-CACHE_VERSION = "3"
+CACHE_VERSION = "4"
 
 
 # --------------------------------------------------------------------------- #
@@ -191,6 +191,116 @@ def find_soffice() -> str | None:
     return mac if Path(mac).exists() else None
 
 
+# --------------------------------------------------------------------------- #
+# Fonts: fetch the Google Fonts a deck uses so LibreOffice renders it faithfully
+# --------------------------------------------------------------------------- #
+
+FONT_DIR = CACHE_DIR / "fonts"
+STYLE_WORDS = {"thin": 100, "extralight": 200, "ultralight": 200, "light": 300, "regular": 400, "book": 400,
+               "normal": 400, "medium": 500, "semibold": 600, "demibold": 600, "bold": 700, "extrabold": 800,
+               "ultrabold": 800, "black": 900, "heavy": 900}
+ITALIC_WORDS = {"italic", "italics", "oblique"}
+
+
+def deck_typefaces(src: Path) -> set[str]:
+    import zipfile
+    names: set[str] = set()
+    try:
+        with zipfile.ZipFile(src) as z:
+            for n in z.namelist():
+                if n.endswith(".xml") and n.startswith(("ppt/", "word/")):
+                    names.update(re.findall(r'typeface="([^"+][^"]*)"', z.read(n).decode("utf-8", "ignore")))
+    except zipfile.BadZipFile:
+        pass
+    return {n.strip() for n in names if n.strip()}
+
+
+def split_style(name: str) -> tuple[str, int, bool]:
+    """'Inter Bold Italics' -> ('Inter', 700, True). Canva writes styles into the name."""
+    words, weight, italic = name.split(), 400, False
+    while len(words) > 1:
+        w = words[-1].lower().replace("-", "")
+        if w in ITALIC_WORDS:
+            italic = True
+        elif w in STYLE_WORDS:
+            weight = STYLE_WORDS[w]
+        else:
+            break
+        words.pop()
+    return " ".join(words), weight, italic
+
+
+def installed_families() -> set[str]:
+    try:
+        out = subprocess.run(["fc-list", ":", "family"], capture_output=True, text=True, check=True).stdout
+    except (OSError, subprocess.CalledProcessError):
+        return set()
+    return {f.strip().lower() for line in out.splitlines() for f in line.split(",")}
+
+
+def fetch_google_font(family: str) -> bool:
+    """Download the TTFs of a Google Fonts family (regular/bold × upright/italic)."""
+    import urllib.error
+    import urllib.request
+    dest = FONT_DIR / slugify(family)
+    if dest.exists() and any(dest.glob("*.ttf")):
+        return True
+    q = quote(family).replace("%20", "+")
+    for axes in (":ital,wght@0,400;0,700;1,400;1,700", ":wght@400;700", ":ital@0;1", ""):
+        try:
+            with urllib.request.urlopen(f"https://fonts.googleapis.com/css2?family={q}{axes}", timeout=20) as r:
+                css = r.read().decode()
+            break
+        except (urllib.error.URLError, OSError):
+            css = ""
+    urls = re.findall(r"font-style:\s*(\w+);\s*font-weight:\s*(\d+);.*?src:\s*url\(([^)]+\.ttf)\)", css, re.S)
+    if not urls:
+        return False
+    dest.mkdir(parents=True, exist_ok=True)
+    for style, weight, url in urls:
+        try:
+            with urllib.request.urlopen(url, timeout=30) as r:
+                (dest / f"{slugify(family)}-{weight}-{style}.ttf").write_bytes(r.read())
+        except (urllib.error.URLError, OSError):
+            pass
+    return any(dest.glob("*.ttf"))
+
+
+def font_env(src: Path) -> dict:
+    """Environment for LibreOffice with the deck's fonts available and Canva-style
+    names ('Inter Bold') mapped to real family + weight."""
+    faces = deck_typefaces(src)
+    if not faces:
+        return dict(os.environ)
+    have = installed_families()
+    aliases = []
+    for face in sorted(faces):
+        family, weight, italic = split_style(face)
+        if family.lower() not in have and family.lower() not in {"arial", "calibri", "cambria", "times new roman"}:
+            if fetch_google_font(family):
+                print(f"    font: {family}")
+            have.add(family.lower())
+        if face != family:
+            aliases.append((face, family, weight, italic))
+    FONT_DIR.mkdir(parents=True, exist_ok=True)
+    rules = "".join(
+        f'<match target="pattern"><test name="family"><string>{html_escape(face)}</string></test>'
+        f'<edit name="family" mode="assign" binding="strong"><string>{html_escape(family)}</string></edit>'
+        f'<edit name="weight" mode="assign" binding="strong"><int>{ {400: 80, 700: 200}.get(weight, 80 if weight < 550 else 200) }</int></edit>'
+        + ('<edit name="slant" mode="assign" binding="strong"><const>italic</const></edit>' if italic else "")
+        + "</match>"
+        for face, family, weight, italic in aliases)
+    conf = FONT_DIR / "fonts.conf"
+    conf.write_text('<?xml version="1.0"?><!DOCTYPE fontconfig SYSTEM "fonts.dtd"><fontconfig>'
+                    '<include ignore_missing="yes">/etc/fonts/fonts.conf</include>'
+                    f"<dir>{FONT_DIR.resolve()}</dir>{rules}</fontconfig>")
+    return {**os.environ, "FONTCONFIG_FILE": str(conf.resolve())}
+
+
+def html_escape(text: str) -> str:
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
 def convert_to_pdf(src: Path, workdir: Path) -> Path:
     soffice = find_soffice()
     if not soffice:
@@ -203,7 +313,7 @@ def convert_to_pdf(src: Path, workdir: Path) -> Path:
     proc = subprocess.run(
         [soffice, f"-env:UserInstallation={profile}", "--headless", "--norestore",
          "--convert-to", f"pdf:{export_filter(src)}:{LO_PDF_OPTIONS}", "--outdir", str(workdir), str(src)],
-        capture_output=True, text=True, timeout=600,
+        capture_output=True, text=True, timeout=600, env=font_env(src),
     )
     pdf = workdir / (src.stem + ".pdf")
     if not pdf.exists():
@@ -325,14 +435,14 @@ def assemble_parts(parts: dict[Path, list[tuple[int, Path]]]) -> list[Path]:
 
 
 def find_media(docs: list[Path], pdf: Path, page_count: int, meta: dict, out_dir: Path,
-               url_prefix: str) -> list[dict]:
+               url_prefix: str, page_texts: list[str] | None = None) -> list[dict]:
     """Audio/video for the viewer: from the .yml, any PPTX, and the PDF's links."""
     groups = []
     try:
         groups.append(av.meta_media(meta.get("media"), page_count))
         for d in docs:
             if d.suffix.lower() in {".pptx", ".ppsx"}:
-                groups.append(av.pptx_media(d, out_dir, url_prefix, page_count, CACHE_DIR))
+                groups.append(av.pptx_media(d, out_dir, url_prefix, page_count, CACHE_DIR, page_texts))
         with pymupdf.open(pdf) as doc:
             groups.append(av.pdf_media(doc))
     except Exception as exc:  # never let media problems break the site
@@ -403,7 +513,7 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
         shutil.copy2(info["thumb"], fdir / "cover.jpg")
 
         pages = info["pages"]
-        media = find_media(docs, info["pdf"], len(pages), meta, fdir / "media", f"{base}files/{slug}/media/")
+        media = find_media(docs, info["pdf"], len(pages), meta, fdir / "media", f"{base}files/{slug}/media/", pages)
         # Shown on the page only if you wrote one; search engines still get a summary.
         description = str(meta.get("description") or "").strip()
         qms = as_list(meta.get("quizmaster") or meta.get("quizmasters") or site["author"])

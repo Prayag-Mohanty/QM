@@ -43,7 +43,9 @@ jobs:
       - name: Restore converted-file cache
         uses: actions/cache@v4
         with:
-          path: .cache/docs
+          path: |
+            .cache/docs
+            .cache/fonts
           key: quiz-cache-${{ hashFiles('quizzes/**') }}
           restore-keys: quiz-cache-
 

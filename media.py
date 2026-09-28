@@ -13,6 +13,7 @@ Each item handed to the viewer is a small dict:
 
 from __future__ import annotations
 
+import difflib
 import hashlib
 import posixpath
 import re
@@ -172,8 +173,66 @@ def pptx_slides(path: Path) -> tuple[list[tuple[str, bool]], int, int]:
     return slides, sw, sh
 
 
-def pptx_media(path: Path, out_dir: Path, url_prefix: str, page_count: int, cache_dir: Path) -> list[dict]:
-    """Extract clips + media links from a PPTX, numbered to match the PDF pages."""
+def _norm(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", text.lower()).strip()[:400]
+
+
+def align_slides(slide_texts: list[str], page_texts: list[str]) -> dict[int, int]:
+    """Match PPTX slides to PDF pages by their text (both 0-based), tolerating
+    slides that exist in only one of them — e.g. a PDF exported without a few
+    slides. Needleman–Wunsch alignment on text similarity."""
+    a = [_norm(t) for t in slide_texts]
+    b = [_norm(t) for t in page_texts]
+    n, m = len(a), len(b)
+    if a == b:
+        return {i: i for i in range(n)}
+    gap = -0.45
+
+    def score(i: int, j: int) -> float:
+        x, y = a[i], b[j]
+        if not x and not y:
+            return 0.35                      # two picture-only slides
+        if not x or not y:
+            return -0.6
+        return difflib.SequenceMatcher(None, x, y, autojunk=False).ratio() * 2 - 1
+
+    dp = [[0.0] * (m + 1) for _ in range(n + 1)]
+    move = [[0] * (m + 1) for _ in range(n + 1)]   # 0 diag, 1 up (skip slide), 2 left (skip page)
+    for i in range(1, n + 1):
+        dp[i][0], move[i][0] = i * gap, 1
+    for j in range(1, m + 1):
+        dp[0][j], move[0][j] = j * gap, 2
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            best, mv = dp[i - 1][j - 1] + score(i - 1, j - 1), 0
+            if dp[i - 1][j] + gap > best:
+                best, mv = dp[i - 1][j] + gap, 1
+            if dp[i][j - 1] + gap > best:
+                best, mv = dp[i][j - 1] + gap, 2
+            dp[i][j], move[i][j] = best, mv
+    mapping, i, j = {}, n, m
+    while i > 0 and j > 0:
+        mv = move[i][j]
+        if mv == 0:
+            mapping[i - 1] = j - 1
+            i, j = i - 1, j - 1
+        elif mv == 1:
+            i -= 1
+        else:
+            j -= 1
+    return mapping
+
+
+def pptx_slide_texts(z: zipfile.ZipFile, parts: list[str]) -> list[str]:
+    return [" ".join(re.findall(r"<a:t>([^<]*)</a:t>", z.read(p).decode("utf-8", "ignore"))) for p in parts]
+
+
+def pptx_media(path: Path, out_dir: Path, url_prefix: str, page_count: int, cache_dir: Path,
+               page_texts: list[str] | None = None) -> list[dict]:
+    """Extract clips + media links from a PPTX, numbered to match the PDF pages.
+
+    With ``page_texts`` (the PDF's text per page) slides are matched to pages by
+    content, so clips land on the right page even if the PDF has fewer slides."""
     slides, sw, sh = pptx_slides(path)
     visible = [s for s in slides if not s[1]]
     # Exported PDFs usually skip hidden slides; pick the numbering that matches.
@@ -181,7 +240,15 @@ def pptx_media(path: Path, out_dir: Path, url_prefix: str, page_count: int, cach
     items: list[dict] = []
     with zipfile.ZipFile(path) as z:
         names = set(z.namelist())
-        for num, (part, _hidden) in enumerate(order, 1):
+        page_of = {i: i for i in range(len(order))}
+        if page_texts is not None and (len(order) != len(page_texts)
+                                       or any(_norm(a) != _norm(b) for a, b in
+                                              zip(pptx_slide_texts(z, [s[0] for s in order]), page_texts))):
+            page_of = align_slides(pptx_slide_texts(z, [s[0] for s in order]), page_texts)
+        for idx, (part, _hidden) in enumerate(order):
+            if idx not in page_of:
+                continue  # slide isn't in the PDF
+            num = page_of[idx] + 1
             rels = _rels(z, part)
             root = ET.fromstring(z.read(part))
             seen: set[str] = set()
