@@ -267,9 +267,16 @@
     $("uploader").hidden = true;
     if (msg) alert(msg);
   }
+  var NO_WRITE = "This GitHub token can read the repository but not save to it. On GitHub open Settings → Developer settings → Fine-grained tokens → your token → Edit, set Repository access to include " + REPO.split("/")[1] + " and Repository permissions → Contents to Read and write, then click Update and try again.";
+
   function connect() {
     return request("GET", "/repos/" + REPO).then(function (repo) {
-      if (!repo.permissions || !repo.permissions.push) throw new Error("This token can read but not write to " + REPO + ". Give it Contents: Read and write.");
+      if (!repo.permissions || !repo.permissions.push) throw new Error(NO_WRITE);
+      // A public repo is readable by any token, so check that this one can actually write
+      // (an unused blob is harmless and cleaned up by GitHub).
+      return request("POST", "/repos/" + REPO + "/git/blobs", { content: "qm-write-check", encoding: "utf-8" })
+        .catch(function (err) { if (err.status === 403 || err.status === 404) throw new Error(NO_WRITE); throw err; });
+    }).then(function () {
       return request("GET", "/user").catch(function () { return null; }).then(function (user) {
         $("who").textContent = "Connected" + (user && user.login ? " as " + user.login : "") + " · saving to " + REPO + " (" + BRANCH + ")";
         $("signin").hidden = true;
@@ -421,6 +428,7 @@
     return task().catch(function (err) {
       if (err.message === "cancelled") { $("progress").hidden = true; return; }
       if (err.status === 401) return showSignin("Your GitHub token has expired or was revoked. Please connect again.");
+      if (err.status === 403 && /not accessible/i.test(err.message)) { progress(0, "❌ " + esc(NO_WRITE)); return; }
       progress(0, "❌ Failed: " + esc(err.message));
     }).then(function () { submit.disabled = del.disabled = false; });
   }
@@ -540,6 +548,6 @@
   // ---- start ---------------------------------------------------------------
   $("date").value = today();
   if (!REPO) { showSignin(); return alert("github_repo is not set in site.yml."); }
-  if (token) connect().catch(function () { showSignin(); });
+  if (token) connect().catch(function (err) { showSignin(err && err.message === NO_WRITE ? NO_WRITE : undefined); });
   else showSignin();
 })();
