@@ -624,6 +624,7 @@ def build_gallery(base: str) -> list[dict]:
         if len(made) < 2:
             continue
         photos.append({"file": src.name, "caption": str(e.get("caption") or "").strip(), "main": bool(e.get("main")),
+                       "focus": str(e.get("focus") or "50% 30%"),
                        "large": made["large"], "thumb": made["thumb"]})
     if photos and not any(p["main"] for p in photos):
         photos[0]["main"] = True

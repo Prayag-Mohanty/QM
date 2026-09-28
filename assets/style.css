@@ -399,17 +399,27 @@ body.embed .stage { flex: 1; width: 100%; max-height: calc(100vh - 55px); }
 }
 
 /* ---------- About: photos ---------- */
-.about .prose { margin-inline: auto; }
-.about-h { max-width: 720px; margin: 0 auto 20px; font-size: 2.1rem; }
+.about-intro { max-width: 1100px; margin: 0 auto; }
+.about-intro:not(.has-photo) .prose { margin-inline: auto; }
+.about-intro.has-photo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 400px); gap: 48px; align-items: start; }
+.about-intro .prose { max-width: 680px; }
+.about-intro .prose > :first-child { margin-top: 0; }
+.about-h { max-width: 1100px; margin: 0 auto 20px; font-size: 2.1rem; }
 .photo-open { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 14px; overflow: hidden; }
 .photo-open img { display: block; width: 100%; height: auto; }
 .photo-open:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-.about-hero { max-width: 1000px; margin: 0 auto 32px; }
+.about-hero { margin: 4px 0 0; position: sticky; top: 84px; }
 .about-hero .photo-open { box-shadow: var(--shadow-pop); background: var(--soft); }
-.about-hero img { max-height: 78vh; object-fit: contain; }
+/* Cropped to a portrait frame; "focus" in gallery.json moves the crop (default: centre, upper third). */
+.about-hero img { aspect-ratio: 4 / 5; height: auto; object-fit: cover; object-position: var(--focus, 50% 30%); }
 .about-hero figcaption { margin-top: 12px; text-align: center; font-weight: 600; color: var(--ink); }
+@media (max-width: 860px) {
+  .about-intro.has-photo { grid-template-columns: 1fr; gap: 20px; }
+  .about-hero { order: -1; position: static; margin: 0 0 4px; }
+  .about-hero img { aspect-ratio: 4 / 3; }
+}
 .about figcaption { font-size: .92rem; line-height: 1.4; }
-.memories { max-width: 1000px; margin: 40px auto 8px; padding-top: 28px; border-top: 1px solid var(--line); }
+.memories { max-width: 1100px; margin: 40px auto 8px; padding-top: 28px; border-top: 1px solid var(--line); }
 .memories h2 { margin: 0 0 18px; }
 .memory-grid { list-style: none; margin: 0; padding: 0; columns: 3 260px; column-gap: 20px; }
 .memory-grid li { break-inside: avoid; margin-bottom: 22px; }

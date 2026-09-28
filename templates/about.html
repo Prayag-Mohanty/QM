@@ -18,16 +18,7 @@
 {% set others = (gallery or [])|rejectattr("main")|list %}
 <article class="wrap page about">
   <h1 class="about-h">{{ heading or ("About " ~ site.title) }}</h1>
-  {% if hero %}
-  <figure class="about-hero">
-    <button class="photo-open" type="button" data-photo="0" data-full="{{ hero.large.url }}" aria-label="Enlarge photo: {{ hero.caption }}">
-      <img src="{{ hero.large.url }}" srcset="{{ hero.thumb.url }} {{ hero.thumb.w }}w, {{ hero.large.url }} {{ hero.large.w }}w"
-           sizes="(max-width: 1000px) 100vw, 1000px" width="{{ hero.large.w }}" height="{{ hero.large.h }}" alt="{{ hero.caption }}" fetchpriority="high">
-    </button>
-    {% if hero.caption %}<figcaption>{{ hero.caption }}</figcaption>{% endif %}
-  </figure>
-  {% endif %}
-
+  <div class="about-intro{{ ' has-photo' if hero }}">
   <div class="prose">
     {% if body %}{{ body|safe }}{% else %}<p>{{ site.description }}</p>{% endif %}
   {% if site.links %}
@@ -47,6 +38,16 @@
   </p>
   {% endif %}
   <p class="muted">{{ quizzes|length }} quiz sets published so far.</p>
+  </div>
+  {% if hero %}
+  <figure class="about-hero" style="--focus: {{ hero.focus }}">
+    <button class="photo-open" type="button" data-photo="0" data-full="{{ hero.large.url }}" aria-label="Enlarge photo: {{ hero.caption }}">
+      <img src="{{ hero.large.url }}" srcset="{{ hero.thumb.url }} {{ hero.thumb.w }}w, {{ hero.large.url }} {{ hero.large.w }}w"
+           sizes="(max-width: 860px) 100vw, 420px" width="{{ hero.large.w }}" height="{{ hero.large.h }}" alt="{{ hero.caption }}" fetchpriority="high">
+    </button>
+    {% if hero.caption %}<figcaption>{{ hero.caption }}</figcaption>{% endif %}
+  </figure>
+  {% endif %}
   </div>
 
   {% if others %}

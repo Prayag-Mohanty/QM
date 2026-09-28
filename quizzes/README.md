@@ -87,3 +87,4 @@ GitHub in the browser is limited to 25 MB per file.
 - Name the files after their caption (e.g. `Winners - Quark 2023, BITS Goa.jpg`) and that becomes the caption. Camera names such as `IMG_2031.jpg` get no caption.
 - Big phone photos are fine; the site resizes them. iPhone HEIC photos need to be JPG.
 - Captions, order and the main photo can be changed any time in the **About photos** tab.
+- The main photo sits beside the About text, cropped to a portrait frame around the centre. To shift the crop, add `"focus": "30% 20%"` (left–right, top–bottom) to that photo in `pages/gallery.json`.
