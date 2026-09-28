@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url><loc>{{ site.url }}</loc>{% if quizzes %}<lastmod>{{ quizzes[0].date.isoformat() }}</lastmod>{% endif %}</url>
+  {% for q in quizzes %}
+  <url>
+    <loc>{{ site.url }}quiz/{{ q.slug }}/</loc>
+    <lastmod>{{ q.date.isoformat() }}</lastmod>
+    <image:image><image:loc>{{ absolute(q.thumb_url) }}</image:loc></image:image>
+  </url>
+  {% endfor %}
+  <url><loc>{{ site.url }}tags/</loc></url>
+  {% for t in tags %}
+  <url><loc>{{ site.url }}tags/{{ t|slugify }}/</loc></url>
+  {% endfor %}
+  <url><loc>{{ site.url }}about/</loc></url>
+</urlset>

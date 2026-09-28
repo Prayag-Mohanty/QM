@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block head %}
+<script type="application/ld+json">{{ {
+  "@context": "https://schema.org",
+  "@graph": [
+    {"@type": "WebSite", "@id": site.url ~ "#website", "name": site.title, "url": site.url,
+     "description": site.description|trim, "inLanguage": site.language,
+     "publisher": {"@id": site.url ~ "#author"}},
+    {"@type": "Person", "@id": site.url ~ "#author", "name": site.author, "url": site.url ~ "about/",
+     "sameAs": site.links|map(attribute="url")|list},
+    {"@type": "ItemList", "name": "Quiz sets", "numberOfItems": quizzes|length,
+     "itemListElement": item_list(quizzes)}
+  ]
+}|tojson_ld }}</script>
+{% endblock %}
+{% block main %}
+<section class="hero">
+  <div class="wrap">
+    <h1>{{ site.title }}</h1>
+    <p class="lede">{{ site.tagline }}</p>
+    <p class="hero-stats">{{ quizzes|length }} quiz set{{ '' if quizzes|length == 1 else 's' }} · {{ quizzes|sum(attribute='slide_count') }} slides · free to view, download &amp; share</p>
+    <form class="search" role="search" onsubmit="return false">
+      <label class="sr-only" for="q">Search quizzes</label>
+      <input id="q" type="search" placeholder="Search quizzes by title, topic or event…" autocomplete="off">
+    </form>
+  </div>
+</section>
+
+<section class="wrap" id="quizzes" aria-labelledby="quizzes-h">
+  <div class="section-head">
+    <h2 id="quizzes-h">All quizzes</h2>
+    {% if tag_list %}
+    <div class="chips" role="group" aria-label="Filter by topic">
+      <button class="chip is-active" type="button" data-filter="">All</button>
+      {% for t, s, n in tag_list[:12] %}<button class="chip" type="button" data-filter="{{ s }}">{{ t }} <span class="chip-n">{{ n }}</span></button>{% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% if quizzes %}
+  <ul class="grid" id="grid">
+    {% for q in quizzes %}{% include "_card.html" %}{% endfor %}
+  </ul>
+  <p class="empty" id="no-results" hidden>No quizzes match your search.</p>
+  {% else %}
+  <p class="empty">No quizzes yet — the first set is on its way.</p>
+  {% endif %}
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ site.base }}assets/site.js" defer></script>{% endblock %}

@@ -1,0 +1,69 @@
+name: Build & publish site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history, so each quiz gets its upload date
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Install LibreOffice (only when there are PPTX/PPT/DOCX files)
+        run: |
+          if find quizzes -type f ! -iname '*.pdf' ! -iname '*.yml' ! -iname '*.yaml' ! -iname '*.md' ! -name '.*' | grep -q .; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq --no-install-recommends \
+              libreoffice-impress libreoffice-writer \
+              fonts-crosextra-carlito fonts-crosextra-caladea fonts-liberation2 \
+              fonts-noto-core fonts-noto-cjk fonts-noto-color-emoji fonts-dejavu
+          fi
+
+      - name: Restore converted-file cache
+        uses: actions/cache@v4
+        with:
+          path: .cache/docs
+          key: quiz-cache-${{ hashFiles('quizzes/**') }}
+          restore-keys: quiz-cache-
+
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build site
+        env:
+          SITE_URL: ${{ steps.pages.outputs.base_url }}/
+        run: python build.py
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="{{ q.language }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ q.title }} | {{ site.title }}</title>
+<link rel="canonical" href="{{ canonical }}">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="{{ site.base }}assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="{{ site.base }}assets/style.css">
+</head>
+<body class="embed">
+{% set embed = true %}
+{% include "_viewer.html" %}
+<script src="{{ site.base }}assets/pdfjs/pdf.min.js" defer></script>
+<script src="{{ site.base }}assets/viewer.js" defer></script>
+</body>
+</html>

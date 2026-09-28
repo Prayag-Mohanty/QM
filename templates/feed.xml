@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>{{ site.title }}</title>
+  <link>{{ site.url }}</link>
+  <description>{{ site.description|trim }}</description>
+  <language>{{ site.language }}</language>
+  <atom:link href="{{ site.url }}feed.xml" rel="self" type="application/rss+xml"/>
+  {% for q in quizzes[:50] %}
+  <item>
+    <title>{{ q.title }}</title>
+    <link>{{ site.url }}quiz/{{ q.slug }}/</link>
+    <guid isPermaLink="true">{{ site.url }}quiz/{{ q.slug }}/</guid>
+    <pubDate>{{ q.date|rfc822 }}</pubDate>
+    <description>{{ q.description }}</description>
+    {% for t in q.tags %}<category>{{ t }}</category>{% endfor %}
+    <enclosure url="{{ absolute(q.thumb_url) }}" type="image/jpeg" length="0"/>
+  </item>
+  {% endfor %}
+</channel>
+</rss>

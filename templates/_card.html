@@ -1,0 +1,19 @@
+<li class="card" data-search="{{ q.search_text }}" data-tags="{{ q.tags|map('slugify')|join(' ') }}">
+  <a class="card-link" href="{{ site.base }}quiz/{{ q.slug }}/">
+    <span class="card-thumb">
+      <img src="{{ q.thumb_url }}" alt="First slide of {{ q.title }}" loading="lazy" decoding="async">
+      <span class="badge">{{ q.slide_count }} slides</span>
+    </span>
+    <span class="card-body">
+      <span class="card-title">{{ q.title }}</span>
+      <span class="card-meta">
+        <time datetime="{{ q.date.isoformat() }}">{{ q.date|pretty_date }}</time>{% if q.event %} · {{ q.event }}{% endif %}
+      </span>
+    </span>
+  </a>
+  {% if q.tags %}
+  <span class="card-tags">
+    {% for t in q.tags[:4] %}<a class="chip chip-sm" href="{{ site.base }}tags/{{ t|slugify }}/">{{ t }}</a>{% endfor %}
+  </span>
+  {% endif %}
+</li>

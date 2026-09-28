@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% set page_lang = q.language %}
+{% block title %}{{ q.title }} — Quiz with answers | {{ site.title }}{% endblock %}
+{% block description %}{{ q.description }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_image %}
+<meta property="og:image" content="{{ absolute(q.thumb_url) }}">
+<meta property="og:image:alt" content="First slide of {{ q.title }}">
+<meta property="article:published_time" content="{{ q.date.isoformat() }}">
+{% for t in q.tags %}<meta property="article:tag" content="{{ t }}">
+{% endfor %}
+{% endblock %}
+{% block head %}
+<link rel="alternate" type="text/markdown" href="{{ canonical }}index.md" title="{{ q.title }} (plain text)">
+<script type="application/ld+json">{{ quiz_ld(q)|tojson_ld }}</script>
+<script type="application/ld+json">{{ {
+  "@context": "https://schema.org", "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": site.title, "item": site.url},
+    {"@type": "ListItem", "position": 2, "name": q.title, "item": canonical}
+  ]
+}|tojson_ld }}</script>
+{% endblock %}
+{% block main %}
+<article class="wrap quiz">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ site.base }}">All quizzes</a> <span aria-hidden="true">›</span> <span>{{ q.title }}</span></nav>
+
+  <header class="quiz-head">
+    <h1>{{ q.title }}</h1>
+    <p class="quiz-meta">
+      <span>By {{ q.quizmasters|join(', ') }}</span>
+      <span>·</span><time datetime="{{ q.date.isoformat() }}">{{ q.date|pretty_date }}</time>
+      <span>·</span><span>{{ q.slide_count }} slides</span>
+      {% if q.event %}<span>·</span><span>{{ q.event }}</span>{% endif %}
+    </p>
+  </header>
+
+  {% include "_viewer.html" %}
+
+  <section class="actions" aria-label="Download and share">
+    <div class="action-group">
+      <h2 class="action-h">Download</h2>
+      {% for d in q.downloads %}
+      <a class="btn btn-primary" href="{{ d.url }}" download="{{ d.filename }}">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+        {{ d.label }} <span class="btn-sub">{{ d.size }}</span>
+      </a>
+      {% endfor %}
+    </div>
+    <div class="action-group">
+      <h2 class="action-h">Share</h2>
+      {% set share_url = canonical|urlquote %}
+      {% set share_text = (q.title ~ ' — quiz by ' ~ site.title)|urlquote %}
+      <button class="btn" type="button" data-share data-title="{{ q.title }}" data-url="{{ canonical }}">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12v7h16v-7M12 3v12M7 8l5-5 5 5"/></svg>Share
+      </button>
+      <button class="btn" type="button" data-copy="{{ canonical }}">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 9h10v10H9zM5 15V5h10"/></svg><span>Copy link</span>
+      </button>
+      <a class="btn btn-icon" href="https://wa.me/?text={{ share_text }}%20{{ share_url }}" target="_blank" rel="noopener" aria-label="Share on WhatsApp">WhatsApp</a>
+      <a class="btn btn-icon" href="https://t.me/share/url?url={{ share_url }}&amp;text={{ share_text }}" target="_blank" rel="noopener" aria-label="Share on Telegram">Telegram</a>
+      <a class="btn btn-icon" href="https://twitter.com/intent/tweet?url={{ share_url }}&amp;text={{ share_text }}" target="_blank" rel="noopener" aria-label="Share on X">X</a>
+      <a class="btn btn-icon" href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" rel="noopener" aria-label="Share on Facebook">Facebook</a>
+      <a class="btn btn-icon" href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_url }}" target="_blank" rel="noopener" aria-label="Share on LinkedIn">LinkedIn</a>
+      <a class="btn btn-icon" href="mailto:?subject={{ share_text }}&amp;body={{ share_url }}" aria-label="Share by email">Email</a>
+    </div>
+    <details class="embed-box">
+      <summary>Embed this quiz on your website</summary>
+      <textarea readonly rows="3" onclick="this.select()">&lt;iframe src="{{ site.url }}embed/{{ q.slug }}/" width="720" height="{{ (720 / q.aspect + 56)|round|int }}" style="max-width:100%;border:0" allowfullscreen title="{{ q.title }}"&gt;&lt;/iframe&gt;</textarea>
+    </details>
+  </section>
+
+  <section class="about-quiz">
+    <p class="desc">{{ q.description }}</p>
+    {% if q.body_html %}<div class="prose">{{ q.body_html|safe }}</div>{% endif %}
+    {% if q.tags %}
+    <p class="chips">{% for t in q.tags %}<a class="chip" href="{{ site.base }}tags/{{ t|slugify }}/" rel="tag">{{ t }}</a>{% endfor %}</p>
+    {% endif %}
+    {% if site.license_note %}<p class="muted small">{{ site.license_note }}</p>{% endif %}
+  </section>
+
+  <section class="transcript" aria-labelledby="transcript-h">
+    <details>
+      <summary><h2 id="transcript-h">Read this quiz as text (all {{ q.slide_count }} slides)</h2></summary>
+      <p class="muted small">Text extracted from the slides — handy for search, screen readers and quick reading. Spoiler warning: answers included.</p>
+      <ol class="slides-text">
+        {% for t in q.pages %}
+        <li id="text-{{ loop.index }}"><h3><a href="#slide-{{ loop.index }}" data-goto="{{ loop.index }}">Slide {{ loop.index }}</a></h3>
+          {% if t.strip() %}<p>{{ t|replace('\n\n', '\n')|e|replace('\n', '<br>'|safe) }}</p>{% else %}<p class="muted">(picture slide)</p>{% endif %}
+        </li>
+        {% endfor %}
+      </ol>
+    </details>
+  </section>
+
+  {% if related %}
+  <section aria-labelledby="more-h">
+    <h2 id="more-h">More quizzes</h2>
+    <ul class="grid grid-sm">
+      {% for q in related %}{% include "_card.html" %}{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+</article>
+{% endblock %}
+{% block scripts %}
+<script src="{{ site.base }}assets/pdfjs/pdf.min.js" defer></script>
+<script src="{{ site.base }}assets/viewer.js" defer></script>
+<script src="{{ site.base }}assets/site.js" defer></script>
+{% endblock %}

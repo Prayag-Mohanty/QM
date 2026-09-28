@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="{{ page_lang|default(site.language) }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ site.title }} — {{ site.tagline }}{% endblock %}</title>
+<meta name="description" content="{% block description %}{{ site.description|trim }}{% endblock %}">
+<link rel="canonical" href="{{ canonical }}">
+<meta name="author" content="{{ site.author }}">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+{% if site.google_site_verification %}<meta name="google-site-verification" content="{{ site.google_site_verification }}">{% endif %}
+{% if site.bing_site_verification %}<meta name="msvalidate.01" content="{{ site.bing_site_verification }}">{% endif %}
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:title" content="{{ self.title()|trim }}">
+<meta property="og:description" content="{{ self.description()|trim }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:type" content="{% block og_type %}website{% endblock %}">
+{% block og_image %}{% endblock %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1d2b53">
+<link rel="icon" href="{{ site.base }}assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }} — new quizzes" href="{{ site.url }}feed.xml">
+<link rel="stylesheet" href="{{ site.base }}assets/style.css">
+{% block head %}{% endblock %}
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="{{ site.base }}" aria-label="{{ site.title }} home">
+      <span class="brand-mark" aria-hidden="true">Q</span>
+      <span class="brand-name">{{ site.title }}</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="{{ site.base }}#quizzes">Quizzes</a>
+      <a href="{{ site.base }}tags/">Topics</a>
+      <a href="{{ site.base }}about/">About</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+{% block main %}{% endblock %}
+</main>
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <p><strong>{{ site.title }}</strong> · {{ site.tagline }}</p>
+    <p class="footer-links">
+      <a href="{{ site.base }}feed.xml">RSS</a>
+      <a href="{{ site.base }}sitemap.xml">Sitemap</a>
+      <a href="{{ site.base }}llms.txt">llms.txt</a>
+      {% for l in site.links %}<a href="{{ l.url }}" rel="me noopener">{{ l.name }}</a>{% endfor %}
+    </p>
+    <p class="muted">© {{ site.year }} {{ site.author }}</p>
+  </div>
+</footer>
+{% block scripts %}{% endblock %}
+</body>
+</html>

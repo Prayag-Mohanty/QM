@@ -1,0 +1,5 @@
+# {{ site.title }} — every quiz is public. Search engines and AI assistants are welcome.
+User-agent: *
+Allow: /
+
+Sitemap: {{ site.url }}sitemap.xml

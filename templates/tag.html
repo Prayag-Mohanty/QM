@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ tag }} quizzes with answers | {{ site.title }}{% endblock %}
+{% block description %}{{ quizzes|length }} {{ tag }} quiz set{{ '' if quizzes|length == 1 else 's' }} by {{ site.author }} — {{ quizzes|map(attribute='title')|join(', ')|truncate(120) }}. View online, download and share.{% endblock %}
+{% block head %}
+<script type="application/ld+json">{{ {
+  "@context": "https://schema.org", "@type": "CollectionPage", "name": tag ~ " quizzes", "url": canonical,
+  "mainEntity": {"@type": "ItemList", "itemListElement": item_list(quizzes)}
+}|tojson_ld }}</script>
+{% endblock %}
+{% block main %}
+<section class="wrap page">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ site.base }}">All quizzes</a> <span aria-hidden="true">›</span> <a href="{{ site.base }}tags/">Topics</a></nav>
+  <h1>{{ tag }} quizzes</h1>
+  <ul class="grid">
+    {% for q in quizzes %}{% include "_card.html" %}{% endfor %}
+  </ul>
+</section>
+{% endblock %}

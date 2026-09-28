@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}About | {{ site.title }}{% endblock %}
+{% block head %}
+<script type="application/ld+json">{{ {
+  "@context": "https://schema.org", "@type": "ProfilePage", "url": canonical,
+  "mainEntity": {"@type": "Person", "name": site.author, "url": site.url,
+                 "sameAs": site.links|map(attribute="url")|list}
+}|tojson_ld }}</script>
+{% endblock %}
+{% block main %}
+<section class="wrap page prose">
+  {% if body %}{{ body|safe }}{% else %}<h1>About {{ site.title }}</h1><p>{{ site.description }}</p>{% endif %}
+  <p class="muted">{{ quizzes|length }} quiz sets published so far.</p>
+</section>
+{% endblock %}

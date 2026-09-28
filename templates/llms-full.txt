@@ -1,0 +1,12 @@
+{% autoescape false %}
+# {{ site.title }} — all quiz sets (full text)
+
+> {{ site.description|trim }}
+{% for q in quizzes %}
+
+---
+{% set canonical = site.url ~ 'quiz/' ~ q.slug ~ '/' %}
+
+{% include "quiz.md" with context %}
+{% endfor %}
+{% endautoescape %}

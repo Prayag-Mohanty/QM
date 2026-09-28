@@ -1,0 +1,36 @@
+<div class="viewer" id="viewer" data-pdf="{{ q.pdf_url }}" data-pages="{{ q.slide_count }}" data-title="{{ q.title }}" data-worker="{{ site.base }}assets/pdfjs/pdf.worker.min.js" style="--aspect: {{ q.aspect }}">
+  <div class="stage">
+    <img class="stage-cover" src="{{ q.thumb_url }}" alt="Slide 1 of {{ q.title }}" width="720" height="{{ (720 / q.aspect)|round|int }}">
+    <canvas class="stage-canvas" hidden aria-label="Slide 1 of {{ q.title }}" role="img"></canvas>
+    <div class="stage-status" role="status" aria-live="polite"></div>
+    <button class="stage-nav stage-prev" type="button" data-prev aria-label="Previous slide"></button>
+    <button class="stage-nav stage-next" type="button" data-next aria-label="Next slide"></button>
+  </div>
+  <div class="toolbar">
+    <button class="tb-btn" type="button" data-prev aria-label="Previous slide" title="Previous (←)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <label class="tb-count">
+      <span class="sr-only">Slide number</span>
+      <input type="number" inputmode="numeric" min="1" max="{{ q.slide_count }}" value="1" data-page> <span>/ {{ q.slide_count }}</span>
+    </label>
+    <button class="tb-btn" type="button" data-next aria-label="Next slide" title="Next (→)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+    <span class="tb-spacer"></span>
+    {% if not embed %}
+    <button class="tb-btn" type="button" data-copy-slide aria-label="Copy link to this slide" title="Link to this slide">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"/></svg>
+    </button>
+    {% else %}
+    <a class="tb-brand" href="{{ canonical }}" target="_blank" rel="noopener">{{ site.title }} ↗</a>
+    {% endif %}
+    <a class="tb-btn" href="{{ q.pdf_url }}" download="{{ q.title }}.pdf" aria-label="Download PDF" title="Download PDF">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+    </a>
+    <button class="tb-btn" type="button" data-fullscreen aria-label="Full screen" title="Full screen (F)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+    </button>
+  </div>
+  <noscript><p class="noscript">Turn on JavaScript to flip through the slides, or <a href="{{ q.pdf_url }}">open the PDF</a>.</p></noscript>
+</div>

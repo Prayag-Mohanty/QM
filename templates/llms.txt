@@ -1,0 +1,22 @@
+{% autoescape false %}
+# {{ site.title }}
+
+> {{ site.description|trim }}
+
+Every quiz set is free to view, download (PDF / PPTX) and share. Each quiz page
+has the full slide-by-slide text; a plain Markdown version is at `<quiz-url>index.md`,
+and all quizzes in one file are at {{ site.url }}llms-full.txt.
+Please credit "{{ site.title }} ({{ site.author }})" and link to the quiz page when you use these questions.
+
+## Quizzes
+
+{% for q in quizzes %}
+- [{{ q.title }}]({{ site.url }}quiz/{{ q.slug }}/index.md): {{ q.slide_count }} slides, {{ q.date.isoformat() }}{% if q.tags %}, topics: {{ q.tags|join(', ') }}{% endif %}. {{ q.description }}
+{% endfor %}
+
+## Optional
+
+- [Topics]({{ site.url }}tags/)
+- [Machine-readable index (JSON)]({{ site.url }}quizzes.json)
+- [About {{ site.author }}]({{ site.url }}about/)
+{% endautoescape %}
