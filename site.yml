@@ -30,6 +30,11 @@ author_profile:
 # automatically. If you buy a domain, put it here, e.g. https://qmprayag.com
 url: ""
 
+# Earlier addresses of the site. Pages there forward to the current address
+# (the site used to live at prayag-mohanty.github.io/QM/).
+old_bases:
+  - /QM/
+
 language: en
 
 # Where quizzes uploaded from the website's /upload/ page are saved.

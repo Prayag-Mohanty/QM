@@ -631,6 +631,33 @@ def build_gallery(base: str) -> list[dict]:
     return photos
 
 
+def write_redirects(site: dict) -> None:
+    """Pages that moved (e.g. /QM/quiz/x/ -> /quiz/x/ after the site moved to the
+    root of its domain) get a tiny page that forwards visitors and search engines."""
+    base = site["base"]
+    old_bases = [b.strip("/") for b in site.get("old_bases") or [] if b.strip("/") and "/" + b.strip("/") + "/" != base]
+    if not old_bases:
+        return
+    pages = [p.relative_to(OUT_DIR) for p in OUT_DIR.rglob("index.html")]
+    for old in old_bases:
+        for rel in pages:
+            target = site["url"] + ("" if rel.parent == Path(".") else rel.parent.as_posix() + "/")
+            stub = OUT_DIR / old / rel
+            stub.parent.mkdir(parents=True, exist_ok=True)
+            stub.write_text(
+                '<!doctype html><meta charset="utf-8"><title>Moved</title>'
+                f'<link rel="canonical" href="{target}">'
+                f'<meta http-equiv="refresh" content="0; url={target}">'
+                f'<p>This page has moved to <a href="{target}">{target}</a>.</p>', encoding="utf-8")
+        # Old file links (PDF/PPTX downloads, images) and anything else: forward from the 404 page.
+    if (OUT_DIR / "404.html").exists():
+        html = (OUT_DIR / "404.html").read_text(encoding="utf-8")
+        js = ("<script>(function(){var p=location.pathname,o=%s;for(var i=0;i<o.length;i++)"
+              "if(p==='/'+o[i]||p.indexOf('/'+o[i]+'/')===0){location.replace(%s+p.slice(o[i].length+2)+location.search+location.hash);return}})()</script>"
+              % (json.dumps(old_bases), json.dumps(base)))
+        (OUT_DIR / "404.html").write_text(html.replace("<head>", "<head>" + js, 1), encoding="utf-8")
+
+
 def site_url(site: dict) -> str:
     url = (os.environ.get("SITE_URL") if not site.get("url") else site["url"]) or "http://localhost:8000/"
     return url.rstrip("/") + "/"
@@ -641,6 +668,8 @@ def build(site: dict) -> list[Quiz]:
     base = urlsplit(url).path or "/"
     site = {**site, "url": url, "base": base, "year": dt.date.today().year,
             "links": site.get("links") or []}
+    if os.environ.get("GITHUB_REPOSITORY"):  # CI knows the repo, even after a rename
+        site["github_repo"] = os.environ["GITHUB_REPOSITORY"]
 
     if OUT_DIR.exists():
         shutil.rmtree(OUT_DIR)
@@ -763,6 +792,7 @@ def build(site: dict) -> list[Quiz]:
 
     shutil.copytree(ASSETS_DIR, OUT_DIR / "assets", dirs_exist_ok=True)
     (OUT_DIR / ".nojekyll").touch()
+    write_redirects(site)
     if site.get("indexnow_key"):
         (OUT_DIR / f"{site['indexnow_key']}.txt").write_text(site["indexnow_key"])
     cname = urlsplit(url).hostname or ""
