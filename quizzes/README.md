@@ -78,3 +78,12 @@ The website's Manage page handles files up to 300 MB: anything over 15 MB is
 saved in parts (`Name.pptx.part01`, `part02`…) and the site joins them back
 into one file, so visitors see and download it normally. Uploading straight to
 GitHub in the browser is limited to 25 MB per file.
+
+## About-page photos
+
+**Few at a time:** Manage page → **About photos** → pick or drag in several photos at once, type captions, choose the main photo, **Save photos**.
+
+**Lots at once:** on GitHub open `pages/gallery/` → **Add file → Upload files** → drag in the whole batch → **Commit changes**. Every photo in that folder appears on the About page, after the ones already arranged.
+- Name the files after their caption (e.g. `Winners - Quark 2023, BITS Goa.jpg`) and that becomes the caption. Camera names such as `IMG_2031.jpg` get no caption.
+- Big phone photos are fine; the site resizes them. iPhone HEIC photos need to be JPG.
+- Captions, order and the main photo can be changed any time in the **About photos** tab.

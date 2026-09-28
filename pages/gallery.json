@@ -1,9 +1,13 @@
 {
   "photos": [
     {
-      "file": "ntpc-electron-quiz-winners.jpg",
-      "caption": "1st Prize — NTPC Electron Quiz 2025–26, Western Region (Mumbai)",
+      "file": "waves-bits-goa-quizmaster.jpg",
+      "caption": "Quizmastering at Waves, BITS Goa (2022) · Photo: Department of Photography, BITS Goa",
       "main": true
+    },
+    {
+      "file": "ntpc-electron-quiz-winners.jpg",
+      "caption": "1st Prize — NTPC Electron Quiz 2025–26, Western Region (Mumbai)"
     },
     {
       "file": "zerodha-varsity-mumbai-campus-winner.jpg",
@@ -18,8 +22,20 @@
       "caption": "On the buzzer at the Zerodha Varsity Quiz, Mumbai Corporate Edition"
     },
     {
-      "file": "waves-bits-goa-quizmaster.jpg",
-      "caption": "Quizmastering at Waves, BITS Goa (2022) · Photo: Department of Photography, BITS Goa"
+      "file": "team-brandish-bandits.jpg",
+      "caption": ""
+    },
+    {
+      "file": "quiz-day-selfie.jpg",
+      "caption": ""
+    },
+    {
+      "file": "lecture-hall-quiz-selfie.jpg",
+      "caption": ""
+    },
+    {
+      "file": "thumbs-up-after-the-quiz.jpg",
+      "caption": ""
     }
   ]
 }

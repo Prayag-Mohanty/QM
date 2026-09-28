@@ -656,6 +656,13 @@
   var photos = [];        // [{file?, caption, main, thumb, blob?}] in display order
   var photosSaved = "";   // JSON of the saved state, to spot unsaved changes
   var PHOTO_MAX = 2000;   // longest side after resizing in the browser
+  var PHOTO_RE = /\.(jpe?g|png|webp|gif|bmp|tiff?)$/i;
+  // "Winners - XYZ Quiz 2025.jpg" -> caption; camera names like IMG_2031.jpg -> "" (same rule as build.py)
+  function captionFromName(name) {
+    var stem = name.replace(/\.[^.]+$/, "");
+    if (/^(img|dsc|dscn|pxl|mvimg|photo|image|screenshot|whatsapp image|signal)[\W_]|^[\d\W_]+$/i.test(stem)) return "";
+    return stem.replace(/_/g, " ").replace(/\s+/g, " ").trim();
+  }
 
   function photoState() {
     return JSON.stringify(photos.map(function (p) { return [p.file || p.thumb, p.caption, !!p.main]; }));
@@ -668,8 +675,15 @@
     return Promise.all([load, thumbs]).then(function (res) {
       var byFile = {};
       res[1].forEach(function (t) { byFile[t.file] = t.thumb; });
+      var listed = {};
       photos = res[0].filter(function (e) { return e && galleryRepo.files[e.file]; }).map(function (e) {
+        listed[e.file] = true;
         return { file: e.file, caption: e.caption || "", main: !!e.main, thumb: byFile[e.file] || "" };
+      });
+      // Photos uploaded straight into pages/gallery/ on GitHub (the site shows them too).
+      Object.keys(galleryRepo.files).sort(function (a, b) { return a.toLowerCase().localeCompare(b.toLowerCase()); }).forEach(function (f) {
+        if (listed[f] || !PHOTO_RE.test(f)) return;
+        photos.push({ file: f, caption: captionFromName(f), main: false, thumb: byFile[f] || "" });
       });
       if (photos.length && !photos.some(function (p) { return p.main; })) photos[0].main = true;
       photosSaved = photoState();
@@ -741,7 +755,7 @@
     return chosen.reduce(function (p, f) {
       return p.then(function () {
         return resizePhoto(f).then(function (blob) {
-          photos.push({ caption: "", main: !photos.length, blob: blob, name: f.name, thumb: URL.createObjectURL(blob) });
+          photos.push({ caption: captionFromName(f.name), main: !photos.length, blob: blob, name: f.name, thumb: URL.createObjectURL(blob) });
           renderPhotos();
         }).catch(function (err) { alert(err.message); });
       });

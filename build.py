@@ -561,17 +561,34 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
 # Rendering
 # --------------------------------------------------------------------------- #
 
+PHOTO_EXT = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".tif", ".tiff"}
+CAMERA_NAME = re.compile(r"^(img|dsc|dscn|pxl|mvimg|photo|image|screenshot|whatsapp image|signal)[\W_]|^[\d\W_]+$", re.I)
+
+
+def caption_from_name(stem: str) -> str:
+    """'Winners - XYZ Quiz 2025' -> that text; camera names like IMG_2031 -> ''."""
+    text = re.sub(r"\s+", " ", stem.replace("_", " ")).strip()
+    return "" if CAMERA_NAME.search(stem) else text
+
+
 def build_gallery(base: str) -> list[dict]:
-    """About-page photos from pages/gallery.json, resized for the web (cached)."""
+    """About-page photos, resized for the web (cached). pages/gallery.json sets the
+    order, captions and main photo; any other photo dropped into pages/gallery/ is
+    added at the end, captioned from its file name."""
     from PIL import Image, ImageOps
     src_json = PAGES_DIR / "gallery.json"
-    if not src_json.exists():
-        return []
-    try:
-        entries = json.loads(src_json.read_text(encoding="utf-8")).get("photos", [])
-    except ValueError as exc:
-        print(f"  ! pages/gallery.json: {exc}", file=sys.stderr)
-        return []
+    entries = []
+    if src_json.exists():
+        try:
+            entries = json.loads(src_json.read_text(encoding="utf-8")).get("photos", [])
+        except ValueError as exc:
+            print(f"  ! pages/gallery.json: {exc}", file=sys.stderr)
+    listed = {str(e.get("file", "")) for e in entries}
+    folder = PAGES_DIR / "gallery"
+    if folder.is_dir():
+        entries += [{"file": f.name, "caption": caption_from_name(f.stem)}
+                    for f in sorted(folder.iterdir(), key=lambda f: f.name.lower())
+                    if f.suffix.lower() in PHOTO_EXT and f.name not in listed]
     out_dir = OUT_DIR / "assets" / "gallery"
     cache = CACHE_DIR / "gallery"
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -588,13 +605,19 @@ def build_gallery(base: str) -> list[dict]:
             name = f"{slugify(src.stem)}-{key}-{size}.jpg"
             cached = cache / name
             if not cached.exists():
-                with Image.open(src) as im:
-                    im = ImageOps.exif_transpose(im).convert("RGB")
-                    im.thumbnail((size, size), Image.LANCZOS)
-                    im.save(cached, quality=84 if label == "large" else 80, optimize=True, progressive=True)
+                try:
+                    with Image.open(src) as im:
+                        im = ImageOps.exif_transpose(im).convert("RGB")
+                        im.thumbnail((size, size), Image.LANCZOS)
+                        im.save(cached, quality=84 if label == "large" else 80, optimize=True, progressive=True)
+                except OSError as exc:
+                    print(f"  ! gallery photo {src.name} can't be read ({exc}); save it as JPG", file=sys.stderr)
+                    break
             shutil.copy2(cached, out_dir / name)
             with Image.open(cached) as im:
                 made[label] = {"url": f"{base}assets/gallery/{name}", "w": im.width, "h": im.height}
+        if len(made) < 2:
+            continue
         photos.append({"file": src.name, "caption": str(e.get("caption") or "").strip(), "main": bool(e.get("main")),
                        "large": made["large"], "thumb": made["thumb"]})
     if photos and not any(p["main"] for p in photos):
