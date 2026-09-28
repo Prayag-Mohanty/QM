@@ -17,7 +17,8 @@
 <meta property="og:type" content="{% block og_type %}website{% endblock %}">
 {% block og_image %}{% endblock %}
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#1d2b53">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
 <link rel="icon" href="{{ site.base }}assets/favicon.svg" type="image/svg+xml">
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }} — new quizzes" href="{{ site.url }}feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,7 +52,7 @@
       <a href="{{ site.base }}feed.xml">RSS</a>
       <a href="{{ site.base }}sitemap.xml">Sitemap</a>
       <a href="{{ site.base }}llms.txt">llms.txt</a>
-      <a href="{{ site.base }}upload/" rel="nofollow">Upload</a>
+      <a href="{{ site.base }}upload/" rel="nofollow">Manage</a>
       {% for l in site.links %}<a href="{{ l.url }}" rel="me noopener">{{ l.name }}</a>{% endfor %}
     </p>
     <p class="muted">© {{ site.year }} {{ site.author }}</p>

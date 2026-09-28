@@ -30,6 +30,13 @@
     });
   });
 
+  // Show "Edit this quiz" only on devices connected on the Manage page.
+  try {
+    if (localStorage.getItem("qm-upload-token")) {
+      document.querySelectorAll("[data-owner-only]").forEach(function (el) { el.hidden = false; });
+    }
+  } catch (e) { /* storage blocked */ }
+
   function flash(btn, text) {
     var label = btn.querySelector("span") || btn;
     var old = label.textContent;

@@ -32,6 +32,7 @@
       <span>·</span><time datetime="{{ q.date.isoformat() }}">{{ q.date|pretty_date }}</time>
       <span>·</span><span>{{ q.slide_count }} slides</span>
       {% if q.event %}<span>·</span><span>{{ q.event }}</span>{% endif %}
+      <a class="owner-edit" href="{{ site.base }}upload/?quiz={{ q.slug }}" rel="nofollow" data-owner-only hidden>✎ Edit this quiz</a>
     </p>
   </header>
 

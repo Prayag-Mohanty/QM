@@ -20,6 +20,14 @@ fill in the title, description and tags, and click **Publish quiz**. The first
 time, paste a GitHub fine-grained token (Contents: read & write on this repo;
 the page shows how) — it is remembered on that device.
 
+### Editing or deleting a quiz
+
+On the **Manage** page, open the **Edit quizzes** tab (or click **✎ Edit this
+quiz** on any quiz page — it only appears on devices you've connected). You can
+change the title, description, date, event, quizmaster and tags, replace the
+PDF/PPTX, or delete the quiz. The quiz's web address never changes, so shared
+links keep working.
+
 You can also drop files into [`quizzes/`](quizzes/) on GitHub directly
 (<https://github.com/Prayag-Mohanty/QM/upload/main/quizzes>). Either way the
 site rebuilds automatically. See [`quizzes/README.md`](quizzes/README.md)

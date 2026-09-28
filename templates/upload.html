@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-{% block title %}Upload a quiz | {{ site.title }}{% endblock %}
+{% block title %}Manage quizzes | {{ site.title }}{% endblock %}
 {% block head %}<meta name="robots" content="noindex, nofollow">{% endblock %}
 {% block main %}
-<section class="wrap page upload" id="upload" data-repo="{{ site.github_repo }}" data-branch="{{ site.github_branch|default('main') }}" data-base="{{ site.base }}">
-  <h1>Upload a quiz</h1>
+<section class="wrap page upload" id="upload" data-repo="{{ site.github_repo }}" data-branch="{{ site.github_branch|default('main') }}" data-base="{{ site.base }}" data-author="{{ site.author }}">
+  <h1>Manage quizzes</h1>
 
   <div class="panel" id="signin" hidden>
     <h2>Connect to GitHub (one time on this device)</h2>
-    <p>Uploads are saved to the <code>{{ site.github_repo }}</code> repository, and the site republishes itself automatically. Paste a GitHub access token that can write to that repository.</p>
+    <p>Quizzes are saved to the <code>{{ site.github_repo }}</code> repository, and the site republishes itself automatically. Paste a GitHub access token that can write to that repository.</p>
     <details>
       <summary>How to get a token (2 minutes)</summary>
       <ol>
@@ -27,13 +27,29 @@
 
   <div id="uploader" hidden>
     <p class="muted" id="who"></p>
+    <div class="tabs" role="tablist">
+      <button class="tab is-active" type="button" role="tab" id="tab-new" aria-selected="true">+ New quiz</button>
+      <button class="tab" type="button" role="tab" id="tab-manage" aria-selected="false">Edit quizzes <span class="chip-n" id="quiz-count"></span></button>
+    </div>
+
+    <div id="manage" hidden>
+      <label class="sr-only" for="filter">Find a quiz</label>
+      <input id="filter" class="filter" type="search" placeholder="Find a quiz…">
+      <ul class="manage-list" id="manage-list"><li class="muted">Loading…</li></ul>
+    </div>
+
     <form id="quiz-form" class="panel stack">
+      <div class="edit-banner" id="edit-banner" hidden>
+        <span>Editing <b id="edit-name"></b> · <a id="edit-view" target="_blank" rel="noopener">view page ↗</a></span>
+        <button class="btn btn-sm" type="button" id="edit-cancel">Cancel</button>
+      </div>
       <label class="drop" id="drop">
-        <input id="files" type="file" multiple accept=".pdf,.pptx,.ppt,.ppsx,.pps,.odp,.docx,.doc" required>
-        <strong>Choose or drop quiz files</strong>
-        <span class="muted small">PDF and/or PPTX of the <em>same</em> quiz. Upload the PDF too for pixel-perfect viewing.</span>
+        <input id="files" type="file" multiple accept=".pdf,.pptx,.ppt,.ppsx,.pps,.odp,.docx,.doc">
+        <strong id="drop-title">Choose or drop quiz files</strong>
+        <span class="muted small" id="drop-hint">PDF and/or PPTX of the <em>same</em> quiz. Upload the PDF too for pixel-perfect viewing.</span>
         <span id="file-list" class="file-list"></span>
       </label>
+      <div id="current-files" class="current-files" hidden></div>
       <label>Title <input id="title" required placeholder="e.g. Biz Quiz 2024 — Finals"></label>
       <label>Description <span class="muted small">(1–2 sentences — this is what shows on Google)</span>
         <textarea id="description" rows="3" placeholder="e.g. Finals of the inter-college business quiz — brands, logos, startups and ads."></textarea></label>
@@ -41,8 +57,10 @@
         <label>Date <input id="date" type="date"></label>
         <label>Event <input id="event" placeholder="e.g. Waves 2024, BITS Goa"></label>
       </div>
+      <label>Quizmaster(s) <span class="muted small">(comma separated — leave empty for {{ site.author }})</span> <input id="quizmaster" placeholder="{{ site.author }}"></label>
       <label>Topics / tags <span class="muted small">(comma separated)</span> <input id="tags" placeholder="General, India, Sci-Tech"></label>
       <button class="btn btn-primary" type="submit" id="submit">Publish quiz</button>
+      <button class="btn btn-danger" type="button" id="delete" hidden>Delete this quiz</button>
     </form>
     <div class="panel" id="progress" hidden aria-live="polite">
       <div class="bar"><span id="bar"></span></div>
@@ -51,7 +69,7 @@
     <p><button class="btn" type="button" id="signout">Disconnect this device</button></p>
   </div>
 
-  <noscript><p>Uploading needs JavaScript.</p></noscript>
+  <noscript><p>Managing quizzes needs JavaScript.</p></noscript>
 </section>
 {% endblock %}
 {% block scripts %}<script src="{{ site.base }}assets/upload.js" defer></script>{% endblock %}
