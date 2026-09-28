@@ -28,6 +28,9 @@
   function request(method, path, body, onProgress) {
     return new Promise(function (resolve, reject) {
       var xhr = new XMLHttpRequest();
+      // Never reuse a cached answer: the browser keeps GitHub GETs for up to a minute,
+      // which made a second quick save build on an out-of-date version.
+      if (method === "GET") path += (path.indexOf("?") === -1 ? "?" : "&") + "_=" + Date.now();
       xhr.open(method, API + path);
       xhr.setRequestHeader("Authorization", "Bearer " + token);
       xhr.setRequestHeader("Accept", "application/vnd.github+json");
@@ -356,7 +359,9 @@
         return request("PATCH", "/repos/" + REPO + "/git/refs/heads/" + BRANCH, { sha: commit.sha })
           .then(function () { return commit.sha; });
       }).catch(function (err) {
-        if (n < 3 && (err.status === 422 || err.status === 409)) return attempt(n + 1);
+        if (n < 4 && (err.status === 422 || err.status === 409)) {
+          return new Promise(function (r) { setTimeout(r, 1500 * n); }).then(function () { return attempt(n + 1); });
+        }
         throw err;
       });
     };
