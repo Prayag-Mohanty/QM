@@ -45,6 +45,29 @@ notes: |
 
 Every line is optional. Without a `date`, the upload date is used.
 
+## Audio & video questions
+
+Slides with audio or video get a ▶ play button right where the clip sits on
+the slide; it plays in place and stops when you move to another slide.
+
+- **Clips embedded in a PowerPoint** (Insert → Video/Audio) are extracted
+  automatically from the `.pptx`. Old formats (WMV, AVI, WMA…) are converted
+  to MP4/MP3 during the build.
+- **Links on slides** to YouTube, Vimeo, Google Drive, Spotify, SoundCloud or
+  a direct `.mp3`/`.mp4` file become in-slide players (from the PPTX, or from
+  clickable links in a PDF). A YouTube link's `?t=42` start time is kept.
+- **Anything else** (e.g. a clip you played from your laptop): add it in the
+  Manage page's *Audio / video links* box as `12: https://youtu.be/…`, or in
+  the `.yml`:
+
+  ```yaml
+  media: [{"slide": 12, "url": "https://youtu.be/dQw4w9WgXcQ", "start": "0:42"}]
+  ```
+
+Tip: upload the **PDF and the PPTX** of the same deck (same file name). The
+PDF is shown pixel-perfect, and the clips are taken from the PPTX. Big decks
+with videos are fine — uploads over 15 MB go up in parts.
+
 ## Size limits
 
 The website's Manage page handles files up to 300 MB: anything over 15 MB is

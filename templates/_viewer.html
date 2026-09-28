@@ -2,6 +2,7 @@
   <div class="stage">
     <img class="stage-cover" src="{{ q.thumb_url }}" alt="Slide 1 of {{ q.title }}" width="720" height="{{ (720 / q.aspect)|round|int }}">
     <canvas class="stage-canvas" hidden aria-label="Slide 1 of {{ q.title }}" role="img"></canvas>
+    <div class="stage-layer"></div>
     <div class="stage-status" role="status" aria-live="polite"></div>
     <button class="stage-nav stage-prev" type="button" data-prev aria-label="Previous slide"></button>
     <button class="stage-nav stage-next" type="button" data-next aria-label="Next slide"></button>
@@ -33,5 +34,6 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
     </button>
   </div>
+  {% if q.media %}<script type="application/json" class="media-data">{{ q.media|tojson }}</script>{% endif %}
   <noscript><p class="noscript">Turn on JavaScript to flip through the slides, or <a href="{{ q.pdf_url }}">open the PDF</a>.</p></noscript>
 </div>

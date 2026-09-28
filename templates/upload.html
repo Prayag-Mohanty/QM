@@ -59,6 +59,8 @@
       </div>
       <label>Quizmaster(s) <span class="muted small">(comma separated — leave empty for {{ site.author }})</span> <input id="quizmaster" placeholder="{{ site.author }}"></label>
       <label>Topics / tags <span class="muted small">(comma separated)</span> <input id="tags" placeholder="General, India, Sci-Tech"></label>
+      <label>Audio / video links <span class="muted small">(optional — one per line as <b>slide number: link</b>. YouTube, Vimeo, Google Drive, Spotify, SoundCloud or a direct .mp3/.mp4 link. Clips embedded in a PPTX are found automatically.)</span>
+        <textarea id="media" rows="3" placeholder="12: https://youtu.be/dQw4w9WgXcQ?t=42&#10;27: https://open.spotify.com/track/…"></textarea></label>
       <button class="btn btn-primary" type="submit" id="submit">Publish quiz</button>
       <button class="btn btn-danger" type="button" id="delete" hidden>Delete this quiz</button>
     </form>

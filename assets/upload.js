@@ -14,7 +14,7 @@
   var MAX = 300 * 1024 * 1024;  // keep the whole site well inside GitHub Pages' 1 GB
   var CHUNK = 15 * 1024 * 1024; // GitHub's API rejects big requests, so large files go up in parts
   var DOC_EXT = ["pdf", "pptx", "ppt", "pps", "ppsx", "odp", "key", "docx", "doc", "odt"];
-  var MANAGED = ["title", "description", "date", "event", "quizmaster", "quizmasters", "tags"];
+  var MANAGED = ["title", "description", "date", "event", "quizmaster", "quizmasters", "tags", "media"];
 
   var $ = function (id) { return document.getElementById(id); };
   var token = "";
@@ -131,7 +131,7 @@
       if (e.key && MANAGED.indexOf(e.key) !== -1) emit(e.key === "quizmasters" ? "quizmaster" : e.key);
       else out.push.apply(out, e.lines);
     });
-    ["title", "description", "date", "event", "quizmaster", "tags"].forEach(emit);
+    ["title", "description", "date", "event", "quizmaster", "tags", "media"].forEach(emit);
     while (out.length && !out[out.length - 1].trim()) out.pop();
     return out.join("\n") + "\n";
   }
@@ -242,6 +242,7 @@
       $("event").value = d.event || p.event || "";
       $("quizmaster").value = asList(d.quizmaster || d.quizmasters).join(", ");
       $("tags").value = asList(d.tags || p.tags).join(", ");
+      $("media").value = mediaToText(d.media);
       $("edit-name").textContent = $("title").value;
       $("edit-view").href = pageUrl(stem);
       $("edit-banner").hidden = false;
@@ -424,6 +425,21 @@
     }).then(function () { submit.disabled = del.disabled = false; });
   }
 
+  // "12: https://youtu.be/…" lines <-> [{slide: 12, url: "…"}]
+  function textToMedia(text) {
+    return text.split(/\n+/).map(function (line) {
+      var m = /^\s*(?:slide\s*)?(\d+)\s*[:\-–.)]?\s*(https?:\/\/\S+)/i.exec(line);
+      return m ? { slide: parseInt(m[1], 10), url: m[2] } : null;
+    }).filter(Boolean);
+  }
+  function mediaToText(v) {
+    if (!v) return "";
+    return (Array.isArray(v) ? v : [v]).map(function (e) {
+      if (typeof e === "string") return e;
+      return e && e.slide && e.url ? e.slide + ": " + e.url : "";
+    }).filter(Boolean).join("\n");
+  }
+
   function formFields() {
     return {
       title: $("title").value.trim(),
@@ -431,7 +447,8 @@
       date: $("date").value,
       event: $("event").value.trim(),
       quizmaster: list($("quizmaster").value),
-      tags: list($("tags").value)
+      tags: list($("tags").value),
+      media: textToMedia($("media").value)
     };
   }
 

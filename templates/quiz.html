@@ -33,8 +33,12 @@
       <p class="doc-stats">
         <time datetime="{{ q.date.isoformat() }}">{{ q.date|pretty_date }}</time>
         {% if q.event %}<span>{{ q.event }}</span>{% endif %}
+        {% if q.has_av %}<span class="av-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Includes audio &amp; video</span>{% endif %}
         <a class="owner-edit" href="{{ site.base }}upload/?quiz={{ q.slug }}" rel="nofollow" data-owner-only hidden>✎ Edit this quiz</a>
       </p>
+      {% if q.tags %}
+      <p class="chips doc-tags">{% for t in q.tags %}<a class="chip" href="{{ site.base }}tags/{{ t|slugify }}/" rel="tag">{{ t }}</a>{% endfor %}</p>
+      {% endif %}
 
       <div class="doc-bar">
         <div class="author">
@@ -87,9 +91,6 @@
     <section class="doc-about">
       <p class="desc">{{ q.description }}</p>
       {% if q.body_html %}<div class="prose">{{ q.body_html|safe }}</div>{% endif %}
-      {% if q.tags %}
-      <p class="chips">{% for t in q.tags %}<a class="chip" href="{{ site.base }}tags/{{ t|slugify }}/" rel="tag">{{ t }}</a>{% endfor %}</p>
-      {% endif %}
       {% if site.license_note %}<p class="muted small">{{ site.license_note }}</p>{% endif %}
       <p class="muted small">For bricks &amp; bouquets, <a href="{% if site.contact_email %}mailto:{{ site.contact_email }}?subject={{ ('Bricks & bouquets: ' ~ q.title)|urlquote }}{% else %}{{ site.base }}about/#contact{% endif %}">contact me</a>.</p>
     </section>
@@ -100,7 +101,11 @@
       <ol class="slides-text">
         {% for t in q.pages %}
         <li id="text-{{ loop.index }}"><a class="slide-no" href="#slide-{{ loop.index }}" data-goto="{{ loop.index }}">{{ loop.index }}</a>
-          {% if t.strip() %}<p>{{ t|replace('\n\n', '\n')|e|replace('\n', '<br>'|safe) }}</p>{% else %}<p class="muted">(picture slide)</p>{% endif %}
+          <div>
+          {% if t.strip() %}<p>{{ t|replace('\n\n', '\n')|e|replace('\n', '<br>'|safe) }}</p>{% elif not q.media_on(loop.index) %}<p class="muted">(picture slide)</p>{% endif %}
+          {% set av_items = q.media_on(loop.index) %}
+          {% if av_items %}<p class="av-note">{% for m in av_items %}{{ '♪ Audio' if (m.k == 'audio' or m.audio) else '▶ Video' }}{% if m.k == 'embed' %} ({{ m.label }}){% endif %}{{ ' · ' if not loop.last }}{% endfor %} — play it in the viewer</p>{% endif %}
+          </div>
         </li>
         {% endfor %}
       </ol>

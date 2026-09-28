@@ -32,6 +32,10 @@ import markdown
 import pymupdf
 import yaml
 
+import media as av
+
+pymupdf.TOOLS.mupdf_display_errors(False)  # e.g. harmless notes about video "Screen" annotations
+
 ROOT = Path(__file__).resolve().parent
 QUIZ_DIR = ROOT / "quizzes"
 OUT_DIR = ROOT / "_site"
@@ -270,6 +274,14 @@ class Quiz:
     downloads: list[Download] = field(default_factory=list)
     featured: bool = False
     body_html: str = ""
+    media: list[dict] = field(default_factory=list)
+
+    @property
+    def has_av(self) -> bool:
+        return any(m["k"] != "link" for m in self.media)
+
+    def media_on(self, slide: int) -> list[dict]:
+        return [m for m in self.media if m["s"] == slide and m["k"] != "link"]
 
     @property
     def slide_count(self) -> int:
@@ -309,6 +321,26 @@ def assemble_parts(parts: dict[Path, list[tuple[int, Path]]]) -> list[Path]:
         ASSEMBLED_FROM[dest] = pieces[0][1]
         out.append(dest)
     return out
+
+
+def find_media(docs: list[Path], pdf: Path, page_count: int, meta: dict, out_dir: Path,
+               url_prefix: str) -> list[dict]:
+    """Audio/video for the viewer: from the .yml, any PPTX, and the PDF's links."""
+    groups = []
+    try:
+        groups.append(av.meta_media(meta.get("media"), page_count))
+        for d in docs:
+            if d.suffix.lower() in {".pptx", ".ppsx"}:
+                groups.append(av.pptx_media(d, out_dir, url_prefix, page_count, CACHE_DIR))
+        with pymupdf.open(pdf) as doc:
+            groups.append(av.pdf_media(doc))
+    except Exception as exc:  # never let media problems break the site
+        print(f"  ! media in {docs[0].name}: {exc}", file=sys.stderr)
+    items = av.merge(*groups)
+    clips = sum(1 for i in items if i["k"] != "link")
+    if clips:
+        print(f"    {clips} audio/video item(s) in {docs[0].name}")
+    return items
 
 
 def collect_quizzes(site: dict, base: str) -> list[Quiz]:
@@ -370,6 +402,7 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
         shutil.copy2(info["thumb"], fdir / "cover.jpg")
 
         pages = info["pages"]
+        media = find_media(docs, info["pdf"], len(pages), meta, fdir / "media", f"{base}files/{slug}/media/")
         description = str(meta.get("description") or "").strip()
         if not description:
             qms = as_list(meta.get("quizmaster") or meta.get("quizmasters") or site["author"])
@@ -391,6 +424,7 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
             downloads=downloads,
             featured=bool(meta.get("featured")),
             body_html=markdown.markdown(str(meta.get("notes") or "")),
+            media=media,
         ))
     quizzes.sort(key=lambda q: (q.date, q.title), reverse=True)
     return quizzes

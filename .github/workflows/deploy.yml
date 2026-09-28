@@ -36,7 +36,8 @@ jobs:
             sudo apt-get install -y -qq --no-install-recommends \
               libreoffice-impress libreoffice-writer \
               fonts-crosextra-carlito fonts-crosextra-caladea fonts-liberation2 \
-              fonts-noto-core fonts-noto-cjk fonts-noto-color-emoji fonts-dejavu
+              fonts-noto-core fonts-noto-cjk fonts-noto-color-emoji fonts-dejavu \
+              ffmpeg
           fi
 
       - name: Restore converted-file cache

@@ -177,7 +177,7 @@ svg { flex: none; }
 
 .doc-about { padding: 16px 0 4px; }
 .doc-about .desc { margin: 0 0 12px; }
-.doc-about .chips { margin-bottom: 12px; }
+.doc-tags { margin-top: 12px; }
 
 /* Transcript */
 .transcript { position: relative; margin-top: 16px; padding-top: 8px; border-top: 1px solid var(--line); }
@@ -222,6 +222,49 @@ svg { flex: none; }
 .viewer:fullscreen { display: flex; flex-direction: column; border-radius: 0; }
 .viewer:fullscreen .stage { flex: 1; max-height: none; width: 100%; aspect-ratio: auto; }
 .noscript { color: #fff; padding: 12px 16px; margin: 0; }
+
+/* Audio / video on slides */
+.stage-nav { z-index: 1; }
+.stage-layer { position: absolute; z-index: 2; pointer-events: none; container-type: size; }
+.stage-layer > * { pointer-events: auto; }
+.hot-link { position: absolute; border-radius: 4px; }
+.hot-link:hover, .hot-link:focus-visible { background: rgba(10, 125, 120, .12); outline: 2px solid rgba(10, 125, 120, .6); }
+.hot-media { position: absolute; display: grid; place-items: center; padding: 0; border: 0; background: rgba(0, 0, 0, .12); border-radius: 6px; cursor: pointer; }
+.hot-media:hover { background: rgba(0, 0, 0, .25); }
+.hot-badge {
+  display: grid; place-items: center; width: clamp(40px, 12cqmin, 72px); aspect-ratio: 1; min-width: 36px;
+  border-radius: 50%; background: rgba(10, 125, 120, .92); color: #fff; box-shadow: 0 4px 18px rgba(0, 0, 0, .35);
+  transition: transform .15s ease; animation: av-pulse 2.2s ease-in-out 3;
+}
+.hot-media:hover .hot-badge { transform: scale(1.08); }
+.hot-badge svg { width: 55%; height: 55%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.hot-media:not(.is-audio) .hot-badge svg { margin-left: 8%; }
+@keyframes av-pulse { 0%, 100% { box-shadow: 0 4px 18px rgba(0, 0, 0, .35), 0 0 0 0 rgba(10, 125, 120, .55); } 50% { box-shadow: 0 4px 18px rgba(0, 0, 0, .35), 0 0 0 12px rgba(10, 125, 120, 0); } }
+.media-pills { position: absolute; left: 10px; top: 10px; display: flex; flex-wrap: wrap; gap: 6px; max-width: calc(100% - 20px); }
+.media-pill {
+  display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px 7px 9px; border: 0; border-radius: 999px;
+  background: rgba(10, 125, 120, .95); color: #fff; font: 650 .82rem/1 var(--font); cursor: pointer; box-shadow: 0 2px 10px rgba(0, 0, 0, .3);
+}
+.media-pill:hover { background: #086863; }
+.media-pill svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.media-player { position: absolute; background: #000; border-radius: 8px; box-shadow: 0 8px 36px rgba(0, 0, 0, .55); overflow: hidden; }
+.media-player.centered { left: 12%; top: 50%; width: 76%; aspect-ratio: 16 / 9; max-height: 92%; transform: translateY(-50%); }
+.media-player.at-bottom { left: 50%; bottom: 4%; width: min(440px, 92%); transform: translateX(-50%); background: rgba(20, 22, 25, .92); padding: 10px 40px 10px 10px; }
+.media-player.is-spotify.at-bottom { height: 172px; padding: 10px 40px 10px 10px; }
+.media-player.is-soundcloud.at-bottom { height: 186px; }
+.media-player video, .media-player iframe { display: block; width: 100%; height: 100%; border: 0; background: #000; }
+.media-player audio { display: block; width: 100%; }
+.media-player.at-bottom iframe { background: transparent; }
+.media-close {
+  position: absolute; top: 6px; right: 6px; width: 28px; height: 28px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(0, 0, 0, .6); color: #fff; font: 700 18px/28px var(--font); padding: 0;
+}
+.media-close:hover { background: rgba(0, 0, 0, .85); }
+.card-av { color: var(--accent); font-weight: 700; }
+.av-badge { display: inline-flex; align-items: center; gap: 5px; color: var(--accent); font-weight: 650; }
+.av-badge svg { width: 15px; height: 15px; fill: currentColor; }
+.slides-text .av-note { margin-top: 4px; color: var(--accent); font-size: .85rem; font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .hot-badge { animation: none; } }
 
 /* ---------- Simple pages ---------- */
 .page { padding: 32px 0 64px; }
