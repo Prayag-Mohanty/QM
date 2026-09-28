@@ -56,7 +56,11 @@ the slide; it plays in place and stops when you move to another slide.
 - **Links on slides** to YouTube, Vimeo, Google Drive, Spotify, SoundCloud or
   a direct `.mp3`/`.mp4` file become in-slide players (from the PPTX, or from
   clickable links in a PDF). A YouTube link's `?t=42` start time is kept.
-- **Anything else** (e.g. a clip you played from your laptop): add it in the
+- **Video or audio files** (an `.mp4`, `.mp3`, `.m4a`…): on the Manage page,
+  under *Audio / video files*, pick the file and type the slide number it plays
+  on. It's saved as `quizzes/<quiz name>.media/<slide>-<file name>` and gets a
+  ▶ play button on that slide. Large files go up in parts automatically.
+- **Links to anything else** (e.g. a clip you played from your laptop): add it in the
   Manage page's *Audio / video links* box as `12: https://youtu.be/…`, or in
   the `.yml`:
 

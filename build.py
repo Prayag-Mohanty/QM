@@ -434,12 +434,25 @@ def assemble_parts(parts: dict[Path, list[tuple[int, Path]]]) -> list[Path]:
     return out
 
 
+def clip_paths(stem: str) -> list[Path]:
+    """Files in 'quizzes/<quiz name>.media/' (big ones were uploaded in parts)."""
+    found = {}
+    for folder in (QUIZ_DIR / f"{stem}.media", CACHE_DIR / "assembled" / f"{stem}.media"):
+        if folder.is_dir():
+            for p in folder.iterdir():
+                if p.is_file() and not PART_RE.match(p.name) and not p.name.startswith("."):
+                    found.setdefault(p.name, p)
+    return list(found.values())
+
+
 def find_media(docs: list[Path], pdf: Path, page_count: int, meta: dict, out_dir: Path,
-               url_prefix: str, page_texts: list[str] | None = None) -> list[dict]:
-    """Audio/video for the viewer: from the .yml, any PPTX, and the PDF's links."""
+               url_prefix: str, page_texts: list[str] | None = None, stem: str = "") -> list[dict]:
+    """Audio/video for the viewer: the .yml, uploaded clips, any PPTX, and the PDF's links."""
     groups = []
     try:
         groups.append(av.meta_media(meta.get("media"), page_count))
+        if stem:
+            groups.append(av.uploaded_clips(clip_paths(stem), page_count, out_dir, url_prefix, CACHE_DIR))
         for d in docs:
             if d.suffix.lower() in {".pptx", ".ppsx"}:
                 groups.append(av.pptx_media(d, out_dir, url_prefix, page_count, CACHE_DIR, page_texts))
@@ -464,6 +477,8 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
         if m:
             parts.setdefault(p.with_name(m["name"]), []).append((int(m["n"]), p))
             continue
+        if any(d.endswith(".media") for d in p.relative_to(QUIZ_DIR).parts[:-1]):
+            continue  # audio/video clips uploaded for a quiz, handled by find_media
         ext = p.suffix.lower()
         if ext in SUPPORTED or ext in METADATA:
             groups.setdefault(str(p.with_suffix("").relative_to(QUIZ_DIR)), []).append(p)
@@ -513,7 +528,7 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
         shutil.copy2(info["thumb"], fdir / "cover.jpg")
 
         pages = info["pages"]
-        media = find_media(docs, info["pdf"], len(pages), meta, fdir / "media", f"{base}files/{slug}/media/", pages)
+        media = find_media(docs, info["pdf"], len(pages), meta, fdir / "media", f"{base}files/{slug}/media/", pages, stem)
         # Shown on the page only if you wrote one; search engines still get a summary.
         description = str(meta.get("description") or "").strip()
         qms = as_list(meta.get("quizmaster") or meta.get("quizmasters") or site["author"])

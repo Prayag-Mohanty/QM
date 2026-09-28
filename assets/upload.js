@@ -147,6 +147,16 @@
       quizzes = {};
       tree.tree.forEach(function (item) {
         if (item.type !== "blob" || item.path.indexOf("quizzes/") !== 0) return;
+        var clip = /^quizzes\/(.+)\.media\/((\d+)-[^/]+?)(\.part\d+)?$/.exec(item.path);
+        if (clip) {
+          var cq = quizzes[clip[1]] || (quizzes[clip[1]] = { stem: clip[1], files: [], yml: null });
+          cq.clips = cq.clips || [];
+          var c = cq.clips.filter(function (x) { return x.name === clip[2]; })[0];
+          if (!c) cq.clips.push(c = { name: clip[2], slide: parseInt(clip[3], 10), size: 0, parts: [] });
+          c.size += item.size;
+          c.parts.push({ path: item.path, sha: item.sha });
+          return;
+        }
         var rel = item.path.slice(8), part = /^(.+)\.([a-z0-9]+)\.part\d+$/i.exec(rel);
         var e = part ? part[2].toLowerCase() : ext(rel);
         if (!e || basename(rel)[0] === ".") return;
@@ -220,6 +230,10 @@
     setFiles([]);
     $("edit-banner").hidden = true;
     $("current-files").hidden = true;
+    $("current-clips").hidden = true;
+    $("current-clips").innerHTML = "";
+    newClips = [];
+    renderClips();
     $("delete").hidden = true;
     $("submit").textContent = "Publish quiz";
     $("drop-title").textContent = "Choose or drop quiz files";
@@ -254,6 +268,14 @@
           esc(basename(stem) + "." + f.ext) + ' <span class="muted small">' + human(f.size) + "</span></label>";
       }).join("");
       $("current-files").hidden = false;
+      if (q.clips && q.clips.length) {
+        $("current-clips").innerHTML = "<b>Uploaded clips</b>" + q.clips.sort(function (a, b) { return a.slide - b.slide; }).map(function (c, i) {
+          return '<div class="clip-row"><span class="clip-name">' + esc(c.name.replace(/^\d+-/, "")) + ' <span class="muted small">' + human(c.size) + "</span></span>" +
+            '<label class="clip-slide">Slide <input type="number" min="1" data-clip-move="' + i + '" value="' + c.slide + '"></label>' +
+            '<label class="check"><input type="checkbox" data-clip-remove="' + i + '"> Remove</label></div>';
+        }).join("");
+        $("current-clips").hidden = false;
+      }
       $("drop-title").textContent = "Replace or add files (optional)";
       $("drop-hint").textContent = "A new PDF replaces the current PDF, a new PPTX replaces the current PPTX. The page address stays the same.";
       $("submit").textContent = "Save changes";
@@ -371,11 +393,12 @@
   // Uploads the chosen files. Files over CHUNK are stored as "name.pptx.part01",
   // "part02"… (the site build joins them back). Old copies of the same file
   // type in `existing` are removed so a quiz never has two versions.
-  function uploadBlobs(entries, pathFor, existing) {
-    var total = files.reduce(function (s, f) { return s + f.size; }, 0) || 1, done = 0, written = [];
+  function uploadBlobs(entries, pathFor, existing, extra) {
+    var list = files.map(function (f) { return { file: f, path: pathFor(f) }; }).concat(extra || []);
+    var total = list.reduce(function (s, x) { return s + x.file.size; }, 0) || 1, done = 0, written = [];
     var jobs = [];
-    files.forEach(function (f) {
-      var base = pathFor(f), n = Math.ceil(f.size / CHUNK);
+    list.forEach(function (x) {
+      var f = x.file, base = x.path, n = Math.ceil(f.size / CHUNK);
       if (n <= 1) jobs.push({ file: f, blob: f, path: base, label: f.name });
       else for (var i = 0; i < n; i++) {
         jobs.push({ file: f, blob: f.slice(i * CHUNK, (i + 1) * CHUNK), path: base + ".part" + String(i + 1).padStart(2, "0"),
@@ -453,6 +476,75 @@
     }).filter(Boolean).join("\n");
   }
 
+  // ---- uploaded audio / video clips ---------------------------------------
+  var CLIP_EXT = ["mp4", "m4v", "mov", "webm", "ogv", "mp3", "m4a", "aac", "wav", "ogg", "oga", "opus", "flac",
+                  "wmv", "avi", "mpg", "mpeg", "mkv", "3gp", "wma", "aif", "aiff"];
+  var newClips = [];   // [{file, slide}]
+  function clipName(file) {
+    var e = ext(file.name);
+    var base = file.name.replace(/\.[^.]+$/, "").replace(/[^A-Za-z0-9._ -]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 60) || "clip";
+    return base + "." + e;
+  }
+  function renderClips() {
+    $("clip-list").innerHTML = newClips.map(function (c, i) {
+      return '<div class="clip-row"><span class="clip-name">' + esc(c.file.name) + ' <span class="muted small">' + human(c.file.size) +
+        (c.file.size > MAX ? " — too big (max 300 MB)" : "") + '</span></span>' +
+        '<label class="clip-slide">Slide <input type="number" min="1" inputmode="numeric" data-clip-slide="' + i + '" value="' + (c.slide || "") + '" required></label>' +
+        '<button class="btn btn-sm" type="button" data-clip-drop="' + i + '" aria-label="Remove">✕</button></div>';
+    }).join("");
+  }
+  $("clip-files").addEventListener("change", function () {
+    Array.prototype.forEach.call($("clip-files").files, function (f) {
+      if (CLIP_EXT.indexOf(ext(f.name)) === -1) return alert(f.name + " isn’t an audio or video file.");
+      var m = /(?:^|\D)(\d{1,3})(?:\D|$)/.exec(f.name);   // "slide 12.mp4" → 12
+      newClips.push({ file: f, slide: m ? parseInt(m[1], 10) : "" });
+    });
+    $("clip-files").value = "";
+    renderClips();
+  });
+  $("clip-list").addEventListener("input", function (e) {
+    var i = e.target.dataset.clipSlide;
+    if (i !== undefined) newClips[i].slide = parseInt(e.target.value, 10) || "";
+  });
+  $("clip-list").addEventListener("click", function (e) {
+    var i = e.target.dataset.clipDrop;
+    if (i !== undefined) { newClips.splice(+i, 1); renderClips(); }
+  });
+  function checkClips() {
+    for (var i = 0; i < newClips.length; i++) {
+      var c = newClips[i];
+      if (!(c.slide >= 1)) { alert("Enter the slide number for " + c.file.name + "."); return false; }
+      if (c.file.size > MAX) { alert(c.file.name + " is larger than 300 MB. Please compress it first."); return false; }
+    }
+    return true;
+  }
+  function clipUploads(stem) {
+    return newClips.map(function (c) {
+      return { file: c.file, path: "quizzes/" + stem + ".media/" + c.slide + "-" + clipName(c.file) };
+    });
+  }
+  // Existing clips: remove, or move to another slide (a rename — no re-upload).
+  function clipChanges(q, entries) {
+    var changed = 0;
+    (q.clips || []).forEach(function (c, i) {
+      var remove = document.querySelector('[data-clip-remove="' + i + '"]');
+      var slideInput = document.querySelector('[data-clip-move="' + i + '"]');
+      var slide = slideInput ? parseInt(slideInput.value, 10) : c.slide;
+      if (remove && remove.checked) {
+        c.parts.forEach(function (pt) { entries.push({ path: pt.path, mode: "100644", type: "blob", sha: null }); });
+        changed++;
+      } else if (slide >= 1 && slide !== c.slide) {
+        var newName = c.name.replace(/^\d+-/, slide + "-");
+        c.parts.forEach(function (pt) {
+          entries.push({ path: pt.path.replace("/" + c.name, "/" + newName), mode: "100644", type: "blob", sha: pt.sha });
+          entries.push({ path: pt.path, mode: "100644", type: "blob", sha: null });
+        });
+        changed++;
+      }
+    });
+    return changed;
+  }
+
   function formFields() {
     return {
       title: $("title").value.trim(),
@@ -477,7 +569,7 @@
 
   $("quiz-form").addEventListener("submit", function (e) {
     e.preventDefault();
-    if (!checkFiles()) return;
+    if (!checkFiles() || !checkClips()) return;
     var fields = formFields();
     if (editing) return run(saveEdit.bind(null, fields));
     if (!files.length) return alert("Choose at least one file.");
@@ -487,7 +579,7 @@
         return Promise.reject(new Error("cancelled"));
       }
       progress(0.01, "Starting…");
-      return uploadBlobs(entries, function (f) { return "quizzes/" + name + "." + ext(f.name); }, quizzes[name]).then(function () {
+      return uploadBlobs(entries, function (f) { return "quizzes/" + name + "." + ext(f.name); }, quizzes[name], clipUploads(name)).then(function () {
         return request("POST", "/repos/" + REPO + "/git/blobs", { content: utf8Base64(buildYaml(null, fields)), encoding: "base64" });
       }).then(function (blob) {
         entries.push({ path: "quizzes/" + name + ".yml", mode: "100644", type: "blob", sha: blob.sha });
@@ -508,13 +600,14 @@
     var remaining = q.files.filter(function (f) { return removed.indexOf(f.ext) === -1 || newExts.indexOf(f.ext) !== -1; });
     if (!remaining.length && !files.length) { alert("A quiz needs at least one file. To remove the whole quiz, use “Delete this quiz”."); return Promise.resolve(); }
     var yml = buildYaml(ed.parsed, fields);
-    if (yml === ed.text && !files.length && !removed.length) { alert("Nothing has changed."); return Promise.resolve(); }
+    var clipEdits = clipChanges(q, entries);
+    if (yml === ed.text && !files.length && !removed.length && !newClips.length && !clipEdits) { alert("Nothing has changed."); return Promise.resolve(); }
     progress(0.01, "Starting…");
     q.files.forEach(function (f) {
       if (removed.indexOf(f.ext) === -1 || newExts.indexOf(f.ext) !== -1) return;
       f.paths.forEach(function (path) { entries.push({ path: path, mode: "100644", type: "blob", sha: null }); });
     });
-    return uploadBlobs(entries, function (f) { return "quizzes/" + ed.stem + "." + ext(f.name); }, q).then(function () {
+    return uploadBlobs(entries, function (f) { return "quizzes/" + ed.stem + "." + ext(f.name); }, q, clipUploads(ed.stem)).then(function () {
       if (yml === ed.text) return null;
       return request("POST", "/repos/" + REPO + "/git/blobs", { content: utf8Base64(yml), encoding: "base64" });
     }).then(function (blob) {
@@ -540,6 +633,9 @@
         f.paths.forEach(function (path) { entries.push({ path: path, mode: "100644", type: "blob", sha: null }); });
       });
       if (q.yml) entries.push({ path: q.yml.path, mode: "100644", type: "blob", sha: null });
+      (q.clips || []).forEach(function (c) {
+        c.parts.forEach(function (pt) { entries.push({ path: pt.path, mode: "100644", type: "blob", sha: null }); });
+      });
       progress(0.5, "Deleting…");
       return commitTree(entries, "Delete quiz: " + title).then(function (sha) {
         resetForm();

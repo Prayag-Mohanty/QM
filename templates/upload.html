@@ -61,6 +61,12 @@
       <label>Topics / tags <span class="muted small">(comma separated)</span> <input id="tags" placeholder="General, India, Sci-Tech"></label>
       <label>Audio / video links <span class="muted small">(optional — one per line as <b>slide number: link</b>. YouTube, Vimeo, Google Drive, Spotify, SoundCloud or a direct .mp3/.mp4 link. Clips embedded in a PPTX are found automatically.)</span>
         <textarea id="media" rows="3" placeholder="12: https://youtu.be/dQw4w9WgXcQ?t=42&#10;27: https://open.spotify.com/track/…"></textarea></label>
+      <div class="clips">
+        <label>Audio / video files <span class="muted small">(optional — MP4, MOV, MP3, M4A, WAV… up to 300 MB each. Pick the file, then type the slide it plays on.)</span>
+          <input id="clip-files" type="file" multiple accept="video/*,audio/*,.mp4,.m4v,.mov,.webm,.mp3,.m4a,.wav,.ogg,.aac,.wmv,.avi,.wma,.mkv"></label>
+        <div id="clip-list" class="clip-list"></div>
+        <div id="current-clips" class="current-files" hidden></div>
+      </div>
       <button class="btn btn-primary" type="submit" id="submit">Publish quiz</button>
       <button class="btn btn-danger" type="button" id="delete" hidden>Delete this quiz</button>
     </form>

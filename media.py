@@ -305,7 +305,12 @@ def _media_only(item: dict | None) -> dict | None:
 
 def _publish_clip(z: zipfile.ZipFile, name: str, kind: str, out_dir: Path, url_prefix: str,
                   cache_dir: Path) -> dict | None:
-    data = z.read(name)
+    return publish_bytes(z.read(name), posixpath.basename(name), kind, out_dir, url_prefix, cache_dir)
+
+
+def publish_bytes(data: bytes, name: str, kind: str, out_dir: Path, url_prefix: str,
+                  cache_dir: Path) -> dict | None:
+    """Copy a clip into the site (converting old formats) and describe it for the viewer."""
     ext = posixpath.splitext(name.lower())[1]
     if ext in AUDIO_WEB | AUDIO_OTHER:
         kind = "audio"
@@ -356,6 +361,29 @@ def _transcode(data: bytes, ext: str, kind: str, digest: str, out_dir: Path, cac
 # --------------------------------------------------------------------------- #
 # PDF + metadata
 # --------------------------------------------------------------------------- #
+
+CLIP_NAME = re.compile(r"^(?:slide\s*)?(\d+)\s*[-_ .]", re.I)
+
+
+def uploaded_clips(paths: list[Path], page_count: int, out_dir: Path, url_prefix: str,
+                   cache_dir: Path) -> list[dict]:
+    """Audio/video files uploaded for a quiz, named '<slide>-<anything>.<ext>'."""
+    items = []
+    for path in sorted(paths):
+        m = CLIP_NAME.match(path.name)
+        ext = path.suffix.lower()
+        if not m or ext not in MEDIA_EXT:
+            continue
+        slide = int(m.group(1))
+        if not 1 <= slide <= page_count:
+            print(f"    ! {path.name}: slide {slide} doesn't exist")
+            continue
+        kind = "audio" if ext in AUDIO_WEB | AUDIO_OTHER else "video"
+        item = publish_bytes(path.read_bytes(), path.name, kind, out_dir, url_prefix, cache_dir)
+        if item:
+            items.append({"s": slide, "r": None, **item})
+    return items
+
 
 def pdf_media(doc) -> list[dict]:
     """Link annotations (with positions) and bare media URLs in the text of a PDF."""

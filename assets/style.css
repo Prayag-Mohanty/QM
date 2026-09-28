@@ -311,6 +311,12 @@ svg { flex: none; }
 .edit-banner a { color: var(--accent); }
 .current-files { display: grid; gap: 6px; font-size: .92rem; }
 .stack label.check { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+.clips { display: grid; gap: 8px; }
+.clip-list { display: grid; gap: 6px; }
+.clip-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--soft); font-size: .9rem; }
+.clip-name { flex: 1; min-width: 160px; overflow-wrap: anywhere; }
+.stack label.clip-slide { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.stack .clip-slide input[type=number] { width: 5.5em; padding: 6px 8px; }
 
 /* ---------- Footer ---------- */
 .footer { border-top: 1px solid var(--line); background: var(--bg); padding: 20px 0; font-size: .9rem; margin-top: 24px; }
