@@ -1,93 +1,83 @@
+<div align="center">
+
 # QM Prayag
 
-A simple, fast, free-to-host website for Prayag Mohanty's quiz sets — a
-SlideShare replacement you own.
+**Home of quiz sets written, hosted or attended by Prayag Mohanty.**
+Flip through them slide by slide, download the originals, share them with your quiz club.
 
-- **View** every quiz slide by slide in the browser (keyboard arrows, swipe,
-  full screen, deep links to a slide like `…/#slide-12`).
-- **Download** the original PPTX and/or PDF.
-- **Share** via WhatsApp, Telegram, X, Facebook, LinkedIn, email, the phone's
-  share sheet, or embed the viewer on any website with an `<iframe>`.
-- **Found by Google, Bing and AI assistants**: every slide's text is on the
-  page, plus structured data (schema.org `Quiz`), sitemap, RSS feed,
-  `llms.txt` / `llms-full.txt`, a Markdown copy of every quiz and a
-  `quizzes.json` index.
+**[prayag-mohanty.github.io/QM](https://prayag-mohanty.github.io/QM/)**
 
-## Adding a quiz
+</div>
 
-Open **`/upload/`** on the website (link in the footer), pick your PDF/PPTX,
-fill in the title, description and tags, and click **Publish quiz**. The first
-time, paste a GitHub fine-grained token (Contents: read & write on this repo;
-the page shows how) — it is remembered on that device.
+---
 
-### Editing or deleting a quiz
+## The story
 
-On the **Manage** page, open the **Edit quizzes** tab (or click **✎ Edit this
-quiz** on any quiz page — it only appears on devices you've connected). You can
-change the title, description, date, event, quizmaster and tags, replace the
-PDF/PPTX, or delete the quiz. The quiz's web address never changes, so shared
-links keep working.
+For years, these quiz sets lived on SlideShare. Then the quality dropped, the
+ads piled up, and uploads stopped working. So: *screw it*. This is their new
+home — no ads, no logins, no paywall. Just quizzes.
 
-You can also drop files into [`quizzes/`](quizzes/) on GitHub directly
-(<https://github.com/Prayag-Mohanty/QM/upload/main/quizzes>). Either way the
-site rebuilds automatically. See [`quizzes/README.md`](quizzes/README.md)
-for naming, tags, dates and descriptions.
+## What it does
 
-## One-time setup
+- **SlideShare-style viewer** — arrow keys, swipe, full screen, and links that
+  jump straight to a slide (`…/#slide-12`).
+- **Audio & video that actually plays** — the thing SlideShare never did.
+  Clips embedded in a PowerPoint, YouTube / Spotify / Drive links, or plain
+  MP4s get a ▶ button right on the slide they belong to.
+- **Download the originals** — PDF and PPTX, untouched.
+- **Share anywhere** — WhatsApp, Telegram, X, LinkedIn, email, or embed the
+  viewer on another site.
+- **Easy to find** — every slide's text is on the page, so Google, Bing and AI
+  assistants can read the questions (and, fair warning, the answers).
+- **Light & dark mode**, and it works nicely on phones.
 
-1. Merge this branch into `main`.
-2. In the repo go to **Settings → Pages → Build and deployment → Source** and
-   choose **GitHub Actions**.
-3. Push anything to `main` (or run the workflow from the **Actions** tab).
-   The site goes live at **https://prayag-mohanty.github.io/QM/**.
+## Publishing a quiz
 
-### Getting found on Google & Bing
+Everything happens on the site's **Manage** page (`/QM/upload/`) — no code,
+no command line.
 
-1. **Google Search Console** → Add property → **URL prefix** →
-   `https://prayag-mohanty.github.io/QM/` → verification method **HTML tag** →
-   copy only the `content="…"` value into `google_site_verification` in
-   `site.yml` → push → wait for the site to republish → click **Verify** →
-   **Sitemaps** → submit `sitemap.xml`.
-2. **Bing Webmaster Tools** → **Import from Google Search Console** (verifies
-   and imports the sitemap in one go). Bing's index also powers ChatGPT search,
-   Copilot and DuckDuckGo. Or add the site manually and paste the code into
-   `bing_site_verification`.
-3. **IndexNow** is already automatic: after every publish, the workflow pings
-   Bing, Yandex and the other IndexNow engines with every page in the sitemap
-   (`tools/indexnow.py`, key in `site.yml`).
-4. Link to the site from your social profiles, old SlideShare decks and quiz
-   club pages — links are what get a new site crawled quickly.
+1. **Upload** the PDF, the PPTX, or both (same deck → one quiz).
+2. **Add details** — title, date, event, quizmaster, topics.
+3. **Add clips** if any — upload MP4 / MP3 files or paste links, with the slide
+   number they belong on.
+4. **Publish.** The site rebuilds itself and the quiz is live in a minute or two.
 
-### Custom domain (optional, recommended)
+Editing, renaming, swapping files, moving clips to another slide, or deleting
+a quiz all live on the same page. A quiz's web address never changes, so
+shared links keep working.
 
-Buy a domain (e.g. `qmprayag.com`), set `url: https://qmprayag.com` in
-`site.yml`, point the domain's DNS at GitHub Pages
-([instructions](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)),
-and enter it under **Settings → Pages → Custom domain**. A custom domain also
-makes `robots.txt` apply to the whole site.
+> **Tip for Canva / Google Slides decks:** upload the **PDF and the PPTX**
+> together. The PDF is shown pixel-perfect; the audio and video are pulled
+> from the PPTX and matched to the right slides automatically.
 
-## Editing the site
+The finer points — file naming, size limits, clip formats — are in
+[`quizzes/README.md`](quizzes/README.md).
 
-| What | Where |
-| --- | --- |
-| Site name, tagline, description, social links | `site.yml` |
-| About page | `pages/about.md` |
-| Look & feel | `assets/style.css` |
-| Page layouts | `templates/` |
+## Under the hood
 
-## Preview locally (optional)
+A small, static site: no server, no database, nothing to keep running.
+
+| Piece | Job |
+|---|---|
+| `quizzes/` | The quiz files and their details (`.yml`). This *is* the database. |
+| `build.py` | Turns them into the website: converts PPTX → PDF (LibreOffice, with the deck's own fonts), pulls out slide text and covers. |
+| `media.py` | Finds audio & video in decks and links, and matches PPTX slides to PDF pages. |
+| `templates/`, `assets/` | Page layouts, styles and the slide viewer ([PDF.js](https://mozilla.github.io/pdf.js/)). |
+| `site.yml` | Site name, links, contact and search-engine settings. |
+| GitHub Actions | Rebuilds and publishes on every change, then pings Bing & co. via IndexNow. |
+
+Preview locally:
 
 ```bash
-pip install -r requirements.txt   # plus LibreOffice for PPTX files
-python build.py --serve           # http://localhost:8000
+pip install -r requirements.txt     # plus LibreOffice for PPTX files
+python build.py --serve             # → http://localhost:8000
 ```
 
-## How it works
+## Say hi
 
-`build.py` groups files in `quizzes/` by name, converts PowerPoint/Word files
-to PDF with LibreOffice, extracts each slide's text and a cover image with
-PyMuPDF, and writes a static site to `_site/`. The GitHub Actions workflow in
-`.github/workflows/deploy.yml` runs it on every push to `main` and publishes to
-GitHub Pages. Converted files are cached, so rebuilds stay quick as the
-collection grows. The slide viewer uses a bundled copy of
-[PDF.js](https://mozilla.github.io/pdf.js/) (`assets/pdfjs/`, Apache-2.0).
+Bricks & bouquets welcome —
+[Instagram](https://www.instagram.com/praymo_o/) ·
+[LinkedIn](https://www.linkedin.com/in/prayag-mohanty/) ·
+[topper1728@gmail.com](mailto:topper1728@gmail.com)
+
+Free to use for quizzing. Please credit the quizmaster when you use the questions.
