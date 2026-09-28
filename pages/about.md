@@ -1,14 +1,14 @@
 # About
 
-Hi, I'm **Prayag Mohanty**. I'm a quizzer and a quizmaster, currently based in Mumbai.
-I completed my undergrad from BITS Pilani K.K.Birla Goa Campus in 2024 & currently pursuing postgrad from IIT Bombay.
+Hi, I'm **Prayag Mohanty**. I'm a quizzer and a quizmaster, currently based in Mumbai, India.
+I completed my undergrad from BITS Pilani K.K.Birla Goa Campus in 2024 & currently pursuing my postgrad from IIT Bombay.
 
-I built this site for quiz sets written, hosted or attended by me. And also an alternative to Slideshare.
+For years,I uploaded my quiz sets on SlideShare but over time, it's UI has worsened, there's no audio-visual support & distracting ads piling. Of late, I could no longer upload the slides.
 
-For years,I uploaded my quiz sets on SlideShare but over time, the UI has worsened and distracting ads
-piled up, so I thought: screw it. This site is their new home. Every set can be
-flipped through slide by slide right in your browser, downloaded as the
-original PDF or PowerPoint, and shared with your quiz club.
+So I thought: screw it.
+
+And I built this site for quiz sets written, hosted or attended by me and also a way better alternative to Slideshare.
+Every set can be flipped through slide by slide right in your browser, downloaded as the original PDF or PowerPoint, and shared with your quiz club.
 
 Feel free to use them.
 
