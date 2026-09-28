@@ -21,7 +21,6 @@
       if (ok) shown++;
     });
     var filtering = words.length > 0 || !!tag;
-    document.querySelectorAll(".topic-shelf").forEach(function (s) { s.hidden = filtering; });
     var none = document.getElementById("no-results");
     if (none) none.hidden = shown > 0;
     var count = document.getElementById("result-count");

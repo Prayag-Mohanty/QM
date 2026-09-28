@@ -49,16 +49,5 @@
   {% endif %}
 </section>
 
-{% for t, s, n in tag_list[:4] if n > 1 %}
-<section class="wrap-wide shelf topic-shelf" aria-labelledby="shelf-{{ s }}">
-  <div class="shelf-head">
-    <h2 id="shelf-{{ s }}">{{ t }}</h2>
-    <a class="see-all" href="{{ site.base }}tags/{{ s }}/">See all {{ n }} →</a>
-  </div>
-  <ul class="grid grid-row">
-    {% for q in quizzes if t in q.tags %}{% if loop.index <= 5 %}{% include "_card.html" %}{% endif %}{% endfor %}
-  </ul>
-</section>
-{% endfor %}
 {% endblock %}
 {% block scripts %}<script src="{{ site.base }}assets/site.js" defer></script>{% endblock %}
