@@ -22,5 +22,5 @@ Feel free to use them.
 - **Runner-up** — Zerodha Varsity Quiz 2025, IIT Bombay
 
 I also participate in the occasional weekly quizzes at BITS Goa, IIT Bombay, BQC and SEQC,
-and host quizzes too.
+and host quizzes too. Hmu if you need a host or set for your requirement.
 
