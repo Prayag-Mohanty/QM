@@ -33,12 +33,10 @@
       <p class="doc-stats">
         <time datetime="{{ q.date.isoformat() }}">{{ q.date|pretty_date }}</time>
         {% if q.event %}<span>{{ q.event }}</span>{% endif %}
+        {% for t in q.tags %}<a class="chip chip-inline" href="{{ site.base }}tags/{{ t|slugify }}/" rel="tag">{{ t }}</a>{% endfor %}
         {% if q.has_av %}<span class="av-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Includes audio &amp; video</span>{% endif %}
         <a class="owner-edit" href="{{ site.base }}upload/?quiz={{ q.slug }}" rel="nofollow" data-owner-only hidden>✎ Edit this quiz</a>
       </p>
-      {% if q.tags %}
-      <p class="chips doc-tags">{% for t in q.tags %}<a class="chip" href="{{ site.base }}tags/{{ t|slugify }}/" rel="tag">{{ t }}</a>{% endfor %}</p>
-      {% endif %}
 
       <div class="doc-bar">
         <div class="author">
