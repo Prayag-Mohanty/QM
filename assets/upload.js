@@ -656,7 +656,7 @@
   var photos = [];        // [{file?, caption, main, thumb, blob?}] in display order
   var photosSaved = "";   // JSON of the saved state, to spot unsaved changes
   var PHOTO_MAX = 2000;   // longest side after resizing in the browser
-  var PHOTO_RE = /\.(jpe?g|png|webp|gif|bmp|tiff?)$/i;
+  var PHOTO_RE = /\.(jpe?g|png|webp|gif|bmp|tiff?|heic|heif)$/i;
   // "Winners - XYZ Quiz 2025.jpg" -> caption; camera names like IMG_2031.jpg -> "" (same rule as build.py)
   function captionFromName(name) {
     var stem = name.replace(/\.[^.]+$/, "");

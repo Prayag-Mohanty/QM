@@ -561,7 +561,7 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
 # Rendering
 # --------------------------------------------------------------------------- #
 
-PHOTO_EXT = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".tif", ".tiff"}
+PHOTO_EXT = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".tif", ".tiff", ".heic", ".heif"}
 CAMERA_NAME = re.compile(r"^(img|dsc|dscn|pxl|mvimg|photo|image|screenshot|whatsapp image|signal)[\W_]|^[\d\W_]+$", re.I)
 
 
@@ -576,6 +576,11 @@ def build_gallery(base: str) -> list[dict]:
     order, captions and main photo; any other photo dropped into pages/gallery/ is
     added at the end, captioned from its file name."""
     from PIL import Image, ImageOps
+    try:  # iPhone photos
+        from pillow_heif import register_heif_opener
+        register_heif_opener()
+    except ImportError:
+        pass
     src_json = PAGES_DIR / "gallery.json"
     entries = []
     if src_json.exists():
