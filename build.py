@@ -290,14 +290,43 @@ def load_metadata(stem_group: list[Path]) -> dict:
     return {}
 
 
+PART_RE = re.compile(r"^(?P<name>.+\.[A-Za-z0-9]+)\.part(?P<n>\d+)$")
+# Joined-up copies of files uploaded in parts -> the first part (for git dates).
+ASSEMBLED_FROM: dict[Path, Path] = {}
+
+
+def assemble_parts(parts: dict[Path, list[tuple[int, Path]]]) -> list[Path]:
+    """Large uploads are stored as 'name.pptx.part01', 'part02'…; join them."""
+    out = []
+    for logical, pieces in parts.items():
+        pieces.sort()
+        dest = CACHE_DIR / "assembled" / logical.relative_to(QUIZ_DIR)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        with dest.open("wb") as fh:
+            for _, piece in pieces:
+                with piece.open("rb") as src:
+                    shutil.copyfileobj(src, fh, 1 << 20)
+        ASSEMBLED_FROM[dest] = pieces[0][1]
+        out.append(dest)
+    return out
+
+
 def collect_quizzes(site: dict, base: str) -> list[Quiz]:
     groups: dict[str, list[Path]] = {}
+    parts: dict[Path, list[tuple[int, Path]]] = {}
     for p in sorted(QUIZ_DIR.rglob("*")):
         if not p.is_file() or p.name.startswith((".", "~$")):
+            continue
+        m = PART_RE.match(p.name)
+        if m:
+            parts.setdefault(p.with_name(m["name"]), []).append((int(m["n"]), p))
             continue
         ext = p.suffix.lower()
         if ext in SUPPORTED or ext in METADATA:
             groups.setdefault(str(p.with_suffix("").relative_to(QUIZ_DIR)), []).append(p)
+    for logical, joined in zip(parts, assemble_parts(parts)):
+        if logical.suffix.lower() in SUPPORTED:
+            groups.setdefault(str(logical.with_suffix("").relative_to(QUIZ_DIR)), []).append(joined)
 
     quizzes: list[Quiz] = []
     used_slugs: set[str] = set()
@@ -322,7 +351,7 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
         used_slugs.add(slug)
 
         title = str(meta.get("title") or title_from_filename(Path(stem).name))
-        date = (to_date(meta.get("date")) or git_added_date(docs[0])
+        date = (to_date(meta.get("date")) or git_added_date(ASSEMBLED_FROM.get(docs[0], docs[0]))
                 or dt.date.fromtimestamp(docs[0].stat().st_mtime))
 
         fdir = OUT_DIR / "files" / slug

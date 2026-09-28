@@ -11,7 +11,8 @@
   var BRANCH = root.dataset.branch || "main";
   var BASE = root.dataset.base || "/";
   var KEY = "qm-upload-token";
-  var MAX = 100 * 1024 * 1024; // GitHub's per-file limit
+  var MAX = 300 * 1024 * 1024;  // keep the whole site well inside GitHub Pages' 1 GB
+  var CHUNK = 15 * 1024 * 1024; // GitHub's API rejects big requests, so large files go up in parts
   var DOC_EXT = ["pdf", "pptx", "ppt", "pps", "ppsx", "odp", "key", "docx", "doc", "odt"];
   var MANAGED = ["title", "description", "date", "event", "quizmaster", "quizmasters", "tags"];
 
@@ -143,14 +144,19 @@
       quizzes = {};
       tree.tree.forEach(function (item) {
         if (item.type !== "blob" || item.path.indexOf("quizzes/") !== 0) return;
-        var rel = item.path.slice(8), e = ext(rel);
+        var rel = item.path.slice(8), part = /^(.+)\.([a-z0-9]+)\.part\d+$/i.exec(rel);
+        var e = part ? part[2].toLowerCase() : ext(rel);
         if (!e || basename(rel)[0] === ".") return;
-        var stem = rel.slice(0, -(e.length + 1));
-        var isYml = e === "yml" || e === "yaml";
+        var stem = part ? part[1] : rel.slice(0, -(e.length + 1));
+        var isYml = !part && (e === "yml" || e === "yaml");
         if (!isYml && DOC_EXT.indexOf(e) === -1) return;
         var q = quizzes[stem] || (quizzes[stem] = { stem: stem, files: [], yml: null });
-        if (isYml) q.yml = { path: item.path, sha: item.sha };
-        else q.files.push({ path: item.path, ext: e, size: item.size });
+        if (isYml) { q.yml = { path: item.path, sha: item.sha }; return; }
+        // A big file stored as several .partNN pieces is still one file here.
+        var f = q.files.filter(function (x) { return x.ext === e; })[0];
+        if (!f) q.files.push(f = { ext: e, size: 0, paths: [] });
+        f.size += item.size;
+        f.paths.push(item.path);
       });
       Object.keys(quizzes).forEach(function (s) { if (!quizzes[s].files.length) delete quizzes[s]; });
       return fetch(BASE + "quizzes.json?t=" + Date.now()).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; });
@@ -240,8 +246,8 @@
       $("edit-view").href = pageUrl(stem);
       $("edit-banner").hidden = false;
       $("current-files").innerHTML = "<b>Current files</b>" + q.files.map(function (f) {
-        return '<label class="check"><input type="checkbox" data-remove="' + esc(f.path) + '"> Remove ' +
-          esc(basename(f.path)) + ' <span class="muted small">' + human(f.size) + "</span></label>";
+        return '<label class="check"><input type="checkbox" data-remove="' + esc(f.ext) + '"> Remove ' +
+          esc(basename(stem) + "." + f.ext) + ' <span class="muted small">' + human(f.size) + "</span></label>";
       }).join("");
       $("current-files").hidden = false;
       $("drop-title").textContent = "Replace or add files (optional)";
@@ -301,7 +307,7 @@
     $("file-list").innerHTML = "";
     files.forEach(function (f) {
       var li = document.createElement("span");
-      li.textContent = f.name + " · " + human(f.size) + (f.size > MAX ? " — too big (max 100 MB)" : "");
+      li.textContent = f.name + " · " + human(f.size) + (f.size > MAX ? " — too big (max 300 MB)" : "");
       if (f.size > MAX) li.className = "bad";
       $("file-list").appendChild(li);
     });
@@ -349,21 +355,42 @@
     return attempt(1);
   }
 
-  function uploadBlobs(entries, pathFor) {
-    var total = files.reduce(function (s, f) { return s + f.size; }, 0) || 1, done = 0;
-    return files.reduce(function (p, f) {
+  // Uploads the chosen files. Files over CHUNK are stored as "name.pptx.part01",
+  // "part02"… (the site build joins them back). Old copies of the same file
+  // type in `existing` are removed so a quiz never has two versions.
+  function uploadBlobs(entries, pathFor, existing) {
+    var total = files.reduce(function (s, f) { return s + f.size; }, 0) || 1, done = 0, written = [];
+    var jobs = [];
+    files.forEach(function (f) {
+      var base = pathFor(f), n = Math.ceil(f.size / CHUNK);
+      if (n <= 1) jobs.push({ file: f, blob: f, path: base, label: f.name });
+      else for (var i = 0; i < n; i++) {
+        jobs.push({ file: f, blob: f.slice(i * CHUNK, (i + 1) * CHUNK), path: base + ".part" + String(i + 1).padStart(2, "0"),
+                    label: f.name + " (part " + (i + 1) + " of " + n + ")" });
+      }
+    });
+    return jobs.reduce(function (p, job) {
       return p.then(function () {
-        progress(done / total * 0.85, "Uploading " + esc(f.name) + "…");
-        return readBase64(f).then(function (b64) {
+        progress(done / total * 0.85, "Uploading " + esc(job.label) + "…");
+        return readBase64(job.blob).then(function (b64) {
           return request("POST", "/repos/" + REPO + "/git/blobs", { content: b64, encoding: "base64" }, function (frac) {
-            progress((done + frac * f.size) / total * 0.85);
+            progress((done + frac * job.blob.size) / total * 0.85);
           });
         }).then(function (blob) {
-          done += f.size;
-          entries.push({ path: pathFor(f), mode: "100644", type: "blob", sha: blob.sha });
+          done += job.blob.size;
+          written.push(job.path);
+          entries.push({ path: job.path, mode: "100644", type: "blob", sha: blob.sha });
         });
       });
-    }, Promise.resolve());
+    }, Promise.resolve()).then(function () {
+      var exts = files.map(function (f) { return ext(f.name); });
+      ((existing && existing.files) || []).forEach(function (f) {
+        if (exts.indexOf(f.ext) === -1) return;
+        f.paths.forEach(function (path) {
+          if (written.indexOf(path) === -1) entries.push({ path: path, mode: "100644", type: "blob", sha: null });
+        });
+      });
+    });
   }
 
   function watchDeploy(sha, url, doneText) {
@@ -410,7 +437,7 @@
 
   function checkFiles() {
     var bad = files.filter(function (f) { return f.size > MAX; });
-    if (bad.length) { alert(bad[0].name + " is larger than GitHub's 100 MB limit. Export a smaller (compressed) PDF and try again."); return false; }
+    if (bad.length) { alert(bad[0].name + " is larger than 300 MB. Export a smaller (compressed) PDF and try again."); return false; }
     var exts = files.map(function (f) { return ext(f.name); });
     if (new Set(exts).size !== exts.length) { alert("Choose at most one file of each type (e.g. one PDF and one PPTX of the same quiz)."); return false; }
     var wrong = exts.filter(function (e) { return DOC_EXT.indexOf(e) === -1; });
@@ -430,7 +457,7 @@
         return Promise.reject(new Error("cancelled"));
       }
       progress(0.01, "Starting…");
-      return uploadBlobs(entries, function (f) { return "quizzes/" + name + "." + ext(f.name); }).then(function () {
+      return uploadBlobs(entries, function (f) { return "quizzes/" + name + "." + ext(f.name); }, quizzes[name]).then(function () {
         return request("POST", "/repos/" + REPO + "/git/blobs", { content: utf8Base64(buildYaml(null, fields)), encoding: "base64" });
       }).then(function (blob) {
         entries.push({ path: "quizzes/" + name + ".yml", mode: "100644", type: "blob", sha: blob.sha });
@@ -448,15 +475,16 @@
     var ed = editing, q = quizzes[ed.stem], entries = [];
     var removed = Array.prototype.map.call(document.querySelectorAll("[data-remove]:checked"), function (c) { return c.dataset.remove; });
     var newExts = files.map(function (f) { return ext(f.name); });
-    var remaining = q.files.filter(function (f) { return removed.indexOf(f.path) === -1 || newExts.indexOf(f.ext) !== -1; });
+    var remaining = q.files.filter(function (f) { return removed.indexOf(f.ext) === -1 || newExts.indexOf(f.ext) !== -1; });
     if (!remaining.length && !files.length) { alert("A quiz needs at least one file. To remove the whole quiz, use “Delete this quiz”."); return Promise.resolve(); }
     var yml = buildYaml(ed.parsed, fields);
     if (yml === ed.text && !files.length && !removed.length) { alert("Nothing has changed."); return Promise.resolve(); }
     progress(0.01, "Starting…");
-    removed.forEach(function (path) {
-      if (newExts.indexOf(ext(path)) === -1) entries.push({ path: path, mode: "100644", type: "blob", sha: null });
+    q.files.forEach(function (f) {
+      if (removed.indexOf(f.ext) === -1 || newExts.indexOf(f.ext) !== -1) return;
+      f.paths.forEach(function (path) { entries.push({ path: path, mode: "100644", type: "blob", sha: null }); });
     });
-    return uploadBlobs(entries, function (f) { return "quizzes/" + ed.stem + "." + ext(f.name); }).then(function () {
+    return uploadBlobs(entries, function (f) { return "quizzes/" + ed.stem + "." + ext(f.name); }, q).then(function () {
       if (yml === ed.text) return null;
       return request("POST", "/repos/" + REPO + "/git/blobs", { content: utf8Base64(yml), encoding: "base64" });
     }).then(function (blob) {
@@ -477,7 +505,10 @@
     var q = quizzes[ed.stem], title = $("title").value || basename(ed.stem);
     if (!confirm("Delete “" + title + "” from the website? Its page and downloads will disappear.\n\n(It can still be recovered from the GitHub history.)")) return;
     run(function () {
-      var entries = q.files.map(function (f) { return { path: f.path, mode: "100644", type: "blob", sha: null }; });
+      var entries = [];
+      q.files.forEach(function (f) {
+        f.paths.forEach(function (path) { entries.push({ path: path, mode: "100644", type: "blob", sha: null }); });
+      });
       if (q.yml) entries.push({ path: q.yml.path, mode: "100644", type: "blob", sha: null });
       progress(0.5, "Deleting…");
       return commitTree(entries, "Delete quiz: " + title).then(function (sha) {

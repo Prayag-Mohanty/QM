@@ -31,7 +31,7 @@ jobs:
 
       - name: Install LibreOffice (only when there are PPTX/PPT/DOCX files)
         run: |
-          if find quizzes -type f ! -iname '*.pdf' ! -iname '*.yml' ! -iname '*.yaml' ! -iname '*.md' ! -name '.*' | grep -q .; then
+          if find quizzes -type f ! -iname '*.pdf' ! -iname '*.pdf.part*' ! -iname '*.yml' ! -iname '*.yaml' ! -iname '*.md' ! -name '.*' | grep -q .; then
             sudo apt-get update -qq
             sudo apt-get install -y -qq --no-install-recommends \
               libreoffice-impress libreoffice-writer \

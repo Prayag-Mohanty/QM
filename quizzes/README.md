@@ -47,6 +47,7 @@ Every line is optional. Without a `date`, the upload date is used.
 
 ## Size limits
 
-Browser uploads to GitHub are limited to 25 MB per file (100 MB with
-GitHub Desktop or `git`). If a deck is bigger, export a compressed PDF
-(PowerPoint → *File → Export → PDF → Minimum size*) or compress images.
+The website's Manage page handles files up to 300 MB: anything over 15 MB is
+saved in parts (`Name.pptx.part01`, `part02`…) and the site joins them back
+into one file, so visitors see and download it normally. Uploading straight to
+GitHub in the browser is limited to 25 MB per file.
