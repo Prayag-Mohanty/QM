@@ -1,6 +1,7 @@
 # About
 
 Hi, I'm **Prayag Mohanty**. I'm a quizzer and a quizmaster, currently based in Mumbai, India.
+I've been quizzing since my childhood and have continued it, wherever I shifted places across Hyderabad, Muscat, Bhubaneswar, Goa or Mumbai. It is one of the few things that gives me joy in an otherwise mundane life.
 I completed my undergrad from BITS Pilani K.K.Birla Goa Campus in 2024 & currently pursuing my postgrad from IIT Bombay.
 
 For years,I uploaded my quiz sets on SlideShare but over time, it's UI has worsened, there's no audio-visual support & distracting ads piling. Of late, I could no longer upload the slides.
