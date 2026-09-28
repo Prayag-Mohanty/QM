@@ -177,7 +177,7 @@ svg { flex: none; }
 
 .doc-about { padding: 16px 0 4px; }
 .doc-about .desc { margin: 0 0 12px; }
-.doc-tags { margin-top: 12px; }
+.chip-inline { padding: 3px 11px; font-size: .8rem; }
 
 /* Transcript */
 .transcript { position: relative; margin-top: 16px; padding-top: 8px; border-top: 1px solid var(--line); }
