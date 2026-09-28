@@ -3,7 +3,7 @@
 # QM Prayag
 
 **Home of quiz sets written, hosted or attended by Prayag Mohanty.**
-Flip through them slide by slide, download the originals, share them with your quiz club.
+A personalised alternative to slideshare. Flip through them slide by slide, download the originals, share them with your quiz club.
 
 **[prayag-mohanty.github.io/QM](https://prayag-mohanty.github.io/QM/)**
 
