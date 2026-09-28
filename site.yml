@@ -4,11 +4,25 @@
 title: QM Prayag
 tagline: Quiz sets by Prayag Mohanty — view, download and share
 description: >-
-  QM Prayag is the home of quiz sets written by Prayag Mohanty. Browse
-  general, business, sci-tech, sports and entertainment quizzes with questions
-  and answers — view them online slide by slide, download the PDF / PPTX, and
+  QM Prayag is the home of quiz sets written, hosted or attended by Prayag
+  Mohanty. Browse general, business, sci-tech, sports and entertainment
+  quizzes with questions and answers — view them online slide by slide, download the PDF / PPTX, and
   share them with your quiz club.
 author: Prayag Mohanty
+
+# Used in the About page's structured data (helps Google & AI assistants).
+author_profile:
+  description: Quizzer and quizmaster; winner of NTPC Electron Quiz 2025 (Western Regionals), Tata Crucible Campus Quiz 2021 (Goa) and Zerodha Varsity Quiz 2024 (Mumbai).
+  alumni_of:
+    - BITS Pilani K K Birla Goa Campus
+    - Indian Institute of Technology Bombay
+  awards:
+    - Winner, NTPC Electron Quiz 2025 (Western Regionals)
+    - Winner, Tata Crucible Campus Quiz 2021 (Goa edition)
+    - Winner, Zerodha Varsity Quiz 2024 (Mumbai edition)
+    - Runner-up, Quark National Quiz 2023, BITS Goa
+    - Runner-up, IIM Ahmedabad BizTech Quiz 2025
+    - Runner-up, Zerodha Varsity Quiz 2025 (IIT Bombay)
 
 # Public address of the site. Leave empty to use the GitHub Pages address
 # automatically. If you buy a domain, put it here, e.g. https://qmprayag.com

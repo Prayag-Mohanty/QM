@@ -438,6 +438,7 @@ def build(site: dict) -> list[Quiz]:
         dt.datetime.combine(d, dt.time(9, 0), dt.timezone.utc))
     env.filters["pretty_date"] = lambda d: d.strftime("%-d %b %Y")
     env.filters["initials"] = lambda s: "".join(w[0] for w in str(s).split()[:2]).upper() or "Q"
+    env.filters["org_ld"] = lambda n: {"@type": "CollegeOrUniversity", "name": n}
     env.filters["urlquote"] = lambda s: quote(str(s), safe="")
     def absolute(path: str) -> str:
         return url + path[len(base):] if path.startswith(base) else path

@@ -4,6 +4,11 @@
 <script type="application/ld+json">{{ {
   "@context": "https://schema.org", "@type": "ProfilePage", "url": canonical,
   "mainEntity": {"@type": "Person", "name": site.author, "url": site.url,
+                 "jobTitle": "Quizmaster",
+                 "description": (site.author_profile or {}).description,
+                 "alumniOf": ((site.author_profile or {}).alumni_of or [])|map("org_ld")|list,
+                 "award": (site.author_profile or {}).awards or [],
+                 "knowsAbout": ["Quizzing", "General quiz", "Business quiz"],
                  "sameAs": site.links|map(attribute="url")|list}
 }|tojson_ld }}</script>
 {% endblock %}
