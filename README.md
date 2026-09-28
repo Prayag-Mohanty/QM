@@ -43,13 +43,19 @@ for naming, tags, dates and descriptions.
 
 ### Getting found on Google & Bing
 
-1. Add the site in [Google Search Console](https://search.google.com/search-console)
-   (URL-prefix property), paste the verification code into `site.yml`
-   (`google_site_verification`), push, then submit `sitemap.xml`.
-2. Do the same in [Bing Webmaster Tools](https://www.bing.com/webmasters)
-   (`bing_site_verification`) — Bing also feeds ChatGPT search, Copilot and
-   DuckDuckGo.
-3. Link to the site from your social profiles, old SlideShare decks and quiz
+1. **Google Search Console** → Add property → **URL prefix** →
+   `https://prayag-mohanty.github.io/QM/` → verification method **HTML tag** →
+   copy only the `content="…"` value into `google_site_verification` in
+   `site.yml` → push → wait for the site to republish → click **Verify** →
+   **Sitemaps** → submit `sitemap.xml`.
+2. **Bing Webmaster Tools** → **Import from Google Search Console** (verifies
+   and imports the sitemap in one go). Bing's index also powers ChatGPT search,
+   Copilot and DuckDuckGo. Or add the site manually and paste the code into
+   `bing_site_verification`.
+3. **IndexNow** is already automatic: after every publish, the workflow pings
+   Bing, Yandex and the other IndexNow engines with every page in the sitemap
+   (`tools/indexnow.py`, key in `site.yml`).
+4. Link to the site from your social profiles, old SlideShare decks and quiz
    club pages — links are what get a new site crawled quickly.
 
 ### Custom domain (optional, recommended)

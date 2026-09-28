@@ -44,7 +44,7 @@ VIEWABLE = {".pdf"}
 CONVERTIBLE = {".pptx", ".ppt", ".pps", ".ppsx", ".odp", ".key", ".docx", ".doc", ".odt"}
 SUPPORTED = VIEWABLE | CONVERTIBLE
 METADATA = {".yml", ".yaml"}
-CACHE_VERSION = "1"
+CACHE_VERSION = "3"
 
 
 # --------------------------------------------------------------------------- #
@@ -115,7 +115,29 @@ def as_list(value) -> list[str]:
     return [str(v).strip() for v in value if str(v).strip()]
 
 
+# Glyphs some Google Slides fonts export without a Unicode mapping.
+PUA_GLYPHS = {"\ue081": "(", "\ue088": "-"}
+
+
+def fix_symbol_chars(text: str) -> str:
+    """Google Slides / Symbol-font PDFs put ASCII punctuation in the Private Use
+    Area (U+F020-U+F07E -> ' '..'~'). Map those back and drop other PUA glyphs."""
+    out = []
+    for ch in text:
+        o = ord(ch)
+        if ch in PUA_GLYPHS:
+            out.append(PUA_GLYPHS[ch])
+        elif 0xF020 <= o <= 0xF07E:
+            out.append(chr(o - 0xF000))
+        elif 0xE000 <= o <= 0xF8FF:
+            continue
+        else:
+            out.append(ch)
+    return "".join(out)
+
+
 def clean_text(text: str) -> str:
+    text = fix_symbol_chars(text)
     lines = [re.sub(r"[ \t ]+", " ", ln).strip() for ln in text.splitlines()]
     out, blank = [], False
     for ln in lines:
@@ -140,6 +162,23 @@ def summarize(pages: list[str], limit: int = 155) -> str:
 # Conversion + extraction (cached by file hash)
 # --------------------------------------------------------------------------- #
 
+# Keep pictures at full resolution and quality when converting PPTX/DOCX to PDF
+# (LibreOffice otherwise downsamples to 300 DPI and re-compresses as JPEG 90%).
+LO_PDF_OPTIONS = json.dumps({
+    "ReduceImageResolution": {"type": "boolean", "value": "false"},
+    "UseLosslessCompression": {"type": "boolean", "value": "true"},
+    "Quality": {"type": "long", "value": "100"},
+    "ExportNotes": {"type": "boolean", "value": "false"},
+}, separators=(",", ":"))
+
+
+def export_filter(src: Path) -> str:
+    ext = src.suffix.lower()
+    if ext in {".docx", ".doc", ".odt"}:
+        return "writer_pdf_Export"
+    return "impress_pdf_Export"
+
+
 def find_soffice() -> str | None:
     for name in ("soffice", "libreoffice"):
         if shutil.which(name):
@@ -159,7 +198,7 @@ def convert_to_pdf(src: Path, workdir: Path) -> Path:
     profile = (CACHE_DIR / "lo-profile").resolve().as_uri()
     proc = subprocess.run(
         [soffice, f"-env:UserInstallation={profile}", "--headless", "--norestore",
-         "--convert-to", "pdf", "--outdir", str(workdir), str(src)],
+         "--convert-to", f"pdf:{export_filter(src)}:{LO_PDF_OPTIONS}", "--outdir", str(workdir), str(src)],
         capture_output=True, text=True, timeout=600,
     )
     pdf = workdir / (src.stem + ".pdf")
@@ -186,9 +225,9 @@ def process_document(src: Path) -> dict:
             pages = [clean_text(p.get_text("text", sort=True)) for p in doc]
             first = doc[0]
             width, height = first.rect.width, first.rect.height
-            zoom = 720 / max(width, 1)
+            zoom = 1280 / max(width, 1)  # large enough for sharp cards and social previews
             pix = first.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom), alpha=False)
-            pix.save(tmp / "thumb.jpg", jpg_quality=82)
+            pix.save(tmp / "thumb.jpg", jpg_quality=90)
         if pdf != src:
             pdf.rename(tmp / "doc.pdf")
         meta = {"pages": pages, "width": width, "height": height,
@@ -369,6 +408,7 @@ def build(site: dict) -> list[Quiz]:
     env.filters["rfc822"] = lambda d: email.utils.format_datetime(
         dt.datetime.combine(d, dt.time(9, 0), dt.timezone.utc))
     env.filters["pretty_date"] = lambda d: d.strftime("%-d %b %Y")
+    env.filters["initials"] = lambda s: "".join(w[0] for w in str(s).split()[:2]).upper() or "Q"
     env.filters["urlquote"] = lambda s: quote(str(s), safe="")
     def absolute(path: str) -> str:
         return url + path[len(base):] if path.startswith(base) else path
@@ -422,8 +462,8 @@ def build(site: dict) -> list[Quiz]:
     for q in quizzes:
         write(f"quiz/{q.slug}/index.html", "quiz.html", q=q,
               canonical=page_url(f"quiz/{q.slug}/"),
-              related=[o for o in quizzes if o is not q
-                       and (set(o.tags) & set(q.tags) or not q.tags)][:6])
+              related=sorted((o for o in quizzes if o is not q),
+                             key=lambda o: (-len(set(o.tags) & set(q.tags)), -o.date.toordinal()))[:8])
         write(f"quiz/{q.slug}/index.md", "quiz.md", q=q, canonical=page_url(f"quiz/{q.slug}/"))
         write(f"embed/{q.slug}/index.html", "embed.html", q=q,
               canonical=page_url(f"quiz/{q.slug}/"))
@@ -453,6 +493,8 @@ def build(site: dict) -> list[Quiz]:
 
     shutil.copytree(ASSETS_DIR, OUT_DIR / "assets")
     (OUT_DIR / ".nojekyll").touch()
+    if site.get("indexnow_key"):
+        (OUT_DIR / f"{site['indexnow_key']}.txt").write_text(site["indexnow_key"])
     cname = urlsplit(url).hostname or ""
     if site.get("url") and not cname.endswith(("github.io", "localhost")):
         (OUT_DIR / "CNAME").write_text(cname + "\n")

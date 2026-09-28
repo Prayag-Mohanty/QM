@@ -25,6 +25,10 @@ github_branch: main
 google_site_verification: ""
 bing_site_verification: ""
 
+# IndexNow key (public by design): after every publish the site pings Bing,
+# Yandex and other IndexNow engines so new/edited quizzes get crawled quickly.
+indexnow_key: "1e17f33cc916466e51ac6c9e3614f4fa"
+
 # Optional links shown in the footer and used in structured data.
 links:
   # - name: Instagram

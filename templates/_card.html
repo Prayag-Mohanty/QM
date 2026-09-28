@@ -2,18 +2,12 @@
   <a class="card-link" href="{{ site.base }}quiz/{{ q.slug }}/">
     <span class="card-thumb">
       <img src="{{ q.thumb_url }}" alt="First slide of {{ q.title }}" loading="lazy" decoding="async">
-      <span class="badge">{{ q.slide_count }} slides</span>
     </span>
-    <span class="card-body">
-      <span class="card-title">{{ q.title }}</span>
-      <span class="card-meta">
-        <time datetime="{{ q.date.isoformat() }}">{{ q.date|pretty_date }}</time>{% if q.event %} · {{ q.event }}{% endif %}
-      </span>
-    </span>
+    <span class="card-title">{{ q.title }}</span>
   </a>
-  {% if q.tags %}
-  <span class="card-tags">
-    {% for t in q.tags[:4] %}<a class="chip chip-sm" href="{{ site.base }}tags/{{ t|slugify }}/">{{ t }}</a>{% endfor %}
+  <span class="card-author">{{ q.quizmasters|join(', ') }}</span>
+  <span class="card-meta">
+    <span class="card-stat"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>{{ q.slide_count }} slides</span>
+    <time datetime="{{ q.date.isoformat() }}">{{ q.date|pretty_date }}</time>
   </span>
-  {% endif %}
 </li>

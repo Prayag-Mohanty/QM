@@ -11,6 +11,7 @@
   var input = viewer.querySelector("[data-page]");
   var prevBtns = viewer.querySelectorAll("[data-prev]");
   var nextBtns = viewer.querySelectorAll("[data-next]");
+  var bar = viewer.querySelector(".vprogress span");
   var total = parseInt(viewer.dataset.pages, 10) || 1;
   var title = viewer.dataset.title || "";
 
@@ -24,6 +25,7 @@
 
   function updateUi() {
     input.value = current;
+    if (bar) bar.style.width = (total > 1 ? (current - 1) / (total - 1) * 100 : 100) + "%";
     prevBtns.forEach(function (b) { b.disabled = current <= 1; });
     nextBtns.forEach(function (b) { b.disabled = current >= total; });
     canvas.setAttribute("aria-label", "Slide " + current + " of " + total + " — " + title);

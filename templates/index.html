@@ -5,7 +5,9 @@
   "@graph": [
     {"@type": "WebSite", "@id": site.url ~ "#website", "name": site.title, "url": site.url,
      "description": site.description|trim, "inLanguage": site.language,
-     "publisher": {"@id": site.url ~ "#author"}},
+     "publisher": {"@id": site.url ~ "#author"},
+     "potentialAction": {"@type": "SearchAction", "target": site.url ~ "?q={search_term_string}",
+                         "query-input": "required name=search_term_string"}},
     {"@type": "Person", "@id": site.url ~ "#author", "name": site.author, "url": site.url ~ "about/",
      "sameAs": site.links|map(attribute="url")|list},
     {"@type": "ItemList", "name": "Quiz sets", "numberOfItems": quizzes|length,
@@ -14,27 +16,28 @@
 }|tojson_ld }}</script>
 {% endblock %}
 {% block main %}
-<section class="hero">
-  <div class="wrap">
-    <h1>{{ site.title }}</h1>
-    <p class="lede">{{ site.tagline }}</p>
-    <p class="hero-stats">{{ quizzes|length }} quiz set{{ '' if quizzes|length == 1 else 's' }} · {{ quizzes|sum(attribute='slide_count') }} slides · free to view, download &amp; share</p>
-    <form class="search" role="search" onsubmit="return false">
-      <label class="sr-only" for="q">Search quizzes</label>
-      <input id="q" type="search" placeholder="Search quizzes by title, topic or event…" autocomplete="off">
-    </form>
+<section class="banner">
+  <div class="wrap-wide banner-inner">
+    <div>
+      <h1>{{ site.title }}</h1>
+      <p class="lede">{{ site.tagline }}</p>
+    </div>
+    <p class="banner-stats"><b>{{ quizzes|length }}</b> quiz set{{ '' if quizzes|length == 1 else 's' }} <span aria-hidden="true">·</span> <b>{{ quizzes|sum(attribute='slide_count') }}</b> slides</p>
   </div>
+  {% if tag_list %}
+  <div class="wrap-wide">
+    <div class="chips explore" role="group" aria-label="Filter by topic">
+      <button class="chip is-active" type="button" data-filter="">All</button>
+      {% for t, s, n in tag_list[:14] %}<button class="chip" type="button" data-filter="{{ s }}">{{ t }}</button>{% endfor %}
+    </div>
+  </div>
+  {% endif %}
 </section>
 
-<section class="wrap" id="quizzes" aria-labelledby="quizzes-h">
-  <div class="section-head">
-    <h2 id="quizzes-h">All quizzes</h2>
-    {% if tag_list %}
-    <div class="chips" role="group" aria-label="Filter by topic">
-      <button class="chip is-active" type="button" data-filter="">All</button>
-      {% for t, s, n in tag_list[:12] %}<button class="chip" type="button" data-filter="{{ s }}">{{ t }} <span class="chip-n">{{ n }}</span></button>{% endfor %}
-    </div>
-    {% endif %}
+<section class="wrap-wide shelf" id="quizzes" aria-labelledby="quizzes-h">
+  <div class="shelf-head">
+    <h2 id="quizzes-h">Latest quizzes</h2>
+    <p class="muted small" id="result-count" hidden></p>
   </div>
   {% if quizzes %}
   <ul class="grid" id="grid">
@@ -45,5 +48,17 @@
   <p class="empty">No quizzes yet — the first set is on its way.</p>
   {% endif %}
 </section>
+
+{% for t, s, n in tag_list[:4] if n > 1 %}
+<section class="wrap-wide shelf topic-shelf" aria-labelledby="shelf-{{ s }}">
+  <div class="shelf-head">
+    <h2 id="shelf-{{ s }}">{{ t }}</h2>
+    <a class="see-all" href="{{ site.base }}tags/{{ s }}/">See all {{ n }} →</a>
+  </div>
+  <ul class="grid grid-row">
+    {% for q in quizzes if t in q.tags %}{% if loop.index <= 5 %}{% include "_card.html" %}{% endif %}{% endfor %}
+  </ul>
+</section>
+{% endfor %}
 {% endblock %}
 {% block scripts %}<script src="{{ site.base }}assets/site.js" defer></script>{% endblock %}
