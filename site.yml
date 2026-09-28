@@ -22,7 +22,7 @@ github_branch: main
 
 # Optional: paste the verification codes from Google Search Console /
 # Bing Webmaster Tools here (only the content="..." value).
-google_site_verification: ""
+google_site_verification: "uwPPnk4GYmxsu8mS6GWtbcmdCKl9_TvqakevJN1ojJI"
 bing_site_verification: ""
 
 # IndexNow key (public by design): after every publish the site pings Bing,
