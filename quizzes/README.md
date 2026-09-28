@@ -5,7 +5,11 @@ in a couple of minutes.
 
 **Supported:** `.pdf`, `.pptx`, `.ppt`, `.ppsx`, `.odp`, `.docx`
 
-## Upload from the browser (no tools needed)
+## Easiest: the website's upload page
+
+Go to `/upload/` on the site (footer → Upload). It saves files here for you.
+
+## Or upload on GitHub
 
 1. Open <https://github.com/Prayag-Mohanty/QM/upload/main/quizzes>
 2. Drag your PDF / PPTX files in.

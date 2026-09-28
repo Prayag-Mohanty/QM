@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Upload a quiz | {{ site.title }}{% endblock %}
+{% block head %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block main %}
+<section class="wrap page upload" id="upload" data-repo="{{ site.github_repo }}" data-branch="{{ site.github_branch|default('main') }}" data-base="{{ site.base }}">
+  <h1>Upload a quiz</h1>
+
+  <div class="panel" id="signin" hidden>
+    <h2>Connect to GitHub (one time on this device)</h2>
+    <p>Uploads are saved to the <code>{{ site.github_repo }}</code> repository, and the site republishes itself automatically. Paste a GitHub access token that can write to that repository.</p>
+    <details>
+      <summary>How to get a token (2 minutes)</summary>
+      <ol>
+        <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub → New fine-grained token</a>.</li>
+        <li>Name it “QM Prayag upload” and pick the longest expiration.</li>
+        <li><b>Repository access</b> → <i>Only select repositories</i> → <code>{{ site.github_repo.split('/')[-1] }}</code>.</li>
+        <li><b>Permissions → Repository permissions</b>: <i>Contents</i> → <b>Read and write</b>. Optionally <i>Actions</i> → <b>Read-only</b> to see publishing progress here.</li>
+        <li>Click <b>Generate token</b>, copy it and paste it below.</li>
+      </ol>
+    </details>
+    <form id="token-form" class="stack">
+      <label>GitHub token <input id="token" type="password" autocomplete="off" placeholder="github_pat_…" required></label>
+      <button class="btn btn-primary" type="submit">Connect</button>
+    </form>
+    <p class="muted small">The token is stored only in this browser. Use <b>Disconnect</b> on shared computers.</p>
+  </div>
+
+  <div id="uploader" hidden>
+    <p class="muted" id="who"></p>
+    <form id="quiz-form" class="panel stack">
+      <label class="drop" id="drop">
+        <input id="files" type="file" multiple accept=".pdf,.pptx,.ppt,.ppsx,.pps,.odp,.docx,.doc" required>
+        <strong>Choose or drop quiz files</strong>
+        <span class="muted small">PDF and/or PPTX of the <em>same</em> quiz. Upload the PDF too for pixel-perfect viewing.</span>
+        <span id="file-list" class="file-list"></span>
+      </label>
+      <label>Title <input id="title" required placeholder="e.g. Biz Quiz 2024 — Finals"></label>
+      <label>Description <span class="muted small">(1–2 sentences — this is what shows on Google)</span>
+        <textarea id="description" rows="3" placeholder="e.g. Finals of the inter-college business quiz — brands, logos, startups and ads."></textarea></label>
+      <div class="row">
+        <label>Date <input id="date" type="date"></label>
+        <label>Event <input id="event" placeholder="e.g. Waves 2024, BITS Goa"></label>
+      </div>
+      <label>Topics / tags <span class="muted small">(comma separated)</span> <input id="tags" placeholder="General, India, Sci-Tech"></label>
+      <button class="btn btn-primary" type="submit" id="submit">Publish quiz</button>
+    </form>
+    <div class="panel" id="progress" hidden aria-live="polite">
+      <div class="bar"><span id="bar"></span></div>
+      <p id="progress-text"></p>
+    </div>
+    <p><button class="btn" type="button" id="signout">Disconnect this device</button></p>
+  </div>
+
+  <noscript><p>Uploading needs JavaScript.</p></noscript>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ site.base }}assets/upload.js" defer></script>{% endblock %}

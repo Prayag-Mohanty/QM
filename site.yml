@@ -16,6 +16,10 @@ url: ""
 
 language: en
 
+# Where quizzes uploaded from the website's /upload/ page are saved.
+github_repo: Prayag-Mohanty/QM
+github_branch: main
+
 # Optional: paste the verification codes from Google Search Console /
 # Bing Webmaster Tools here (only the content="..." value).
 google_site_verification: ""

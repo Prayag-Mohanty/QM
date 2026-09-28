@@ -437,6 +437,7 @@ def build(site: dict) -> list[Quiz]:
     write("about/index.html", "about.html", body=about_html, quizzes=quizzes,
           canonical=page_url("about/"))
     write("404.html", "404.html", canonical=url)
+    write("upload/index.html", "upload.html", canonical=page_url("upload/"))
 
     write("sitemap.xml", "sitemap.xml", quizzes=quizzes, tags=tags)
     write("feed.xml", "feed.xml", quizzes=quizzes)

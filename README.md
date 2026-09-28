@@ -15,9 +15,14 @@ SlideShare replacement you own.
 
 ## Adding a quiz
 
-Upload PDF/PPTX files into [`quizzes/`](quizzes/) on the `main` branch — from
-the browser at <https://github.com/Prayag-Mohanty/QM/upload/main/quizzes>.
-The site rebuilds automatically. See [`quizzes/README.md`](quizzes/README.md)
+Open **`/upload/`** on the website (link in the footer), pick your PDF/PPTX,
+fill in the title, description and tags, and click **Publish quiz**. The first
+time, paste a GitHub fine-grained token (Contents: read & write on this repo;
+the page shows how) — it is remembered on that device.
+
+You can also drop files into [`quizzes/`](quizzes/) on GitHub directly
+(<https://github.com/Prayag-Mohanty/QM/upload/main/quizzes>). Either way the
+site rebuilds automatically. See [`quizzes/README.md`](quizzes/README.md)
 for naming, tags, dates and descriptions.
 
 ## One-time setup
