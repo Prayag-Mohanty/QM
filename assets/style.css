@@ -269,8 +269,8 @@ svg { flex: none; }
 .stack label.check { display: flex; align-items: center; gap: 8px; font-weight: 500; }
 
 /* ---------- Footer ---------- */
-.footer { border-top: 1px solid var(--line); background: var(--soft); padding: 28px 0; font-size: .9rem; margin-top: 24px; }
-.footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; }
+.footer { border-top: 1px solid var(--line); background: var(--bg); padding: 20px 0; font-size: .9rem; margin-top: 24px; }
+.footer-inner { display: flex; justify-content: center; }
 .footer p { margin: 4px 0; }
 .footer .brand { font-size: 1rem; }
 .footer .brand-mark { width: 26px; height: 26px; border-radius: 7px; font-size: .85rem; }

@@ -31,7 +31,6 @@
     <header class="doc-head">
       <h1>{{ q.title }}</h1>
       <p class="doc-stats">
-        <span class="card-stat"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>{{ q.slide_count }} slides</span>
         <time datetime="{{ q.date.isoformat() }}">{{ q.date|pretty_date }}</time>
         {% if q.event %}<span>{{ q.event }}</span>{% endif %}
         <a class="owner-edit" href="{{ site.base }}upload/?quiz={{ q.slug }}" rel="nofollow" data-owner-only hidden>✎ Edit this quiz</a>
