@@ -228,6 +228,7 @@ svg { flex: none; }
 .crumbs { font-size: .88rem; color: var(--muted); }
 .crumbs a { color: var(--muted); }
 .prose { max-width: 720px; }
+.social { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
 .prose h1 { font-size: 2.1rem; }
 
 /* ---------- Manage page ---------- */

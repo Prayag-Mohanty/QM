@@ -15,6 +15,17 @@
 {% block main %}
 <section class="wrap page prose">
   {% if body %}{{ body|safe }}{% else %}<h1>About {{ site.title }}</h1><p>{{ site.description }}</p>{% endif %}
+  {% if site.links %}
+  <p class="social">
+    {% for l in site.links %}
+    <a class="btn" href="{{ l.url }}" target="_blank" rel="me noopener">
+      {% if l.name == "Instagram" %}<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      {% elif l.name == "LinkedIn" %}<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
+      {% endif %}{{ l.name }}
+    </a>
+    {% endfor %}
+  </p>
+  {% endif %}
   <p class="muted">{{ quizzes|length }} quiz sets published so far.</p>
 </section>
 {% endblock %}

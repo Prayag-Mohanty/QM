@@ -43,12 +43,12 @@ bing_site_verification: ""
 # Yandex and other IndexNow engines so new/edited quizzes get crawled quickly.
 indexnow_key: "1e17f33cc916466e51ac6c9e3614f4fa"
 
-# Optional links shown in the footer and used in structured data.
+# Your profiles: shown on the About page and used in structured data.
 links:
-  # - name: Instagram
-  #   url: https://instagram.com/your-handle
-  # - name: SlideShare (archive)
-  #   url: https://www.slideshare.net/your-handle
+  - name: Instagram
+    url: https://www.instagram.com/praymo_o/
+  - name: LinkedIn
+    url: https://www.linkedin.com/in/prayag-mohanty/
 
 # Licence note shown on every quiz page.
 license_note: >-
