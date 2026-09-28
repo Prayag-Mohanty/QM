@@ -41,7 +41,7 @@
           <span class="avatar" aria-hidden="true">{{ q.quizmasters[0]|initials }}</span>
           <span class="author-text">
             <b>{{ q.quizmasters|join(', ') }}</b>
-            <span class="muted small">Quiz{{ 'masters' if q.quizmasters|length > 1 else 'master' }} · on {{ site.title }}</span>
+            <span class="muted small">Quiz{{ 'masters' if q.quizmasters|length > 1 else 'master' }}</span>
           </span>
         </div>
         <div class="doc-actions">
@@ -91,6 +91,7 @@
       <p class="chips">{% for t in q.tags %}<a class="chip" href="{{ site.base }}tags/{{ t|slugify }}/" rel="tag">{{ t }}</a>{% endfor %}</p>
       {% endif %}
       {% if site.license_note %}<p class="muted small">{{ site.license_note }}</p>{% endif %}
+      <p class="muted small">For bricks &amp; bouquets, <a href="{% if site.contact_email %}mailto:{{ site.contact_email }}?subject={{ ('Bricks & bouquets: ' ~ q.title)|urlquote }}{% else %}{{ site.base }}about/#contact{% endif %}">contact me</a>.</p>
     </section>
 
     <section class="transcript is-collapsed" id="transcript" aria-labelledby="transcript-h">

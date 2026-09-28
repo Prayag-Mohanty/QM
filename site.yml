@@ -50,7 +50,10 @@ links:
   - name: LinkedIn
     url: https://www.linkedin.com/in/prayag-mohanty/
 
+# "For bricks & bouquets, contact me" on quiz pages, and the About page's Email button.
+contact_email: topper1728@gmail.com
+
 # Licence note shown on every quiz page.
 license_note: >-
-  Free to view, download and use for quizzing. Please credit QM Prayag
-  (Prayag Mohanty) when you use these questions.
+  Free to view, download and use for quizzing. Please credit the quizmaster
+  when you use these questions.

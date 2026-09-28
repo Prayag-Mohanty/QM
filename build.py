@@ -372,8 +372,9 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
         pages = info["pages"]
         description = str(meta.get("description") or "").strip()
         if not description:
+            qms = as_list(meta.get("quizmaster") or meta.get("quizmasters") or site["author"])
             description = (f"{title}: a quiz set with questions and answers ({len(pages)} slides)"
-                           f" by {site['author']}. View online, download or share.")
+                           f" by {', '.join(qms)}. View online, download or share.")
         quizzes.append(Quiz(
             slug=slug,
             title=title,
