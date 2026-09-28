@@ -67,6 +67,9 @@ svg { flex: none; }
 .topbar { background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
 .topbar-inner { display: flex; align-items: center; gap: 20px; min-height: 60px; }
 .brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; font-weight: 800; font-size: 1.12rem; white-space: nowrap; }
+.brand-logo { width: 36px; height: 36px; display: block; flex: none; }
+.logo-dark, :root[data-theme="dark"] .logo-light { display: none; }
+:root[data-theme="dark"] .logo-dark { display: block; }
 .brand-mark { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 900; }
 .topsearch { flex: 1; max-width: 560px; position: relative; }
 .topsearch svg { position: absolute; left: 12px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
@@ -128,6 +131,35 @@ svg { flex: none; }
 .see-all { color: var(--accent); font-weight: 650; text-decoration: none; font-size: .92rem; }
 .see-all:hover { text-decoration: underline; }
 .empty { padding: 32px 0 56px; color: var(--muted); }
+
+/* Hero: Milky Way photo under frosted glass */
+.hero {
+  position: relative; padding: 44px 0 26px; border-bottom: 0; color: #fff; isolation: isolate;
+  background: #0b1022 url("hero-milkyway.jpg") center 30% / cover no-repeat;
+  background-image: image-set(url("hero-milkyway.webp") type("image/webp"), url("hero-milkyway.jpg") type("image/jpeg"));
+}
+.hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(8, 11, 30, .15) 0%, rgba(8, 11, 30, .55) 100%); }
+.hero-glass {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 16px 22px; padding: 22px 26px; margin-bottom: 18px;
+  border-radius: 20px; border: 1px solid rgba(255, 255, 255, .22);
+  background: linear-gradient(135deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, .06));
+  -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .25);
+}
+.hero-logo { width: 76px; height: 76px; flex: none; filter: drop-shadow(0 4px 14px rgba(0, 0, 0, .35)); }
+.hero-text { flex: 1; min-width: 240px; }
+.hero h1 { color: #fff; text-shadow: 0 2px 18px rgba(0, 0, 0, .35); }
+.hero .lede { color: rgba(255, 255, 255, .86); }
+.hero .banner-stats { color: rgba(255, 255, 255, .8); align-self: flex-end; }
+.hero .banner-stats b { color: #fff; }
+.hero .chip { background: rgba(255, 255, 255, .12); border-color: rgba(255, 255, 255, .28); color: #fff; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.hero .chip:hover { background: rgba(255, 255, 255, .22); }
+.hero .chip.is-active { background: #fff; border-color: #fff; color: #11163a; }
+@media (max-width: 700px) {
+  .hero { padding: 24px 0 18px; }
+  .hero-glass { padding: 18px; gap: 12px 16px; }
+  .hero-logo { width: 56px; height: 56px; }
+}
 
 /* ---------- Cards ---------- */
 .grid { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 28px 20px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
