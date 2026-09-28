@@ -2,7 +2,7 @@
 
 **Prayag Mohanty** is a highly renowned quizzer and an even better quizmaster.
 
-**QM Prayag** is the home of quiz sets written, hosted or attended by Prayag Mohanty.
+Home of quiz sets written, hosted or attended by Prayag Mohanty.
 
 ## Wins
 
