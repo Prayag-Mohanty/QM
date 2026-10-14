@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..900&display=swap">
-<link rel="stylesheet" href="{{ site.base }}assets/style.css">
+<link rel="stylesheet" href="{{ asset("style.css") }}">
 {% block head %}{% endblock %}
 </head>
 <body>
@@ -61,7 +61,7 @@
     <p class="muted small">© {{ site.year }} {{ site.author }}</p>
   </div>
 </footer>
-<script src="{{ site.base }}assets/theme.js"></script>
+<script src="{{ asset("theme.js") }}"></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>

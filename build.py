@@ -790,6 +790,12 @@ def build(site: dict) -> list[Quiz]:
         return [{"@type": "ListItem", "position": i, "url": page_url(f"quiz/{q.slug}/"),
                  "name": q.title} for i, q in enumerate(qs, 1)]
 
+    def asset(name: str) -> str:
+        """URL of a file in assets/ with a version tag, so browsers fetch the new
+        copy right after a change instead of a cached old one."""
+        f = ASSETS_DIR / name
+        return f"{base}assets/{name}" + (f"?v={sha256(f)[:10]}" if f.is_file() else "")
+    env.globals["asset"] = asset
     env.globals.update(site=site, tag_list=tag_list, quiz_ld=quiz_ld,
                        item_list=item_list, absolute=absolute)
 
