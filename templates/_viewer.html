@@ -1,6 +1,10 @@
-<div class="viewer" id="viewer" data-pdf="{{ q.pdf_url }}" data-pages="{{ q.slide_count }}" data-title="{{ q.title }}" data-worker="{{ site.base }}assets/pdfjs/pdf.worker.min.js" style="--aspect: {{ q.aspect }}">
+<div class="viewer" id="viewer" data-pdf="{{ q.pdf_url }}" data-pages="{{ q.slide_count }}" data-title="{{ q.title }}" data-slides="{{ q.slides_url }}" data-lib="{{ site.base }}assets/pdfjs/pdf.min.js" data-worker="{{ site.base }}assets/pdfjs/pdf.worker.min.js" style="--aspect: {{ q.aspect }}">
   <div class="stage">
+    {% if q.slides_url %}
+    <img class="stage-cover" src="{{ q.slides_url }}1.webp" alt="Slide 1 of {{ q.title }}" width="1600" height="{{ (1600 / q.aspect)|round|int }}" fetchpriority="high">
+    {% else %}
     <img class="stage-cover" src="{{ q.thumb_url }}" alt="Slide 1 of {{ q.title }}" width="720" height="{{ (720 / q.aspect)|round|int }}">
+    {% endif %}
     <canvas class="stage-canvas" hidden aria-label="Slide 1 of {{ q.title }}" role="img"></canvas>
     <div class="stage-layer"></div>
     <div class="stage-status" role="status" aria-live="polite"></div>

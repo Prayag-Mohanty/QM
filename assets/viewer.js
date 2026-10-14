@@ -1,4 +1,6 @@
-/* QM Prayag slide viewer — renders the quiz PDF one slide at a time with PDF.js. */
+/* QM Prayag slide viewer — shows pre-made slide images (instant, with the next
+   slides preloaded) and only draws the PDF itself with PDF.js when it needs to:
+   for extra sharpness in full screen on big displays, or if images are missing. */
 (function () {
   "use strict";
   var viewer = document.getElementById("viewer");
@@ -15,7 +17,10 @@
   var total = parseInt(viewer.dataset.pages, 10) || 1;
   var title = viewer.dataset.title || "";
 
-  var pdf = null, current = 1, task = null, pending = null;
+  var SLIDES = viewer.dataset.slides || "";   // ".../s-<hash>/" holding 1.webp, 2.webp…
+  var SLIDE_W = 1600;                         // width of those images (build.py SLIDE_WIDTH)
+  var pdf = null, pdfLoading = null, current = 1, task = null, pending = null;
+  var imgs = {};                              // n -> Promise of a loaded, decoded Image
 
   // ---- audio / video on slides -------------------------------------------
   var layer = viewer.querySelector(".stage-layer");
@@ -163,9 +168,55 @@
       var url = location.pathname + location.search + (n > 1 ? "#slide-" + n : "");
       history.replaceState(null, "", url);
     }
+    if (SLIDES) return showImage(n);
     if (!pdf) return;
     if (task) { pending = n; return; }
     render(n);
+  }
+
+  // ---- slide images ------------------------------------------------------
+  function slideUrl(n) { return SLIDES + n + ".webp"; }
+  function getImg(n) {
+    if (!imgs[n]) {
+      imgs[n] = new Promise(function (resolve, reject) {
+        var im = new Image();
+        im.decoding = "async";
+        im.onload = function () { (im.decode ? im.decode().catch(function () {}) : Promise.resolve()).then(function () { resolve(im); }); };
+        im.onerror = function () { delete imgs[n]; reject(new Error("image")); };
+        im.src = slideUrl(n);
+      });
+    }
+    return imgs[n];
+  }
+  function preload(n) {
+    [n + 1, n + 2, n + 3, n - 1, n + 4, n + 5].forEach(function (k) {
+      if (k >= 1 && k <= total) getImg(k).catch(function () {});
+    });
+  }
+  function showImage(n) {
+    var slow = setTimeout(function () { if (n === current) status.textContent = "Loading slide…"; }, 300);
+    getImg(n).then(function () {
+      clearTimeout(slow);
+      if (n !== current) return;
+      cover.src = slideUrl(n);
+      cover.alt = "Slide " + n + " of " + title;
+      cover.hidden = false;
+      canvas.hidden = true;
+      status.textContent = "";
+      layoutLayer();
+      renderMedia(n);
+      preload(n);
+      if (wantsSharper()) loadPdf().then(function () { if (n === current) { if (task) pending = n; else render(n); } });
+    }).catch(function () {
+      clearTimeout(slow);
+      SLIDES = "";                 // images unavailable: fall back to drawing the PDF
+      loadPdf().then(function () { go(current, { noHash: true }); });
+    });
+  }
+  // Images are 1600 px wide; in full screen on a bigger display, sharpen with the PDF.
+  function wantsSharper() {
+    var fs = document.fullscreenElement || document.webkitFullscreenElement;
+    return !!fs && stage.clientWidth * (window.devicePixelRatio || 1) > SLIDE_W * 1.15;
   }
 
   function render(n) {
@@ -183,6 +234,7 @@
         canvas.width = off.width;
         canvas.height = off.height;
         canvas.getContext("2d").drawImage(off, 0, 0);
+        if (n !== current) return;
         canvas.hidden = false;
         cover.hidden = true;
         status.textContent = "";
@@ -195,25 +247,39 @@
     }).then(function () {
       task = null;
       if (pending !== null) { var p = pending; pending = null; render(p); }
-      else if (current < total) pdf.getPage(current + 1); // warm up the next slide
+      else if (!SLIDES && current < total) pdf.getPage(current + 1); // warm up the next slide
     });
   }
 
-  function load() {
-    if (!window.pdfjsLib) {
-      status.innerHTML = "The slide viewer couldn’t load. <a href=\"" + viewer.dataset.pdf + "\" style=\"color:#fff\">Open the PDF</a> instead.";
-      return;
-    }
-    pdfjsLib.GlobalWorkerOptions.workerSrc = viewer.dataset.worker;
-    status.textContent = "Loading slides…";
-    pdfjsLib.getDocument({ url: viewer.dataset.pdf, disableAutoFetch: false }).promise.then(function (doc) {
+  // PDF.js is only fetched when it's actually needed.
+  function loadPdf() {
+    if (pdfLoading) return pdfLoading;
+    pdfLoading = new Promise(function (resolve, reject) {
+      if (window.pdfjsLib) return resolve();
+      var sc = document.createElement("script");
+      sc.src = viewer.dataset.lib;
+      sc.onload = resolve;
+      sc.onerror = reject;
+      document.head.appendChild(sc);
+    }).then(function () {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = viewer.dataset.worker;
+      if (!SLIDES) status.textContent = "Loading slides…";
+      return pdfjsLib.getDocument({ url: viewer.dataset.pdf }).promise;
+    }).then(function (doc) {
       pdf = doc;
-      total = doc.numPages;
-      input.max = total;
-      go(current, { noHash: true });
-    }).catch(function () {
-      status.innerHTML = "Couldn’t load the slides. <a href=\"" + viewer.dataset.pdf + "\" style=\"color:#fff\">Open the PDF</a> instead.";
+      if (!SLIDES) { total = doc.numPages; input.max = total; }
+      return doc;
     });
+    pdfLoading.catch(function () {
+      pdfLoading = null;
+      if (!SLIDES) status.innerHTML = "Couldn’t load the slides. <a href=\"" + viewer.dataset.pdf + "\" style=\"color:#fff\">Open the PDF</a> instead.";
+    });
+    return pdfLoading;
+  }
+
+  function load() {
+    if (SLIDES) return go(current, { noHash: true });
+    loadPdf().then(function () { go(current, { noHash: true }); });
   }
 
   // Controls
@@ -272,7 +338,7 @@
   function rerender() {
     layoutLayer();  // players keep playing; they're positioned in % of the layer
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () { if (pdf) go(current, { noHash: true }); }, 150);
+    resizeTimer = setTimeout(function () { if (pdf || SLIDES) go(current, { noHash: true }); }, 150);
   }
   window.addEventListener("resize", rerender);
   document.addEventListener("fullscreenchange", rerender);

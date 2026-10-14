@@ -354,6 +354,49 @@ def process_document(src: Path) -> dict:
     return meta
 
 
+SLIDE_WIDTH = 1600          # px; sharp on laptops and phones, full screen sharpens further via PDF.js
+SLIDE_VERSION = "1"
+
+
+def _render_slide_range(args):
+    pdf, start, stop, out = args
+    from PIL import Image
+    with pymupdf.open(pdf) as doc:
+        for i in range(start, stop):
+            page = doc[i]
+            zoom = SLIDE_WIDTH / max(page.rect.width, 1)
+            pix = page.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom), alpha=False)
+            img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
+            img.save(Path(out) / f"{i + 1}.webp", "WEBP", quality=82, method=4)
+
+
+def render_slides(pdf: Path, count: int) -> tuple[Path, str]:
+    """Every slide as a ready-to-show WebP image (cached), so the viewer can flip
+    instantly instead of downloading and drawing the whole PDF in the browser."""
+    key = hashlib.sha256((SLIDE_VERSION + str(SLIDE_WIDTH) + sha256(pdf)).encode()).hexdigest()[:12]
+    cdir = CACHE_DIR / "slides" / key
+    if (cdir / "done").exists():
+        return cdir, key
+    print(f"  rendering {count} slide images for {pdf.name}")
+    tmp = cdir.with_suffix(".tmp")
+    shutil.rmtree(tmp, ignore_errors=True)
+    tmp.mkdir(parents=True)
+    workers = max(1, min(os.cpu_count() or 1, 8))
+    step = max(1, -(-count // workers))
+    jobs = [(str(pdf), a, min(a + step, count), str(tmp)) for a in range(0, count, step)]
+    if len(jobs) > 1:
+        from concurrent.futures import ProcessPoolExecutor
+        with ProcessPoolExecutor(len(jobs)) as pool:
+            list(pool.map(_render_slide_range, jobs))
+    else:
+        for j in jobs:
+            _render_slide_range(j)
+    (tmp / "done").touch()
+    shutil.rmtree(cdir, ignore_errors=True)
+    tmp.rename(cdir)
+    return cdir, key
+
+
 # --------------------------------------------------------------------------- #
 # Model
 # --------------------------------------------------------------------------- #
@@ -382,6 +425,7 @@ class Quiz:
     aspect: float
     pdf_url: str
     thumb_url: str
+    slides_url: str = ""
     downloads: list[Download] = field(default_factory=list)
     featured: bool = False
     body_html: str = ""
@@ -528,6 +572,13 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
         shutil.copy2(info["thumb"], fdir / "cover.jpg")
 
         pages = info["pages"]
+        slides_url = ""
+        try:
+            sdir, skey = render_slides(info["pdf"], len(pages))
+            shutil.copytree(sdir, fdir / f"s-{skey}", ignore=shutil.ignore_patterns("done"))
+            slides_url = f"{base}files/{slug}/s-{skey}/"
+        except Exception as exc:  # the viewer falls back to drawing the PDF
+            print(f"  ! slide images for {slug}: {exc}", file=sys.stderr)
         media = find_media(docs, info["pdf"], len(pages), meta, fdir / "media", f"{base}files/{slug}/media/", pages, stem)
         # Shown on the page only if you wrote one; search engines still get a summary.
         description = str(meta.get("description") or "").strip()
@@ -548,6 +599,7 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
             aspect=round(info["width"] / max(info["height"], 1), 4),
             pdf_url=f"{base}files/{slug}/{slug}.pdf",
             thumb_url=f"{base}files/{slug}/cover.jpg",
+            slides_url=slides_url,
             downloads=downloads,
             featured=bool(meta.get("featured")),
             body_html=markdown.markdown(str(meta.get("notes") or "")),
