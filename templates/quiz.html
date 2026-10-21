@@ -90,7 +90,7 @@
       {% if q.description %}<p class="desc">{{ q.description }}</p>{% endif %}
       {% if q.body_html %}<div class="prose">{{ q.body_html|safe }}</div>{% endif %}
       {% if site.license_note %}<p class="muted small">{{ site.license_note }}</p>{% endif %}
-      <p class="muted small">For bricks &amp; bouquets, <a href="{% if site.contact_email %}mailto:{{ site.contact_email }}?subject={{ ('Bricks & bouquets: ' ~ q.title)|urlquote }}{% else %}{{ site.base }}about/#contact{% endif %}">contact me</a>.</p>
+      <p class="muted small">For bricks &amp; bouquets, <a href="{{ site.base }}about/#contact"{% if site.contact_email %} data-mail="{{ site.contact_email|mailcode }}" data-subject="Bricks &amp; bouquets: {{ q.title }}"{% endif %}>contact me</a>.</p>
     </section>
 
     <section class="transcript is-collapsed" id="transcript" aria-labelledby="transcript-h">

@@ -11,6 +11,14 @@
     });
   }
   apply(html.dataset.theme === "dark");
+
+  // Email links are stored scrambled in the page so spam bots can't harvest the address.
+  document.querySelectorAll("[data-mail]").forEach(function (a) {
+    try {
+      var addr = atob(a.dataset.mail).split("").reverse().join("");
+      a.href = "mailto:" + addr + (a.dataset.subject ? "?subject=" + encodeURIComponent(a.dataset.subject) : "");
+    } catch (e) { /* leave the fallback link */ }
+  });
   buttons.forEach(function (b) {
     b.addEventListener("click", function () {
       var dark = html.dataset.theme !== "dark";

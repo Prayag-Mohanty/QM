@@ -6,6 +6,8 @@
 <title>{{ q.title }} | {{ site.title }}</title>
 <link rel="canonical" href="{{ canonical }}">
 <meta name="robots" content="noindex, follow">
+<meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <script>try{if(localStorage.getItem("qm-theme")==="dark")document.documentElement.dataset.theme="dark"}catch(e){}</script>
 <link rel="icon" href="{{ site.base }}assets/favicon-64.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">

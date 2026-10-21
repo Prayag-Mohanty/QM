@@ -18,7 +18,9 @@
 {% block og_image %}<meta property="og:image" content="{{ site.url }}assets/logo-badge.png">{% endblock %}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="color-scheme" content="light dark">
-<script>try{if(localStorage.getItem("qm-theme")==="dark")document.documentElement.dataset.theme="dark"}catch(e){}</script>
+<meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script>try{if(top!==self){var d=document.documentElement;d.style.visibility="hidden";addEventListener("DOMContentLoaded",function(){var a=document.createElement("a");a.href=location.href;a.target="_top";a.rel="noopener";a.textContent="Open this page on {{ site.title }} \u2197";a.style.cssText="display:block;padding:24px;font:600 16px system-ui,sans-serif";document.body.replaceChildren(a);d.style.visibility="visible"})}}catch(e){}try{if(localStorage.getItem("qm-theme")==="dark")document.documentElement.dataset.theme="dark"}catch(e){}</script>
 <link rel="icon" href="{{ site.base }}assets/favicon-64.png" type="image/png">
 <link rel="apple-touch-icon" href="{{ site.base }}assets/apple-touch-icon.png">
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }} — new quizzes" href="{{ site.url }}feed.xml">

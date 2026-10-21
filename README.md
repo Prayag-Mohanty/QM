@@ -79,6 +79,6 @@ python build.py --serve             # → http://localhost:8000
 Bricks & bouquets welcome —
 [Instagram](https://www.instagram.com/praymo_o/) ·
 [LinkedIn](https://www.linkedin.com/in/prayag-mohanty/) ·
-[topper1728@gmail.com](mailto:topper1728@gmail.com)
+topper1728 (at) gmail (dot) com
 
 Free to use for quizzing. Please credit the quizmaster when you use the questions.

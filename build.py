@@ -140,6 +140,20 @@ def fix_symbol_chars(text: str) -> str:
     return "".join(out)
 
 
+EMAIL_RE = re.compile(r"\b([A-Za-z0-9._%+-]+)@([A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*)\.([A-Za-z]{2,})\b")
+
+
+def mask_emails(text: str) -> str:
+    """'name@gmail.com' -> 'name (at) gmail (dot) com', so spam bots can't harvest it."""
+    return EMAIL_RE.sub(lambda m: f"{m[1]} (at) {m[2].replace('.', ' (dot) ')} (dot) {m[3]}", text)
+
+
+def mail_code(email: str) -> str:
+    """Email address scrambled for the page; assets/theme.js turns it back into a mailto link."""
+    import base64
+    return base64.b64encode(email.strip()[::-1].encode()).decode()
+
+
 def clean_text(text: str) -> str:
     text = fix_symbol_chars(text)
     lines = [re.sub(r"[ \t ]+", " ", ln).strip() for ln in text.splitlines()]
@@ -595,14 +609,14 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
             event=str(meta.get("event") or ""),
             quizmasters=as_list(meta.get("quizmaster") or meta.get("quizmasters") or site["author"]),
             language=str(meta.get("language") or site.get("language") or "en"),
-            pages=pages,
+            pages=[mask_emails(p) for p in pages],
             aspect=round(info["width"] / max(info["height"], 1), 4),
             pdf_url=f"{base}files/{slug}/{slug}.pdf",
             thumb_url=f"{base}files/{slug}/cover.jpg",
             slides_url=slides_url,
             downloads=downloads,
             featured=bool(meta.get("featured")),
-            body_html=markdown.markdown(str(meta.get("notes") or "")),
+            body_html=markdown.markdown(mask_emails(str(meta.get("notes") or ""))),
             media=media,
         ))
     quizzes.sort(key=lambda q: (q.date, q.title), reverse=True)
@@ -795,6 +809,7 @@ def build(site: dict) -> list[Quiz]:
         copy right after a change instead of a cached old one."""
         f = ASSETS_DIR / name
         return f"{base}assets/{name}" + (f"?v={sha256(f)[:10]}" if f.is_file() else "")
+    env.filters["mailcode"] = mail_code
     env.globals["asset"] = asset
     env.globals.update(site=site, tag_list=tag_list, quiz_ld=quiz_ld,
                        item_list=item_list, absolute=absolute)
