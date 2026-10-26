@@ -37,13 +37,18 @@
     {% if u.photos %}
     {% set n = u.photos|length %}
     <div class="tweet-photos n{{ [n, 4]|min }}">
-      {% for ph in u.photos[:4] %}
-      <button class="photo-open" type="button" data-full="{{ ph }}" data-group="{{ u.id }}" aria-label="Open photo {{ loop.index }} of {{ n }}">
-        <img src="{{ ph }}" alt="" loading="lazy" decoding="async">
-        {% if loop.index == 4 and n > 4 %}<span class="tweet-more">+{{ n - 4 }}</span>{% endif %}
-      </button>
+      {% for ph in u.photos[:4] %}{% set cap = u.captions[loop.index0] if u.captions|length > loop.index0 else "" %}
+      <figure class="tweet-photo">
+        <button class="photo-open" type="button" data-full="{{ ph }}" data-group="{{ u.id }}" aria-label="Open photo {{ loop.index }} of {{ n }}{{ ': ' ~ cap if cap }}">
+          <img src="{{ ph }}" alt="{{ cap }}" loading="lazy" decoding="async">
+          {% if loop.index == 4 and n > 4 %}<span class="tweet-more">+{{ n - 4 }}</span>{% endif %}
+        </button>
+        {% if cap and not (loop.index == 4 and n > 4) %}<figcaption>{{ cap }}</figcaption>{% endif %}
+      </figure>
       {% endfor %}
-      {% for ph in u.photos[4:] %}<button class="photo-open" type="button" data-full="{{ ph }}" data-group="{{ u.id }}" hidden aria-label="Photo"></button>{% endfor %}
+      {% for ph in u.photos[4:] %}{% set cap = u.captions[loop.index0 + 4] if u.captions|length > loop.index0 + 4 else "" %}
+      <figure class="tweet-photo" hidden><button class="photo-open" type="button" data-full="{{ ph }}" data-group="{{ u.id }}" aria-label="Photo"></button>{% if cap %}<figcaption>{{ cap }}</figcaption>{% endif %}</figure>
+      {% endfor %}
     </div>
     {% endif %}
 

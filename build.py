@@ -794,6 +794,7 @@ class Update:
     medal: str            # "gold" / "silver" / "bronze" / ""
     scores: list[dict]    # [{"team", "score", "us"}]
     photos: list[str]     # published URLs
+    captions: list[str]   # one per photo ("" = none)
     tags: list[str]
 
 
@@ -835,6 +836,15 @@ def parse_scores(value) -> list[dict]:
     return rows
 
 
+def photo_captions(meta: dict) -> list[str]:
+    """`captions:` runs parallel to `photos:` (one per photo, "" for none)."""
+    photos = meta.get("photos") or []
+    photos = [photos] if isinstance(photos, str) else photos
+    caps = meta.get("captions") or []
+    caps = [caps] if isinstance(caps, str) else list(caps)
+    return [(str(caps[i]).strip() if i < len(caps) and caps[i] is not None else "") for i in range(len(photos))]
+
+
 def collect_updates(base: str) -> list[Update]:
     """Askaban posts from askaban/*.md: front matter (date with time, event, place,
     result, scores, photos, tags) plus a short text."""
@@ -861,6 +871,7 @@ def collect_updates(base: str) -> list[Update]:
             event=str(meta.get("event") or "").strip(), place=str(meta.get("place") or "").strip(),
             result=result, medal=medal_for(result), scores=parse_scores(meta.get("scores")),
             photos=[images.get(str(p).split("/")[-1], str(p)) for p in as_list(meta.get("photos"))],
+            captions=photo_captions(meta),
             tags=as_list(meta.get("tags"))))
     updates.sort(key=lambda u: (u.when, u.id), reverse=True)
     return updates

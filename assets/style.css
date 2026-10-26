@@ -492,14 +492,19 @@ body.embed .stage { flex: 1; width: 100%; max-height: calc(100vh - 55px); }
 .tc-scores th:last-child, .tc-scores td:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; }
 .tc-scores tr.is-us td { background: var(--accent-soft); color: var(--ink); font-weight: 750; }
 .tweet-photos { display: grid; gap: 3px; margin-top: 12px; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+.tweet-photo { margin: 0; position: relative; min-height: 0; overflow: hidden; }
+.tweet-photo[hidden] { display: none; }
 .tweet-photos .photo-open { border-radius: 0; position: relative; height: 100%; }
+/* Caption sits on the photo, Instagram-style, so the grid keeps its shape. */
+.tweet-photo figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 10px 7px; color: #fff; font-size: .82rem; line-height: 1.35; background: linear-gradient(transparent, rgba(0, 0, 0, .72)); pointer-events: none; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.tweet-photos.n1 .tweet-photo figcaption { position: static; background: none; color: var(--muted); padding: 8px 12px 10px; -webkit-line-clamp: unset; display: block; border-top: 1px solid var(--line); }
+.tweet-photos.n3 .tweet-photo:first-child { grid-row: span 2; }
 .tweet-photos img { width: 100%; height: 100%; object-fit: cover; }
 .tweet-photos.n1 img { max-height: 520px; height: auto; }
+.tweet-photos.n1 .photo-open { height: auto; }
 .tweet-photos.n2 { grid-template-columns: 1fr 1fr; aspect-ratio: 16 / 9; }
 .tweet-photos.n3 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; aspect-ratio: 16 / 9; }
-.tweet-photos.n3 .photo-open:first-child { grid-row: span 2; }
 .tweet-photos.n4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; aspect-ratio: 16 / 9; }
-.tweet-photos .photo-open[hidden] { display: none; }
 .tweet-more { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(0, 0, 0, .5); color: #fff; font-size: 1.6rem; font-weight: 800; }
 .tweet-tags { margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 4px 10px; color: var(--accent); font-size: .93rem; }
 .tweet-foot { margin-top: 10px; }
@@ -518,6 +523,9 @@ body.embed .stage { flex: 1; width: 100%; max-height: calc(100vh - 55px); }
 .ask-photos:empty { display: none; }
 .ask-photo { position: relative; }
 .ask-photo img { width: 110px; height: 80px; object-fit: cover; border-radius: 10px; display: block; border: 1px solid var(--line); }
+.ask-photo { width: 150px; display: grid; gap: 4px; }
+.ask-photo img { width: 150px; height: 100px; }
+.ask-caption { width: 100%; font: .82rem var(--font); padding: 5px 7px; border-radius: 7px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
 .ask-photo-x { position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; border-radius: 50%; border: 0; background: rgba(0,0,0,.65); color: #fff; cursor: pointer; font-size: .75rem; }
 .ask-compose summary { cursor: pointer; font-weight: 650; }
 .ask-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 4px; border-top: 1px solid var(--line); }

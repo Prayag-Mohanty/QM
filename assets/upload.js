@@ -880,9 +880,14 @@
   function renderAskPhotos() {
     $("ask-photos").innerHTML = askPhotos.map(function (p, i) {
       return '<span class="ask-photo"><img src="' + esc(p.url) + '" alt="">' +
-        '<button type="button" class="ask-photo-x" data-ask-photo-x="' + i + '" aria-label="Remove photo">✕</button></span>';
+        '<button type="button" class="ask-photo-x" data-ask-photo-x="' + i + '" aria-label="Remove photo">✕</button>' +
+        '<input class="ask-caption" type="text" maxlength="200" placeholder="Caption (optional)" aria-label="Caption for photo ' + (i + 1) + '" data-ask-cap="' + i + '" value="' + esc(p.caption || "") + '"></span>';
     }).join("");
   }
+  $("ask-photos").addEventListener("input", function (e) {
+    var i = e.target.dataset.askCap;
+    if (i !== undefined) askPhotos[+i].caption = e.target.value;
+  });
   $("ask-photos").addEventListener("click", function (e) {
     var b = e.target.closest("[data-ask-photo-x]");
     if (b) { askPhotos.splice(+b.dataset.askPhotoX, 1); renderAskPhotos(); }
@@ -926,7 +931,8 @@
       $("ask-scores").value = asList(d.scores).join("\n");
       $("ask-tags").value = asList(d.tags).join(", ");
       $("ask-details").open = !!(d.event || d.result || d.scores);
-      askPhotos = asList(d.photos).map(function (p) { var n = p.split("/").pop(); return { name: n, url: ASK_RAW + encodeURIComponent(n) }; });
+      var caps = Array.isArray(d.captions) ? d.captions : [];
+      askPhotos = asList(d.photos).map(function (p, i) { var n = p.split("/").pop(); return { name: n, url: ASK_RAW + encodeURIComponent(n), caption: caps[i] || "" }; });
       renderAskPhotos();
       $("ask-view").href = BASE + "askaban/" + askId(name) + "/";
       $("ask-banner").hidden = false;
@@ -945,6 +951,8 @@
     var scores = $("ask-scores").value.split("\n").map(function (l) { return l.trim(); }).filter(Boolean);
     if (scores.length) lines.push("scores: " + JSON.stringify(scores));
     if (askPhotos.length) lines.push("photos: " + JSON.stringify(askPhotos.map(function (p) { return "images/" + p.name; })));
+    var caps = askPhotos.map(function (p) { return (p.caption || "").trim(); });
+    if (caps.some(Boolean)) lines.push("captions: " + JSON.stringify(caps));
     var tags = list($("ask-tags").value);
     if (tags.length) lines.push("tags: " + JSON.stringify(tags));
     lines.push("---", "");

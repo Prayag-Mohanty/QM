@@ -13,6 +13,7 @@ place: "Mumbai"
 result: "Winner"
 scores: ["*Brandish Bandits: 92", "Team Quark: 86", "Mind Benders: 71"]
 photos: ["images/finals.jpg", "images/cheque.jpg"]
+captions: ["The final buzzer", "The cheque!"]
 tags: ["Techfest", "IITB"]
 ---
 What a final. Won it on the very last question!
@@ -21,4 +22,5 @@ What a final. Won it on the very last question!
 - Everything except `date` is optional; a post can be just text, just photos, or a full scorecard.
 - `result`: "Winner", "Runner-up" and "3rd" get a gold, silver or bronze medal card.
 - `scores`: one team per line in finishing order; start your team's line with `*` to highlight it.
+- `captions` (optional) match `photos` in order; use "" for a photo without one.
 - Photos go in `askaban/images/` (resized automatically). Up to 4 show in the post; more appear as "+N" and open in the viewer.
