@@ -21,11 +21,11 @@ Please credit "{{ site.title }} ({{ site.author }})" and link to the quiz page w
 - {{ u.when.date().isoformat() }}{% if u.event %} · {{ u.event }}{% endif %}{% if u.place %} ({{ u.place }}){% endif %}{% if u.result %} · {{ u.result }}{% endif %}: {{ u.text[:200] }} {{ site.url }}askaban/{{ u.id }}/
 {% endfor %}
 {% endif %}
-{% if posts %}
-## Blog — stories from the quizzing circuit
+{% if articles %}
+## Articles by {{ site.author }} (on Medium)
 
-{% for p in posts %}
-- [{{ p.title }}]({{ site.url }}blog/{{ p.slug }}/): {{ p.date.isoformat() }}. {{ p.summary }}
+{% for a in articles %}
+- [{{ a.title }}]({{ a.url }}){% if a.date %}: {{ a.date }}{% endif %}. {{ a.excerpt }}
 {% endfor %}
 {% endif %}
 ## Optional

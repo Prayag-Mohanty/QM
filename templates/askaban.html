@@ -1,26 +1,66 @@
 {% extends "base.html" %}
 {% block title %}Askaban | {{ site.title }}{% endblock %}
-{% block description %}Askaban: live updates from the quizzing circuit by {{ site.author }}: events, results, scores and photos, newest first.{% endblock %}
+{% block description %}Askaban: live updates from the quizzing circuit by {{ site.author }} (events, results, scores and photos), plus his articles.{% endblock %}
 {% block head %}
 <script type="application/ld+json">{{ {
   "@context": "https://schema.org", "@type": "CollectionPage", "name": "Askaban", "url": canonical,
-  "description": "Updates from quiz events by " ~ site.author ~ ", newest first.",
-  "author": {"@type": "Person", "name": site.author, "url": site.url ~ "about/"}
+  "description": "Updates from quiz events and articles by " ~ site.author ~ ".",
+  "author": {"@type": "Person", "name": site.author, "url": site.url ~ "about/"},
+  "hasPart": articles|map("article_ld")|list or none
 }|tojson_ld }}</script>
 {% endblock %}
 {% block main %}
-<section class="wrap page askaban">
+<section class="wrap-wide page askaban">
   <header class="ask-head">
     <h1>Askaban</h1>
-    <p class="lede">Dispatches from the quizzing circuit: every event, every result, every buzzer-beater. Newest first.</p>
+    <p class="lede">Dispatches from the quizzing circuit (every event, every result, every buzzer-beater) and the longer stories behind them.</p>
   </header>
-  {% if updates %}
-  <div class="feed">
-    {% for u in updates %}{% include "_update.html" %}{% endfor %}
+
+  <div class="ask-tabs" role="tablist" aria-label="Askaban sections" hidden>
+    <button class="ask-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="ask-feed" data-ask-tab="feed">Feed</button>
+    <button class="ask-tab" type="button" role="tab" aria-selected="false" aria-controls="ask-blog" data-ask-tab="blog">Blog{% if articles %} <span class="chip-n">{{ articles|length }}</span>{% endif %}</button>
   </div>
-  {% else %}
-  <p class="empty">No updates yet. The first dispatch is coming soon.</p>
-  {% endif %}
+
+  <div class="ask-layout">
+    <section class="ask-col ask-feed" id="ask-feed" aria-labelledby="ask-feed-h" role="tabpanel">
+      <h2 class="ask-col-h" id="ask-feed-h">Feed</h2>
+      {% if updates %}
+      <div class="feed">
+        {% for u in updates %}{% include "_update.html" %}{% endfor %}
+      </div>
+      {% else %}
+      <p class="empty ask-empty">No updates yet. The first dispatch is coming soon.</p>
+      {% endif %}
+    </section>
+
+    <aside class="ask-col ask-blog" id="ask-blog" aria-labelledby="ask-blog-h" role="tabpanel">
+      <h2 class="ask-col-h" id="ask-blog-h">Blog</h2>
+      {% if articles %}
+      <ul class="articles">
+        {% for a in articles %}
+        <li>
+          <a class="article" href="{{ a.url }}" target="_blank" rel="noopener">
+            {% if a.image %}<img class="article-img" src="{{ a.image }}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">{% endif %}
+            <span class="article-body">
+              <span class="article-title">{{ a.title }}</span>
+              {% if a.excerpt %}<span class="article-excerpt">{{ a.excerpt }}</span>{% endif %}
+              <span class="article-meta">{% if a.date %}<time datetime="{{ a.date }}">{{ a.date|iso_pretty }}</time> · {% endif %}{{ a.minutes }} min read</span>
+            </span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="empty ask-empty">Stories from the circuit are on their way.</p>
+      {% endif %}
+      {% if site.medium %}
+      <a class="btn medium-more" href="{{ site.medium }}" target="_blank" rel="noopener me">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="7" cy="12" rx="5" ry="5.5" fill="currentColor" stroke="none"/><ellipse cx="16.5" cy="12" rx="2.5" ry="5.2" fill="currentColor" stroke="none"/><ellipse cx="21.2" cy="12" rx="1" ry="4.6" fill="currentColor" stroke="none"/></svg>
+        All stories on Medium
+      </a>
+      {% endif %}
+    </aside>
+  </div>
 </section>
 {% include "_lightbox.html" %}
 {% endblock %}

@@ -47,8 +47,8 @@ jobs:
             .cache/docs
             .cache/fonts
             .cache/slides
-            .cache/blog
-            .cache/askaban
+            .cache/images
+            .cache/medium.json
           key: quiz-cache-${{ hashFiles('quizzes/**') }}
           restore-keys: quiz-cache-
 

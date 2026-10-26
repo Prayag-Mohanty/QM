@@ -17,12 +17,4 @@
   {% for u in updates %}
   <url><loc>{{ site.url }}askaban/{{ u.id }}/</loc><lastmod>{{ u.when.date().isoformat() }}</lastmod>{% for ph in u.photos[:4] %}<image:image><image:loc>{{ absolute(ph) }}</image:loc></image:image>{% endfor %}</url>
   {% endfor %}
-  <url><loc>{{ site.url }}blog/</loc>{% if posts %}<lastmod>{{ posts[0].date.isoformat() }}</lastmod>{% endif %}</url>
-  {% for p in posts %}
-  <url>
-    <loc>{{ site.url }}blog/{{ p.slug }}/</loc>
-    <lastmod>{{ p.date.isoformat() }}</lastmod>
-    {% if p.cover %}<image:image><image:loc>{{ absolute(p.cover) }}</image:loc></image:image>{% endif %}
-  </url>
-  {% endfor %}
 </urlset>

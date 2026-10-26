@@ -16,16 +16,6 @@
     <category>Askaban</category>
   </item>
   {% endfor %}
-  {% for p in posts[:20] %}
-  <item>
-    <title>{{ p.title }}</title>
-    <link>{{ site.url }}blog/{{ p.slug }}/</link>
-    <guid isPermaLink="true">{{ site.url }}blog/{{ p.slug }}/</guid>
-    <pubDate>{{ p.date|rfc822 }}</pubDate>
-    <description>{{ p.summary }}</description>
-    <category>Blog</category>
-  </item>
-  {% endfor %}
   {% for q in quizzes[:50] %}
   <item>
     <title>{{ q.title }}</title>

@@ -57,6 +57,10 @@ links:
   - name: LinkedIn
     url: https://www.linkedin.com/in/prayag-mohanty/
 
+# Your Medium page: its latest articles appear in the Blog column of Askaban.
+# e.g. https://medium.com/@yourname  (leave empty to hide the column's list)
+medium: ""
+
 # "For bricks & bouquets, contact me" on quiz pages, and the About page's Email button.
 contact_email: topper1728@gmail.com
 

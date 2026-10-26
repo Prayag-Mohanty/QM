@@ -32,7 +32,6 @@
       <button class="tab" type="button" role="tab" id="tab-manage" aria-selected="false">Edit quizzes <span class="chip-n" id="quiz-count"></span></button>
       <button class="tab" type="button" role="tab" id="tab-photos" aria-selected="false">About photos <span class="chip-n" id="photo-count"></span></button>
       <button class="tab" type="button" role="tab" id="tab-ask" aria-selected="false">Askaban <span class="chip-n" id="ask-count"></span></button>
-      <button class="tab" type="button" role="tab" id="tab-blog" aria-selected="false">Blog <span class="chip-n" id="post-count"></span></button>
     </div>
 
     <div id="manage" hidden>
@@ -83,55 +82,6 @@
         </div>
       </form>
       <ul class="manage-list" id="ask-list"><li class="muted">Loading…</li></ul>
-    </div>
-
-    <div id="blog" hidden>
-      <div class="blog-bar">
-        <p class="muted small" style="margin:0">Stories for the <a href="{{ site.base }}blog/" target="_blank" rel="noopener">Blog</a>. Newest first.</p>
-        <button class="btn btn-primary btn-sm" type="button" id="post-new">+ New story</button>
-      </div>
-      <ul class="manage-list" id="post-list"><li class="muted">Loading…</li></ul>
-
-      <form id="post-form" class="panel stack" hidden>
-        <div class="edit-banner" id="post-banner" hidden>
-          <span>Editing <b id="post-edit-name"></b> · <a id="post-view" target="_blank" rel="noopener">view story ↗</a></span>
-        </div>
-        <label>Title <input id="post-title" required placeholder="e.g. The night we won by half a point"></label>
-        <div class="row">
-          <label>Date <input id="post-date" type="date"></label>
-          <label>Topics / tags <span class="muted small">(optional, comma separated)</span> <input id="post-tags" placeholder="Stories, BITS Goa"></label>
-        </div>
-        <label>Summary <span class="muted small">(optional, 1–2 sentences shown on the blog page and on Google; otherwise the first paragraph is used)</span>
-          <textarea id="post-summary" rows="2"></textarea></label>
-        <div class="post-cover-row">
-          <span class="post-cover-label">Cover photo <span class="muted small">(optional; otherwise the first photo in the story)</span></span>
-          <img id="post-cover-preview" alt="" hidden>
-          <label class="btn btn-sm">Choose cover <input id="post-cover-file" type="file" accept="image/*" hidden></label>
-          <button class="btn btn-sm" type="button" id="post-cover-clear" hidden>Remove cover</button>
-        </div>
-        <div class="post-editor">
-          <div class="post-tools" role="toolbar" aria-label="Formatting">
-            <button class="btn btn-sm" type="button" data-md="**|**" title="Bold"><b>B</b></button>
-            <button class="btn btn-sm" type="button" data-md="*|*" title="Italic"><i>I</i></button>
-            <button class="btn btn-sm" type="button" data-md="\n## |\n" title="Subheading">H</button>
-            <button class="btn btn-sm" type="button" data-md="\n> |\n" title="Quote">❝</button>
-            <button class="btn btn-sm" type="button" data-md="\n- |\n" title="Bullet list">•</button>
-            <button class="btn btn-sm" type="button" data-md="[|](https://)" title="Link">🔗</button>
-            <label class="btn btn-sm" title="Insert a photo at the cursor">📷 Photo <input id="post-photo-file" type="file" accept="image/*" multiple hidden></label>
-            <span class="tb-spacer"></span>
-            <button class="btn btn-sm" type="button" id="post-preview-toggle" aria-pressed="false">Preview</button>
-          </div>
-          <label class="sr-only" for="post-body">Story</label>
-          <textarea id="post-body" rows="18" placeholder="Tell the story… Leave an empty line between paragraphs."></textarea>
-          <div id="post-preview" class="prose post-content post-preview" hidden></div>
-        </div>
-        <label class="check"><input type="checkbox" id="post-draft"> Draft — save it without showing it on the site yet</label>
-        <div class="row-actions">
-          <button class="btn btn-primary" type="submit" id="post-save">Publish story</button>
-          <button class="btn" type="button" id="post-cancel">Cancel</button>
-          <button class="btn btn-danger" type="button" id="post-delete" hidden>Delete this story</button>
-        </div>
-      </form>
     </div>
 
     <form id="quiz-form" class="panel stack">

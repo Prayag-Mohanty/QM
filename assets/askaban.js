@@ -34,3 +34,25 @@
     });
   });
 })();
+
+/* Phones: Feed / Blog tabs (desktop shows both columns side by side). */
+(function () {
+  "use strict";
+  var tabs = document.querySelector(".ask-tabs"), layout = document.querySelector(".ask-layout");
+  if (!tabs || !layout) return;
+  tabs.hidden = false;
+  function pick(which, push) {
+    layout.dataset.active = which;
+    tabs.querySelectorAll("[data-ask-tab]").forEach(function (t) {
+      var on = t.dataset.askTab === which;
+      t.classList.toggle("is-active", on);
+      t.setAttribute("aria-selected", String(on));
+    });
+    if (push) history.replaceState(null, "", which === "blog" ? "#blog" : location.pathname + location.search);
+  }
+  tabs.addEventListener("click", function (e) {
+    var t = e.target.closest("[data-ask-tab]");
+    if (t) { pick(t.dataset.askTab, true); window.scrollTo({ top: tabs.offsetTop - 70, behavior: "smooth" }); }
+  });
+  pick(location.hash === "#blog" ? "blog" : "feed", false);
+})();

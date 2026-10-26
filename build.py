@@ -43,7 +43,6 @@ CACHE_DIR = ROOT / ".cache"
 ASSETS_DIR = ROOT / "assets"
 TEMPLATES_DIR = ROOT / "templates"
 PAGES_DIR = ROOT / "pages"
-BLOG_DIR = ROOT / "blog"
 ASKABAN_DIR = ROOT / "askaban"
 
 VIEWABLE = {".pdf"}
@@ -726,19 +725,6 @@ def write_redirects(site: dict) -> None:
         (OUT_DIR / "404.html").write_text(html.replace("<head>", "<head>" + js, 1), encoding="utf-8")
 
 
-@dataclass
-class Post:
-    slug: str
-    title: str
-    date: dt.date
-    summary: str
-    tags: list[str]
-    html: str
-    text: str
-    cover: str          # absolute-from-site-root URL, or ""
-    minutes: int
-
-
 def split_front_matter(text: str) -> tuple[dict, str]:
     m = re.match(r"\A---\s*\n(.*?)\n---\s*(?:\n|\Z)", text, re.S)
     if not m:
@@ -746,12 +732,12 @@ def split_front_matter(text: str) -> tuple[dict, str]:
     try:
         meta = yaml.safe_load(m.group(1)) or {}
     except yaml.YAMLError as exc:
-        print(f"  ! blog front matter: {exc}", file=sys.stderr)
+        print(f"  ! front matter: {exc}", file=sys.stderr)
         meta = {}
     return (meta if isinstance(meta, dict) else {}), text[m.end():]
 
 
-def publish_blog_images(base: str, section: str = "blog") -> dict[str, str]:
+def publish_images(base: str, section: str) -> dict[str, str]:
     """<section>/images/* -> _site/<section>/images/, resized for the web (cached).
     Returns {original file name: published URL}."""
     from PIL import Image, ImageOps
@@ -765,7 +751,7 @@ def publish_blog_images(base: str, section: str = "blog") -> dict[str, str]:
     if not src_dir.is_dir():
         return urls
     out_dir.mkdir(parents=True, exist_ok=True)
-    cache = CACHE_DIR / "blog"
+    cache = CACHE_DIR / "images"
     cache.mkdir(parents=True, exist_ok=True)
     for f in sorted(src_dir.iterdir()):
         ext = f.suffix.lower()
@@ -793,50 +779,6 @@ def publish_blog_images(base: str, section: str = "blog") -> dict[str, str]:
         shutil.copy2(cached, out_dir / name)
         urls[f.name] = f"{base}{section}/images/{name}"
     return urls
-
-
-def collect_posts(base: str) -> list[Post]:
-    """Stories from blog/*.md: a front matter block (title, date, summary, tags,
-    cover, draft) followed by the story in Markdown."""
-    if not BLOG_DIR.is_dir():
-        return []
-    images = publish_blog_images(base)
-
-    def image_url(ref: str) -> str:
-        name = ref.split("/")[-1]
-        return images.get(name, ref)
-
-    posts = []
-    for f in sorted(BLOG_DIR.glob("*.md")):
-        if f.name.lower() == "readme.md":
-            continue
-        meta, body = split_front_matter(f.read_text(encoding="utf-8"))
-        if meta.get("draft"):
-            continue
-        body = mask_emails(body)
-        html = markdown.markdown(body, extensions=["extra", "sane_lists", "smarty"])
-        # Photos: point "images/x.jpg" at the published copy; lazy-load them.
-        html = re.sub(r'<img ([^>]*?)src="((?:\.\./)?(?:blog/)?images/[^"]+)"',
-                      lambda m: f'<img loading="lazy" decoding="async" {m[1]}src="{image_url(m[2])}"', html)
-        # A paragraph holding just an image (plus optional *caption* line) becomes a figure.
-        html = re.sub(r"<p>(<img [^>]+>)\s*(?:<br\s*/?>\s*)?(?:<em>(.*?)</em>)?</p>",
-                      lambda m: f"<figure>{m[1]}" + (f"<figcaption>{m[2]}</figcaption>" if m[2] else "") + "</figure>", html)
-        text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html)).strip()
-        summary = str(meta.get("summary") or "").strip()
-        if not summary:
-            first = re.search(r"<p>(.*?)</p>", html, re.S)
-            summary = re.sub(r"<[^>]+>", "", first.group(1)).strip() if first else text
-            summary = summary if len(summary) <= 180 else summary[:177].rsplit(" ", 1)[0] + "…"
-        cover = str(meta.get("cover") or "")
-        cover = image_url(cover) if cover else (re.search(r'<img [^>]*src="([^"]+)"', html) or [None, ""])[1]
-        date = to_date(meta.get("date")) or git_added_date(f) or dt.date.fromtimestamp(f.stat().st_mtime)
-        posts.append(Post(slug=slugify(str(meta.get("slug") or f.stem)),
-                          title=str(meta.get("title") or title_from_filename(f.stem)),
-                          date=date, summary=summary, tags=as_list(meta.get("tags")),
-                          html=html, text=text, cover=cover,
-                          minutes=max(1, round(len(text.split()) / 220))))
-    posts.sort(key=lambda p: (p.date, p.title), reverse=True)
-    return posts
 
 
 @dataclass
@@ -898,7 +840,7 @@ def collect_updates(base: str) -> list[Update]:
     result, scores, photos, tags) plus a short text."""
     if not ASKABAN_DIR.is_dir():
         return []
-    images = publish_blog_images(base, "askaban")
+    images = publish_images(base, "askaban")
     updates = []
     for f in sorted(ASKABAN_DIR.glob("*.md")):
         if f.name.lower() == "readme.md":
@@ -922,6 +864,67 @@ def collect_updates(base: str) -> list[Update]:
             tags=as_list(meta.get("tags"))))
     updates.sort(key=lambda u: (u.when, u.id), reverse=True)
     return updates
+
+
+def medium_feed_url(profile: str) -> str:
+    """'https://medium.com/@name', '@name', 'name.medium.com' or a publication URL -> its RSS feed."""
+    p = profile.strip().rstrip("/")
+    if not p:
+        return ""
+    if "/feed" in p:
+        return p
+    if p.startswith("@"):
+        return f"https://medium.com/feed/{p}"
+    parts = urlsplit(p if "://" in p else "https://" + p)
+    host, path = parts.netloc.lower(), parts.path.strip("/")
+    if host.endswith(".medium.com") and host != "www.medium.com":       # name.medium.com
+        return f"https://{host}/feed"
+    if host in ("medium.com", "www.medium.com"):
+        return f"https://medium.com/feed/{path.split('/')[0]}" if path else ""
+    return f"https://{host}/feed"                                        # custom-domain publication
+
+
+def fetch_medium(site: dict) -> list[dict]:
+    """Latest articles from the Medium profile in site.yml (its RSS feed holds the
+    10 most recent). The last good copy is cached, so a hiccup at Medium never
+    empties the list."""
+    import html as htmllib
+    import urllib.request
+    import xml.etree.ElementTree as ET
+    feed = medium_feed_url(str(site.get("medium") or ""))
+    cache = CACHE_DIR / "medium.json"
+    if not feed:
+        return []
+    try:
+        req = urllib.request.Request(feed, headers={"User-Agent": "Mozilla/5.0 (QM Prayag site builder)"})
+        with urllib.request.urlopen(req, timeout=20) as r:
+            root = ET.fromstring(r.read())
+        ns = {"content": "http://purl.org/rss/1.0/modules/content/", "dc": "http://purl.org/dc/elements/1.1/"}
+        articles = []
+        for item in root.iter("item"):
+            body = item.findtext("content:encoded", "", ns) or item.findtext("description", "")
+            img = re.search(r'<img[^>]+src="([^"]+)"', body)
+            paras = [htmllib.unescape(re.sub(r"<[^>]+>", "", p)).strip() for p in re.findall(r"<p>(.*?)</p>", body, re.S)]
+            excerpt = next((p for p in paras if len(p) > 40), paras[0] if paras else "")
+            excerpt = excerpt if len(excerpt) <= 170 else excerpt[:167].rsplit(" ", 1)[0] + "…"
+            pub = item.findtext("pubDate", "")
+            try:
+                date = email.utils.parsedate_to_datetime(pub).date().isoformat()
+            except (TypeError, ValueError):
+                date = ""
+            words = len(re.sub(r"<[^>]+>", " ", body).split())
+            articles.append({"title": htmllib.unescape(item.findtext("title", "").strip()),
+                             "url": (item.findtext("link", "") or "").split("?")[0],
+                             "date": date, "image": img.group(1) if img else "", "excerpt": excerpt,
+                             "minutes": max(1, round(words / 230)),
+                             "tags": [c.text for c in item.findall("category") if c.text][:3]})
+        if articles:
+            cache.write_text(json.dumps(articles, indent=1))
+            print(f"  {len(articles)} Medium article(s)")
+            return articles
+    except Exception as exc:  # network trouble or Medium blocking: fall back to the last good copy
+        print(f"  ! Medium feed ({feed}): {exc}", file=sys.stderr)
+    return json.loads(cache.read_text()) if cache.exists() else []
 
 
 def site_url(site: dict) -> str:
@@ -1012,7 +1015,10 @@ def build(site: dict) -> list[Quiz]:
         return f"{base}assets/{name}" + (f"?v={sha256(f)[:10]}" if f.is_file() else "")
     env.filters["mailcode"] = mail_code
     env.filters["absolute"] = lambda p: absolute(p)
-    env.filters["blog_ld_ref"] = lambda slug: {"@type": "BlogPosting", "url": page_url(f"blog/{slug}/")}
+    env.filters["iso_pretty"] = lambda s: dt.date.fromisoformat(s).strftime("%-d %b %Y") if s else ""
+    env.filters["article_ld"] = lambda a: {"@type": "BlogPosting", "headline": a["title"], "url": a["url"],
+                                           "datePublished": a["date"] or None,
+                                           "author": {"@type": "Person", "name": site["author"]}}
     env.globals["asset"] = asset
     env.globals.update(site=site, tag_list=tag_list, quiz_ld=quiz_ld,
                        item_list=item_list, absolute=absolute)
@@ -1051,17 +1057,16 @@ def build(site: dict) -> list[Quiz]:
     (OUT_DIR / "gallery.json").write_text(json.dumps(
         [{"file": p["file"], "caption": p["caption"], "main": p["main"], "thumb": p["thumb"]["url"]} for p in gallery],
         indent=2, ensure_ascii=False), encoding="utf-8")
-    posts = collect_posts(base)
-    write("blog/index.html", "blog.html", posts=posts, canonical=page_url("blog/"))
-    for i, p in enumerate(posts):
-        write(f"blog/{p.slug}/index.html", "post.html", p=p, canonical=page_url(f"blog/{p.slug}/"),
-              newer=posts[i - 1] if i else None, older=posts[i + 1] if i + 1 < len(posts) else None)
-    # The Manage page reads this to list posts.
-    (OUT_DIR / "blog" / "posts.json").write_text(json.dumps(
-        [{"slug": p.slug, "title": p.title, "date": p.date.isoformat(), "cover": p.cover} for p in posts],
-        indent=2, ensure_ascii=False), encoding="utf-8")
     updates = collect_updates(base)
-    write("askaban/index.html", "askaban.html", updates=updates, canonical=page_url("askaban/"))
+    articles = fetch_medium(site)
+    # The old on-site blog now lives inside Askaban.
+    target = page_url("askaban/")
+    (OUT_DIR / "blog").mkdir(parents=True, exist_ok=True)
+    (OUT_DIR / "blog" / "index.html").write_text(
+        f'<!doctype html><meta charset="utf-8"><title>Moved</title><link rel="canonical" href="{target}">'
+        f'<meta http-equiv="refresh" content="0; url={target}"><p>The blog is now part of <a href="{target}">Askaban</a>.</p>',
+        encoding="utf-8")
+    write("askaban/index.html", "askaban.html", updates=updates, articles=articles, canonical=page_url("askaban/"))
     for u in updates:
         write(f"askaban/{u.id}/index.html", "update.html", u=u, canonical=page_url(f"askaban/{u.id}/"))
     (OUT_DIR / "askaban" / "updates.json").write_text(json.dumps(
@@ -1070,11 +1075,11 @@ def build(site: dict) -> list[Quiz]:
     write("404.html", "404.html", canonical=url)
     write("upload/index.html", "upload.html", canonical=page_url("upload/"))
 
-    write("sitemap.xml", "sitemap.xml", quizzes=quizzes, tags=tags, posts=posts, updates=updates)
-    write("feed.xml", "feed.xml", quizzes=quizzes, posts=posts, updates=updates)
+    write("sitemap.xml", "sitemap.xml", quizzes=quizzes, tags=tags, updates=updates, articles=articles)
+    write("feed.xml", "feed.xml", quizzes=quizzes, updates=updates, articles=articles)
     write("robots.txt", "robots.txt")
-    write("llms.txt", "llms.txt", quizzes=quizzes, posts=posts, updates=updates)
-    write("llms-full.txt", "llms-full.txt", quizzes=quizzes, posts=posts)
+    write("llms.txt", "llms.txt", quizzes=quizzes, updates=updates, articles=articles)
+    write("llms-full.txt", "llms-full.txt", quizzes=quizzes)
     (OUT_DIR / "quizzes.json").write_text(json.dumps([{
         "title": q.title, "url": page_url(f"quiz/{q.slug}/"), "description": q.summary,
         "date": q.date.isoformat(), "tags": q.tags, "event": q.event,

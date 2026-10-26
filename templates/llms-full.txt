@@ -9,14 +9,4 @@
 
 {% include "quiz.md" with context %}
 {% endfor %}
-{% for p in posts %}
-
----
-
-# {{ p.title }} (blog, {{ p.date.isoformat() }})
-
-URL: {{ site.url }}blog/{{ p.slug }}/
-
-{{ p.text }}
-{% endfor %}
 {% endautoescape %}
