@@ -17,6 +17,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 45   # a hung step must never block later publishes (they queue behind it)
     steps:
       - uses: actions/checkout@v4
         with:
@@ -30,14 +31,18 @@ jobs:
       - run: pip install -r requirements.txt
 
       - name: Install LibreOffice (only when there are PPTX/PPT/DOCX files)
+        timeout-minutes: 20
         run: |
           if find quizzes -type f ! -iname '*.pdf' ! -iname '*.pdf.part*' ! -iname '*.yml' ! -iname '*.yaml' ! -iname '*.md' ! -name '.*' | grep -q .; then
-            sudo apt-get update -qq
-            sudo apt-get install -y -qq --no-install-recommends \
-              libreoffice-impress libreoffice-writer \
-              fonts-crosextra-carlito fonts-crosextra-caladea fonts-liberation2 \
-              fonts-noto-core fonts-noto-cjk fonts-noto-color-emoji fonts-dejavu \
-              ffmpeg
+            APT="-o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30"
+            PKGS="libreoffice-impress libreoffice-writer fonts-crosextra-carlito fonts-crosextra-caladea fonts-liberation2 fonts-noto-core fonts-noto-cjk fonts-noto-color-emoji fonts-dejavu ffmpeg"
+            # A stuck package mirror occasionally hangs apt; give up after 8 minutes and try once more.
+            for attempt in 1 2; do
+              if sudo timeout 480 apt-get $APT update -qq && sudo timeout 480 apt-get $APT install -y -qq --no-install-recommends $PKGS; then
+                break
+              fi
+              echo "apt attempt $attempt failed or timed out"; [ "$attempt" = 2 ] && exit 1; sleep 15
+            done
           fi
 
       - name: Restore converted-file cache
