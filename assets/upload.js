@@ -24,6 +24,7 @@
   var published = {}; // slug -> entry from quizzes.json
   var editing = null; // {stem, yml, entries, text}
   var galleryRepo = { json: null, files: {} }; // pages/gallery.json sha, pages/gallery/<file> -> sha
+  var blogRepo = { posts: {}, images: {} };     // blog/<name>.md -> sha, blog/images/<file> -> sha
 
   // ---- helpers -------------------------------------------------------------
   function request(method, path, body, onProgress) {
@@ -147,7 +148,10 @@
     }).then(function (tree) {
       quizzes = {};
       galleryRepo = { json: null, files: {} };
+      blogRepo = { posts: {}, images: {} };
       tree.tree.forEach(function (item) {
+        if (item.type === "blob" && /^blog\/[^/]+\.md$/i.test(item.path) && !/readme\.md$/i.test(item.path)) blogRepo.posts[item.path.slice(5)] = item.sha;
+        if (item.type === "blob" && item.path.indexOf("blog/images/") === 0) blogRepo.images[item.path.slice(12)] = item.sha;
         if (item.type === "blob" && item.path === "pages/gallery.json") galleryRepo.json = item.sha;
         if (item.type === "blob" && item.path.indexOf("pages/gallery/") === 0) galleryRepo.files[item.path.slice(14)] = item.sha;
         if (item.type !== "blob" || item.path.indexOf("quizzes/") !== 0) return;
@@ -181,6 +185,7 @@
       published = {};
       items.forEach(function (it) { published[it.url.replace(/\/$/, "").split("/").pop()] = it; });
       renderList();
+      loadPosts();
       return loadPhotos();
     });
   }
@@ -219,8 +224,9 @@
   function showTab(which) {
     $("manage").hidden = which !== "manage";
     $("photos").hidden = which !== "photos";
+    $("blog").hidden = which !== "blog";
     $("quiz-form").hidden = which !== "new";
-    ["new", "manage", "photos"].forEach(function (t) {
+    ["new", "manage", "photos", "blog"].forEach(function (t) {
       $("tab-" + t).classList.toggle("is-active", t === which);
       $("tab-" + t).setAttribute("aria-selected", String(t === which));
     });
@@ -228,6 +234,7 @@
   $("tab-new").addEventListener("click", function () { if (editing) resetForm(); showTab("new"); });
   $("tab-manage").addEventListener("click", function () { showTab("manage"); });
   $("tab-photos").addEventListener("click", function () { showTab("photos"); });
+  $("tab-blog").addEventListener("click", function () { showTab("blog"); });
 
   function resetForm() {
     editing = null;
@@ -827,6 +834,252 @@
   });
   window.addEventListener("beforeunload", function (e) {
     if (photos.some(function (p) { return p.blob; }) || (photosSaved && photoState() !== photosSaved)) { e.preventDefault(); e.returnValue = ""; }
+  });
+
+  // ---- Blog (blog/<slug>.md + blog/images/*) ------------------------------------
+  var postsPublished = {};   // slug -> {title, date, cover} from the live site
+  var postEditing = null;    // {name, sha, text} while editing an existing story
+  var postImages = {};       // file name -> {blob, url} photos added but not saved yet
+  var postCover = "";        // "images/x.jpg" or ""
+  var RAW = "https://raw.githubusercontent.com/" + REPO + "/" + BRANCH + "/blog/";
+
+  function postSlug(name) { return slugify(name.replace(/\.md$/i, "")); }
+  function loadPosts() {
+    return fetch(BASE + "blog/posts.json?t=" + Date.now()).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+      .then(function (items) {
+        postsPublished = {};
+        items.forEach(function (p) { postsPublished[p.slug] = p; });
+        renderPosts();
+      });
+  }
+  function renderPosts() {
+    var names = Object.keys(blogRepo.posts).sort(function (a, b) {
+      var pa = postsPublished[postSlug(a)], pb = postsPublished[postSlug(b)];
+      return ((pb && pb.date) || "9999").localeCompare((pa && pa.date) || "9999") || a.localeCompare(b);
+    });
+    $("post-count").textContent = names.length || "";
+    $("post-list").innerHTML = names.map(function (n) {
+      var p = postsPublished[postSlug(n)];
+      return '<li class="manage-item">' +
+        (p && p.cover ? '<img src="' + esc(p.cover) + '" alt="" loading="lazy">' : '<span class="manage-ph">' + (p ? "story" : "draft / new") + "</span>") +
+        '<span class="manage-text"><b>' + esc(p ? p.title : n.replace(/\.md$/i, "")) + "</b>" +
+        '<span class="muted small">' + (p ? esc(p.date) : "Not on the site yet (draft, or publishing…)") + "</span></span>" +
+        '<span class="manage-actions">' +
+        (p ? '<a class="btn btn-sm" href="' + BASE + "blog/" + esc(p.slug) + '/" target="_blank" rel="noopener">View</a>' : "") +
+        '<button class="btn btn-sm btn-primary" type="button" data-post-edit="' + esc(n) + '">Edit</button></span></li>';
+    }).join("") || '<li class="muted">No stories yet — click “New story” to write the first one.</li>';
+  }
+
+  function splitFrontMatter(text) {
+    var m = /^---\s*\n([\s\S]*?)\n---\s*(?:\n|$)/.exec(text);
+    return m ? { meta: parseYaml(m[1]).data, body: text.slice(m[0].length).replace(/^\n+/, "") } : { meta: {}, body: text };
+  }
+  function buildPost() {
+    var lines = ["---", "title: " + JSON.stringify($("post-title").value.trim())];
+    if ($("post-date").value) lines.push("date: " + $("post-date").value);
+    if ($("post-summary").value.trim()) lines.push("summary: " + JSON.stringify($("post-summary").value.trim().replace(/\s+/g, " ")));
+    var tags = list($("post-tags").value);
+    if (tags.length) lines.push("tags: " + JSON.stringify(tags));
+    if (postCover) lines.push("cover: " + JSON.stringify(postCover));
+    if ($("post-draft").checked) lines.push("draft: true");
+    lines.push("---", "");
+    return lines.join("\n") + "\n" + $("post-body").value.replace(/\s+$/, "") + "\n";
+  }
+  function imageSrc(ref) {
+    var name = ref.split("/").pop();
+    return postImages[name] ? postImages[name].url : RAW + "images/" + encodeURIComponent(name);
+  }
+  function showCover() {
+    $("post-cover-preview").hidden = !postCover;
+    $("post-cover-clear").hidden = !postCover;
+    if (postCover) $("post-cover-preview").src = imageSrc(postCover);
+  }
+  function openPostForm() {
+    $("post-form").hidden = false;
+    $("post-list").hidden = true;
+    $("post-new").hidden = true;
+    $("post-form").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  function closePostForm() {
+    postEditing = null; postImages = {}; postCover = "";
+    $("post-form").reset();
+    $("post-form").hidden = true;
+    $("post-list").hidden = false;
+    $("post-new").hidden = false;
+    $("post-banner").hidden = true;
+    $("post-delete").hidden = true;
+    setPreview(false);
+    showCover();
+  }
+  $("post-new").addEventListener("click", function () {
+    closePostForm();
+    $("post-date").value = today();
+    $("post-save").textContent = "Publish story";
+    openPostForm();
+    $("post-title").focus();
+  });
+  $("post-cancel").addEventListener("click", function () {
+    if (($("post-body").value.trim() || Object.keys(postImages).length) && !confirm("Discard your changes to this story?")) return;
+    closePostForm();
+  });
+  $("post-list").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-post-edit]");
+    if (!b) return;
+    var name = b.dataset.postEdit;
+    request("GET", "/repos/" + REPO + "/git/blobs/" + blogRepo.posts[name]).then(function (blob) {
+      var text = base64Utf8(blob.content), fm = splitFrontMatter(text), d = fm.meta;
+      closePostForm();
+      postEditing = { name: name, text: text };
+      $("post-title").value = d.title || name.replace(/\.md$/i, "");
+      $("post-date").value = /^\d{4}-\d{2}-\d{2}$/.test(d.date || "") ? d.date : "";
+      $("post-summary").value = d.summary || "";
+      $("post-tags").value = asList(d.tags).join(", ");
+      $("post-draft").checked = String(d.draft) === "true";
+      $("post-body").value = fm.body;
+      postCover = d.cover || "";
+      showCover();
+      $("post-edit-name").textContent = $("post-title").value;
+      $("post-view").href = BASE + "blog/" + postSlug(name) + "/";
+      $("post-banner").hidden = false;
+      $("post-delete").hidden = false;
+      $("post-save").textContent = "Save changes";
+      openPostForm();
+    }).catch(function (err) { alert("Couldn’t open that story: " + err.message); });
+  });
+
+  // Formatting buttons wrap the selection: "**|**" puts the selection where | is.
+  function insertAtCursor(before, after) {
+    var t = $("post-body"), s = t.selectionStart, e = t.selectionEnd, sel = t.value.slice(s, e);
+    t.value = t.value.slice(0, s) + before + sel + after + t.value.slice(e);
+    t.focus();
+    t.selectionStart = s + before.length;
+    t.selectionEnd = s + before.length + sel.length;
+  }
+  document.querySelectorAll("[data-md]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var parts = b.dataset.md.replace(/\\n/g, "\n").split("|");
+      insertAtCursor(parts[0], parts[1] || "");
+    });
+  });
+  function stagePhoto(file) {
+    return resizePhoto(file).then(function (blob) {
+      var base = slugify(file.name.replace(/\.[^.]+$/, "")).slice(0, 50).replace(/-+$/, "") || "photo";
+      var name = base + "-" + Math.random().toString(36).slice(2, 6) + ".jpg";
+      postImages[name] = { blob: blob, url: URL.createObjectURL(blob) };
+      return name;
+    });
+  }
+  $("post-photo-file").addEventListener("change", function () {
+    var files = Array.prototype.slice.call($("post-photo-file").files);
+    files.reduce(function (p, f) {
+      return p.then(function () {
+        return stagePhoto(f).then(function (name) {
+          insertAtCursor("\n\n![](images/" + name + ")\n*", "Caption for this photo*\n\n");
+        }).catch(function (err) { alert(err.message); });
+      });
+    }, Promise.resolve()).then(function () { $("post-photo-file").value = ""; if (!$("post-preview").hidden) renderPreview(); });
+  });
+  $("post-cover-file").addEventListener("change", function () {
+    var f = $("post-cover-file").files[0];
+    if (!f) return;
+    stagePhoto(f).then(function (name) { postCover = "images/" + name; showCover(); })
+      .catch(function (err) { alert(err.message); })
+      .then(function () { $("post-cover-file").value = ""; });
+  });
+  $("post-cover-clear").addEventListener("click", function () { postCover = ""; showCover(); });
+
+  // Preview uses the "marked" Markdown library (assets/marked.min.js), loaded only when asked for.
+  var markedLoading = null;
+  function loadMarked() {
+    if (window.marked) return Promise.resolve();
+    return markedLoading || (markedLoading = new Promise(function (resolve, reject) {
+      var sc = document.createElement("script");
+      sc.src = BASE + "assets/marked.min.js";
+      sc.onload = resolve;
+      sc.onerror = function () { markedLoading = null; reject(new Error("Preview couldn’t load — check your connection.")); };
+      document.head.appendChild(sc);
+    }));
+  }
+  function renderPreview() {
+    loadMarked().then(function () {
+      var box = $("post-preview");
+      box.innerHTML = window.marked.parse($("post-body").value || "*Nothing written yet.*");
+      box.querySelectorAll("script, iframe, object").forEach(function (n) { n.remove(); });
+      box.querySelectorAll("img").forEach(function (img) {
+        var src = img.getAttribute("src") || "";
+        if (/^(\.\.\/)?(blog\/)?images\//.test(src)) img.src = imageSrc(src);
+      });
+    }).catch(function (err) { $("post-preview").textContent = err.message; });
+  }
+  function setPreview(on) {
+    $("post-preview").hidden = !on;
+    $("post-body").hidden = on;
+    $("post-preview-toggle").setAttribute("aria-pressed", String(on));
+    $("post-preview-toggle").textContent = on ? "Edit" : "Preview";
+    if (on) renderPreview();
+  }
+  $("post-preview-toggle").addEventListener("click", function () { setPreview($("post-preview").hidden); });
+
+  function postBusy(on) { $("post-save").disabled = $("post-delete").disabled = on; }
+  $("post-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var title = $("post-title").value.trim();
+    if (!title) return alert("Give the story a title.");
+    if (!$("post-body").value.trim()) return alert("The story is empty.");
+    var text = buildPost(), body = $("post-body").value;
+    if (postEditing && text === postEditing.text) return alert("Nothing has changed.");
+    var name = postEditing ? postEditing.name : null;
+    if (!name) {
+      var base = slugify(title).slice(0, 80).replace(/-+$/, "") || "story", n = 2;
+      name = base + ".md";
+      while (blogRepo.posts[name]) name = base + "-" + n++ + ".md";
+    }
+    // Only upload photos the story (or its cover) still uses.
+    var used = Object.keys(postImages).filter(function (f) { return body.indexOf(f) !== -1 || postCover.indexOf(f) !== -1; });
+    var entries = [], total = used.reduce(function (s, f) { return s + postImages[f].blob.size; }, 0) || 1, done = 0;
+    postBusy(true);
+    progress(0.01, "Starting…");
+    used.reduce(function (chain, f) {
+      return chain.then(function () {
+        progress(done / total * 0.8, "Uploading photo " + esc(f) + "…");
+        return readBase64(postImages[f].blob).then(function (b64) {
+          return request("POST", "/repos/" + REPO + "/git/blobs", { content: b64, encoding: "base64" });
+        }).then(function (blob) {
+          done += postImages[f].blob.size;
+          entries.push({ path: "blog/images/" + f, mode: "100644", type: "blob", sha: blob.sha });
+        });
+      });
+    }, Promise.resolve()).then(function () {
+      return request("POST", "/repos/" + REPO + "/git/blobs", { content: utf8Base64(text), encoding: "base64" });
+    }).then(function (blob) {
+      entries.push({ path: "blog/" + name, mode: "100644", type: "blob", sha: blob.sha });
+      progress(0.88, "Saving…");
+      return commitTree(entries, (postEditing ? "Update story: " : "Add story: ") + title);
+    }).then(function (sha) {
+      var draft = $("post-draft").checked, url = location.origin + BASE + "blog/" + (draft ? "" : postSlug(name) + "/");
+      closePostForm();
+      watchDeploy(sha, url, draft ? "Draft saved. The blog is at" : "Your story is published at");
+      return loadRepo();
+    }).catch(function (err) {
+      if (err.status === 401) return showSignin("Your GitHub token has expired or was revoked. Please connect again.");
+      progress(0, "❌ Failed: " + esc(err.status === 403 && /not accessible/i.test(err.message) ? NO_WRITE : err.message));
+    }).then(function () { postBusy(false); });
+  });
+  $("post-delete").addEventListener("click", function () {
+    var ed = postEditing;
+    if (!ed || !confirm("Delete “" + ($("post-title").value || ed.name) + "” from the blog?\n\n(It can still be recovered from the GitHub history.)")) return;
+    postBusy(true);
+    progress(0.5, "Deleting…");
+    commitTree([{ path: "blog/" + ed.name, mode: "100644", type: "blob", sha: null }], "Delete story: " + ($("post-title").value || ed.name))
+      .then(function (sha) {
+        closePostForm();
+        watchDeploy(sha, location.origin + BASE + "blog/", "The story has been removed from");
+        return loadRepo();
+      }).catch(function (err) { progress(0, "❌ Failed: " + esc(err.message)); })
+      .then(function () { postBusy(false); });
+  });
+  window.addEventListener("beforeunload", function (e) {
+    if (!$("post-form").hidden && ($("post-body").value.trim() || Object.keys(postImages).length)) { e.preventDefault(); e.returnValue = ""; }
   });
 
   // ---- start ---------------------------------------------------------------

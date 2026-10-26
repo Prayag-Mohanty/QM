@@ -13,4 +13,12 @@
   <url><loc>{{ site.url }}tags/{{ t|slugify }}/</loc></url>
   {% endfor %}
   <url><loc>{{ site.url }}about/</loc></url>
+  <url><loc>{{ site.url }}blog/</loc>{% if posts %}<lastmod>{{ posts[0].date.isoformat() }}</lastmod>{% endif %}</url>
+  {% for p in posts %}
+  <url>
+    <loc>{{ site.url }}blog/{{ p.slug }}/</loc>
+    <lastmod>{{ p.date.isoformat() }}</lastmod>
+    {% if p.cover %}<image:image><image:loc>{{ absolute(p.cover) }}</image:loc></image:image>{% endif %}
+  </url>
+  {% endfor %}
 </urlset>

@@ -6,6 +6,16 @@
   <description>{{ site.description|trim }}</description>
   <language>{{ site.language }}</language>
   <atom:link href="{{ site.url }}feed.xml" rel="self" type="application/rss+xml"/>
+  {% for p in posts[:20] %}
+  <item>
+    <title>{{ p.title }}</title>
+    <link>{{ site.url }}blog/{{ p.slug }}/</link>
+    <guid isPermaLink="true">{{ site.url }}blog/{{ p.slug }}/</guid>
+    <pubDate>{{ p.date|rfc822 }}</pubDate>
+    <description>{{ p.summary }}</description>
+    <category>Blog</category>
+  </item>
+  {% endfor %}
   {% for q in quizzes[:50] %}
   <item>
     <title>{{ q.title }}</title>

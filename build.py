@@ -43,6 +43,7 @@ CACHE_DIR = ROOT / ".cache"
 ASSETS_DIR = ROOT / "assets"
 TEMPLATES_DIR = ROOT / "templates"
 PAGES_DIR = ROOT / "pages"
+BLOG_DIR = ROOT / "blog"
 
 VIEWABLE = {".pdf"}
 CONVERTIBLE = {".pptx", ".ppt", ".pps", ".ppsx", ".odp", ".key", ".docx", ".doc", ".odt"}
@@ -724,6 +725,119 @@ def write_redirects(site: dict) -> None:
         (OUT_DIR / "404.html").write_text(html.replace("<head>", "<head>" + js, 1), encoding="utf-8")
 
 
+@dataclass
+class Post:
+    slug: str
+    title: str
+    date: dt.date
+    summary: str
+    tags: list[str]
+    html: str
+    text: str
+    cover: str          # absolute-from-site-root URL, or ""
+    minutes: int
+
+
+def split_front_matter(text: str) -> tuple[dict, str]:
+    m = re.match(r"\A---\s*\n(.*?)\n---\s*(?:\n|\Z)", text, re.S)
+    if not m:
+        return {}, text
+    try:
+        meta = yaml.safe_load(m.group(1)) or {}
+    except yaml.YAMLError as exc:
+        print(f"  ! blog front matter: {exc}", file=sys.stderr)
+        meta = {}
+    return (meta if isinstance(meta, dict) else {}), text[m.end():]
+
+
+def publish_blog_images(base: str) -> dict[str, str]:
+    """blog/images/* -> _site/blog/images/, resized for the web (cached).
+    Returns {original file name: published URL}."""
+    from PIL import Image, ImageOps
+    try:
+        from pillow_heif import register_heif_opener
+        register_heif_opener()
+    except ImportError:
+        pass
+    src_dir, out_dir = BLOG_DIR / "images", OUT_DIR / "blog" / "images"
+    urls: dict[str, str] = {}
+    if not src_dir.is_dir():
+        return urls
+    out_dir.mkdir(parents=True, exist_ok=True)
+    cache = CACHE_DIR / "blog"
+    cache.mkdir(parents=True, exist_ok=True)
+    for f in sorted(src_dir.iterdir()):
+        ext = f.suffix.lower()
+        if ext not in PHOTO_EXT:
+            continue
+        if ext == ".gif":   # keep animations as they are
+            shutil.copy2(f, out_dir / f.name)
+            urls[f.name] = f"{base}blog/images/{f.name}"
+            continue
+        keep_png = ext == ".png"
+        name = f"{slugify(f.stem)}-{sha256(f)[:10]}{'.png' if keep_png else '.jpg'}"
+        cached = cache / name
+        if not cached.exists():
+            try:
+                with Image.open(f) as im:
+                    im = ImageOps.exif_transpose(im)
+                    im.thumbnail((1600, 1600), Image.LANCZOS)
+                    if keep_png:
+                        im.save(cached, optimize=True)
+                    else:
+                        im.convert("RGB").save(cached, quality=84, optimize=True, progressive=True)
+            except OSError as exc:
+                print(f"  ! blog image {f.name} can't be read ({exc}); save it as JPG", file=sys.stderr)
+                continue
+        shutil.copy2(cached, out_dir / name)
+        urls[f.name] = f"{base}blog/images/{name}"
+    return urls
+
+
+def collect_posts(base: str) -> list[Post]:
+    """Stories from blog/*.md: a front matter block (title, date, summary, tags,
+    cover, draft) followed by the story in Markdown."""
+    if not BLOG_DIR.is_dir():
+        return []
+    images = publish_blog_images(base)
+
+    def image_url(ref: str) -> str:
+        name = ref.split("/")[-1]
+        return images.get(name, ref)
+
+    posts = []
+    for f in sorted(BLOG_DIR.glob("*.md")):
+        if f.name.lower() == "readme.md":
+            continue
+        meta, body = split_front_matter(f.read_text(encoding="utf-8"))
+        if meta.get("draft"):
+            continue
+        body = mask_emails(body)
+        html = markdown.markdown(body, extensions=["extra", "sane_lists", "smarty"])
+        # Photos: point "images/x.jpg" at the published copy; lazy-load them.
+        html = re.sub(r'<img ([^>]*?)src="((?:\.\./)?(?:blog/)?images/[^"]+)"',
+                      lambda m: f'<img loading="lazy" decoding="async" {m[1]}src="{image_url(m[2])}"', html)
+        # A paragraph holding just an image (plus optional *caption* line) becomes a figure.
+        html = re.sub(r"<p>(<img [^>]+>)\s*(?:<br\s*/?>\s*)?(?:<em>(.*?)</em>)?</p>",
+                      lambda m: f"<figure>{m[1]}" + (f"<figcaption>{m[2]}</figcaption>" if m[2] else "") + "</figure>", html)
+        text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html)).strip()
+        summary = str(meta.get("summary") or "").strip()
+        if not summary:
+            first = re.search(r"<p>(.*?)</p>", html, re.S)
+            summary = re.sub(r"<[^>]+>", "", first.group(1)).strip() if first else text
+            summary = summary if len(summary) <= 180 else summary[:177].rsplit(" ", 1)[0] + "…"
+        cover = str(meta.get("cover") or "")
+        cover = image_url(cover) if cover else (re.search(r'<img [^>]*src="([^"]+)"', html) or [None, ""])[1]
+        date = to_date(meta.get("date")) or git_added_date(f) or dt.date.fromtimestamp(f.stat().st_mtime)
+        posts.append(Post(slug=slugify(str(meta.get("slug") or f.stem)),
+                          title=str(meta.get("title") or title_from_filename(f.stem)),
+                          date=date, summary=summary, tags=as_list(meta.get("tags")),
+                          html=html, text=text, cover=cover,
+                          minutes=max(1, round(len(text.split()) / 220))))
+    posts.sort(key=lambda p: (p.date, p.title), reverse=True)
+    return posts
+
+
 def site_url(site: dict) -> str:
     url = (os.environ.get("SITE_URL") if not site.get("url") else site["url"]) or "http://localhost:8000/"
     return url.rstrip("/") + "/"
@@ -810,6 +924,7 @@ def build(site: dict) -> list[Quiz]:
         f = ASSETS_DIR / name
         return f"{base}assets/{name}" + (f"?v={sha256(f)[:10]}" if f.is_file() else "")
     env.filters["mailcode"] = mail_code
+    env.filters["blog_ld_ref"] = lambda slug: {"@type": "BlogPosting", "url": page_url(f"blog/{slug}/")}
     env.globals["asset"] = asset
     env.globals.update(site=site, tag_list=tag_list, quiz_ld=quiz_ld,
                        item_list=item_list, absolute=absolute)
@@ -848,14 +963,23 @@ def build(site: dict) -> list[Quiz]:
     (OUT_DIR / "gallery.json").write_text(json.dumps(
         [{"file": p["file"], "caption": p["caption"], "main": p["main"], "thumb": p["thumb"]["url"]} for p in gallery],
         indent=2, ensure_ascii=False), encoding="utf-8")
+    posts = collect_posts(base)
+    write("blog/index.html", "blog.html", posts=posts, canonical=page_url("blog/"))
+    for i, p in enumerate(posts):
+        write(f"blog/{p.slug}/index.html", "post.html", p=p, canonical=page_url(f"blog/{p.slug}/"),
+              newer=posts[i - 1] if i else None, older=posts[i + 1] if i + 1 < len(posts) else None)
+    # The Manage page reads this to list posts.
+    (OUT_DIR / "blog" / "posts.json").write_text(json.dumps(
+        [{"slug": p.slug, "title": p.title, "date": p.date.isoformat(), "cover": p.cover} for p in posts],
+        indent=2, ensure_ascii=False), encoding="utf-8")
     write("404.html", "404.html", canonical=url)
     write("upload/index.html", "upload.html", canonical=page_url("upload/"))
 
-    write("sitemap.xml", "sitemap.xml", quizzes=quizzes, tags=tags)
-    write("feed.xml", "feed.xml", quizzes=quizzes)
+    write("sitemap.xml", "sitemap.xml", quizzes=quizzes, tags=tags, posts=posts)
+    write("feed.xml", "feed.xml", quizzes=quizzes, posts=posts)
     write("robots.txt", "robots.txt")
-    write("llms.txt", "llms.txt", quizzes=quizzes)
-    write("llms-full.txt", "llms-full.txt", quizzes=quizzes)
+    write("llms.txt", "llms.txt", quizzes=quizzes, posts=posts)
+    write("llms-full.txt", "llms-full.txt", quizzes=quizzes, posts=posts)
     (OUT_DIR / "quizzes.json").write_text(json.dumps([{
         "title": q.title, "url": page_url(f"quiz/{q.slug}/"), "description": q.summary,
         "date": q.date.isoformat(), "tags": q.tags, "event": q.event,
