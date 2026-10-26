@@ -5,4 +5,4 @@ captions: ["One of the most exciting school quizzes I've had was the inter-house
 tags: ["Throwback","SchoolQuizzing"]
 ---
 
-Throwback to school quizzing days in Muscat, Oman.
+Throwback to school quizzing days in Muscat, representing Indian School Muscat. Glorious days !!
