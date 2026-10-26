@@ -923,8 +923,8 @@
       resetAsk();
       askEditing = { name: name, text: text };
       $("ask-text").value = fm.body.replace(/\s+$/, "");
-      var w = /(\d{4}-\d{2}-\d{2})[T ](\d{1,2}):(\d{2})/.exec(d.date || "");
-      $("ask-when").value = w ? w[1] + "T" + ("0" + w[2]).slice(-2) + ":" + w[3] : "";
+      var w = /(\d{4}-\d{2}-\d{2})(?:[T ](\d{1,2}):(\d{2}))?/.exec(d.date || "");   // a date without a time counts as noon
+      $("ask-when").value = w ? w[1] + "T" + ("0" + (w[2] || "12")).slice(-2) + ":" + (w[3] || "00") : "";
       $("ask-event").value = d.event || "";
       $("ask-place").value = d.place || "";
       $("ask-result").value = d.result || "";

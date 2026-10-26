@@ -19,6 +19,7 @@ import hashlib
 import json
 import os
 import posixpath
+from html import unescape
 import re
 import shutil
 import subprocess
@@ -909,7 +910,7 @@ def collect_updates(base: str) -> list[Update]:
         fallback = dt.datetime.fromtimestamp(f.stat().st_mtime).replace(microsecond=0)
         updates.append(Update(
             id=slugify(f.stem), when=parse_when(meta.get("date"), fallback),
-            text_html=html, text=re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html)).strip(),
+            text_html=html, text=unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html)).strip()),
             event=str(meta.get("event") or "").strip(), place=str(meta.get("place") or "").strip(),
             result=result, medal=medal_for(result), scores=parse_scores(meta.get("scores")),
             photos=[images.get(str(p).split("/")[-1], str(p)) for p in as_list(meta.get("photos"))],
