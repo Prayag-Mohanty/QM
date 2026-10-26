@@ -1,7 +1,7 @@
 ---
-date: "2026-10-27 04:50"
-event: "IITB Quiz League 2026"
-place: "IIT Bombay"
+date: "2026-10-06 04:50"
+event: "India"
+place: "IITB Quiz League 2026"
 result: "Didn't play"
 scores: ["Abhineet, Aparna, Nathan (All Seeing Eyes): 25","Shriram, Dhruvi, Sunaina (InstiGators): 18","Uttirno, Soham, Arnav (All Seeing Eyes): 15","Kartik, Avanith, Debayan (It's Always Sunny in Powai): 12","Devraj, Gaurav, Sabarish (Gunners of Yore): 10"]
 tags: ["IITB","QuizLeague"]
