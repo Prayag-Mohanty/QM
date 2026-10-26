@@ -57,12 +57,12 @@ links:
   - name: LinkedIn
     url: https://www.linkedin.com/in/prayag-mohanty/
 
-# Your Medium page: its latest articles appear in the Blog column of Askaban.
-# e.g. https://medium.com/@yourname  (leave empty to hide the column's list)
+# Your Medium page (for the "All stories on Medium" button, and to fill in each
+# chosen article's date, picture and reading time).
 medium: "https://medium.com/@topper1728"
 
-# Articles that should always be listed, even if Medium's feed can't be read
-# at build time (the feed's version wins when it has the same article).
+# The Medium articles shown in Askaban's Blog column. Only these are listed;
+# add a link (and title) here to show another one.
 blog_articles:
   - url: "https://medium.com/@topper1728/3-75-points-iit-bombay-quiz-league-8d0404851a82"
     title: "3.75 Points: My Month in the IIT Bombay Faction Quiz League"

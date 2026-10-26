@@ -939,13 +939,27 @@ def medium_feed_url(profile: str) -> str:
 
 
 def fetch_medium(site: dict) -> list[dict]:
-    """Latest articles from the Medium profile in site.yml (its RSS feed holds the
-    10 most recent). The last good copy is cached, so a hiccup at Medium never
-    empties the list."""
+    """The Medium articles chosen in site.yml (blog_articles). Your Medium feed is
+    read only to fill in each chosen article's date, picture and reading time;
+    other articles on your Medium page are not shown. The last good copy of the
+    feed is cached, so a hiccup at Medium never breaks the list."""
+    chosen = [p for p in site.get("blog_articles") or [] if isinstance(p, dict) and p.get("url")]
+    if not chosen:
+        return []
     feed = medium_feed_url(str(site.get("medium") or ""))
-    cache = CACHE_DIR / "medium.json"
-    fetched = read_medium_feed(feed, cache) if feed else []
-    return merge_articles(fetched, site.get("blog_articles") or [])
+    fetched = read_medium_feed(feed, CACHE_DIR / "medium.json") if feed else []
+    by_key = {article_key(a["url"]): a for a in fetched}
+    articles = []
+    for p in chosen:
+        url = str(p["url"]).split("?")[0]
+        f = by_key.get(article_key(url), {})
+        articles.append({"title": f.get("title") or str(p.get("title") or url), "url": url,
+                         "date": f.get("date") or str(p.get("date") or ""),
+                         "image": f.get("image") or str(p.get("image") or ""),
+                         "excerpt": str(p.get("excerpt") or "") or f.get("excerpt", ""),
+                         "minutes": f.get("minutes") or int(p.get("minutes") or 0), "tags": f.get("tags", [])})
+    # Newest first; any without a known date go on top (they are usually the latest).
+    return sorted(articles, key=lambda a: a["date"] or "9999", reverse=True)
 
 
 def article_key(url: str) -> str:
@@ -953,22 +967,6 @@ def article_key(url: str) -> str:
     path = urlsplit(url).path.rstrip("/")
     tail = path.rsplit("/", 1)[-1]
     return tail.rsplit("-", 1)[-1].lower() if "-" in tail else path.lower()
-
-
-def merge_articles(fetched: list[dict], pinned: list) -> list[dict]:
-    seen = {article_key(a["url"]) for a in fetched}
-    extra = []
-    for p in pinned:
-        if not isinstance(p, dict) or not p.get("url"):
-            continue
-        url = str(p["url"]).split("?")[0]
-        if article_key(url) in seen:
-            continue
-        extra.append({"title": str(p.get("title") or url), "url": url, "date": str(p.get("date") or ""),
-                      "image": str(p.get("image") or ""), "excerpt": str(p.get("excerpt") or ""),
-                      "minutes": int(p.get("minutes") or 0), "tags": []})
-    # Newest first; pinned ones without a date go on top (they are usually the latest).
-    return sorted(extra + fetched, key=lambda a: a["date"] or "9999", reverse=True)
 
 
 def read_medium_feed(feed: str, cache: Path) -> list[dict]:
