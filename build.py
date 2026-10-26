@@ -942,13 +942,39 @@ def fetch_medium(site: dict) -> list[dict]:
     """Latest articles from the Medium profile in site.yml (its RSS feed holds the
     10 most recent). The last good copy is cached, so a hiccup at Medium never
     empties the list."""
+    feed = medium_feed_url(str(site.get("medium") or ""))
+    cache = CACHE_DIR / "medium.json"
+    fetched = read_medium_feed(feed, cache) if feed else []
+    return merge_articles(fetched, site.get("blog_articles") or [])
+
+
+def article_key(url: str) -> str:
+    """Medium article URLs end in '-<id>'; compare by that so share links match."""
+    path = urlsplit(url).path.rstrip("/")
+    tail = path.rsplit("/", 1)[-1]
+    return tail.rsplit("-", 1)[-1].lower() if "-" in tail else path.lower()
+
+
+def merge_articles(fetched: list[dict], pinned: list) -> list[dict]:
+    seen = {article_key(a["url"]) for a in fetched}
+    extra = []
+    for p in pinned:
+        if not isinstance(p, dict) or not p.get("url"):
+            continue
+        url = str(p["url"]).split("?")[0]
+        if article_key(url) in seen:
+            continue
+        extra.append({"title": str(p.get("title") or url), "url": url, "date": str(p.get("date") or ""),
+                      "image": str(p.get("image") or ""), "excerpt": str(p.get("excerpt") or ""),
+                      "minutes": int(p.get("minutes") or 0), "tags": []})
+    # Newest first; pinned ones without a date go on top (they are usually the latest).
+    return sorted(extra + fetched, key=lambda a: a["date"] or "9999", reverse=True)
+
+
+def read_medium_feed(feed: str, cache: Path) -> list[dict]:
     import html as htmllib
     import urllib.request
     import xml.etree.ElementTree as ET
-    feed = medium_feed_url(str(site.get("medium") or ""))
-    cache = CACHE_DIR / "medium.json"
-    if not feed:
-        return []
     try:
         req = urllib.request.Request(feed, headers={"User-Agent": "Mozilla/5.0 (QM Prayag site builder)"})
         with urllib.request.urlopen(req, timeout=20) as r:

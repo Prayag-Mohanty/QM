@@ -44,7 +44,8 @@
             <span class="article-body">
               <span class="article-title">{{ a.title }}</span>
               {% if a.excerpt %}<span class="article-excerpt">{{ a.excerpt }}</span>{% endif %}
-              <span class="article-meta">{% if a.date %}<time datetime="{{ a.date }}">{{ a.date|iso_pretty }}</time> · {% endif %}{{ a.minutes }} min read</span>
+              {% if a.date or a.minutes %}<span class="article-meta">{% if a.date %}<time datetime="{{ a.date }}">{{ a.date|iso_pretty }}</time>{% endif %}{% if a.date and a.minutes %} · {% endif %}{% if a.minutes %}{{ a.minutes }} min read{% endif %}</span>{% endif %}
+              <span class="article-src">Read on Medium ↗</span>
             </span>
           </a>
         </li>

@@ -59,7 +59,14 @@ links:
 
 # Your Medium page: its latest articles appear in the Blog column of Askaban.
 # e.g. https://medium.com/@yourname  (leave empty to hide the column's list)
-medium: ""
+medium: "https://medium.com/@topper1728"
+
+# Articles that should always be listed, even if Medium's feed can't be read
+# at build time (the feed's version wins when it has the same article).
+blog_articles:
+  - url: "https://medium.com/@topper1728/3-75-points-iit-bombay-quiz-league-8d0404851a82"
+    title: "3.75 Points: My Month in the IIT Bombay Faction Quiz League"
+    excerpt: "Four factions, four quizzes, one SBT win, and a league lost by less than a single answer."
 
 # "For bricks & bouquets, contact me" on quiz pages, and the About page's Email button.
 contact_email: topper1728@gmail.com

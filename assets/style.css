@@ -552,6 +552,7 @@ body.embed .stage { flex: 1; width: 100%; max-height: calc(100vh - 55px); }
 .article:hover .article-title { color: var(--accent); }
 .article-excerpt { color: var(--muted); font-size: .9rem; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .article-meta { color: var(--muted); font-size: .8rem; }
+.article-src { color: var(--accent); font-size: .8rem; font-weight: 650; }
 .medium-more { margin-top: 12px; width: 100%; justify-content: center; }
 .medium-more svg { width: 22px; height: 18px; }
 .ask-tabs { display: none; }
