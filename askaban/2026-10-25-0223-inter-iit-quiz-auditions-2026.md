@@ -3,6 +3,7 @@ date: "2026-10-25 02:23"
 event: "Inter IIT Quiz Auditions 2026"
 place: "IIT Bombay"
 photos: ["images/whatsapp-image-2026-10-27-at-2-22-22-am-npas.jpg","images/whatsapp-image-2026-10-27-at-2-22-23-am-tcit.jpg","images/whatsapp-image-2026-10-27-at-2-22-26-am-pqg8.jpg"]
+captions: ["Shriram & Basu hard at work","Madhav traumatising folks with his MELA set","Johan being johan. Doesn't follow the rules"]
 tags: ["IITB","Quiz"]
 ---
 
