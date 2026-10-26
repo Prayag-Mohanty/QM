@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Askaban | {{ site.title }}{% endblock %}
+{% block description %}Askaban: live updates from the quizzing circuit by {{ site.author }}: events, results, scores and photos, newest first.{% endblock %}
+{% block head %}
+<script type="application/ld+json">{{ {
+  "@context": "https://schema.org", "@type": "CollectionPage", "name": "Askaban", "url": canonical,
+  "description": "Updates from quiz events by " ~ site.author ~ ", newest first.",
+  "author": {"@type": "Person", "name": site.author, "url": site.url ~ "about/"}
+}|tojson_ld }}</script>
+{% endblock %}
+{% block main %}
+<section class="wrap page askaban">
+  <header class="ask-head">
+    <h1>Askaban</h1>
+    <p class="lede">Dispatches from the quizzing circuit: every event, every result, every buzzer-beater. Newest first.</p>
+  </header>
+  {% if updates %}
+  <div class="feed">
+    {% for u in updates %}{% include "_update.html" %}{% endfor %}
+  </div>
+  {% else %}
+  <p class="empty">No updates yet. The first dispatch is coming soon.</p>
+  {% endif %}
+</section>
+{% include "_lightbox.html" %}
+{% endblock %}
+{% block scripts %}<script src="{{ asset("gallery.js") }}" defer></script><script src="{{ asset("askaban.js") }}" defer></script>{% endblock %}

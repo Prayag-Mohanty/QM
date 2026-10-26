@@ -1,0 +1,57 @@
+{# One Askaban post, shown in the feed and on its own page. #}
+{% set handle = (site.links|selectattr("name", "equalto", "Instagram")|map(attribute="url")|first or "")|replace("https://www.instagram.com/", "")|replace("/", "") %}
+<article class="tweet" id="{{ u.id }}">
+  <span class="tweet-avatar-wrap">
+    <img class="tweet-avatar logo-light" src="{{ site.base }}assets/logo-header.png" alt="" width="44" height="44">
+    <img class="tweet-avatar logo-dark" src="{{ site.base }}assets/logo-header-dark.png" alt="" width="44" height="44">
+  </span>
+  <div class="tweet-main">
+    <header class="tweet-head">
+      <b class="tweet-name">{{ site.author }}</b>
+      {% if handle %}<span class="tweet-handle">@{{ handle }}</span>{% endif %}
+      <span class="tweet-dot" aria-hidden="true">·</span>
+      <a class="tweet-time" href="{{ site.base }}askaban/{{ u.id }}/"><time datetime="{{ u.when.isoformat(timespec='minutes') }}" data-when="{{ u.when.isoformat(timespec='minutes') }}">{{ u.when.strftime('%-d %b %Y') }}</time></a>
+    </header>
+    {% if u.text_html %}<div class="tweet-text">{{ u.text_html|safe }}</div>{% endif %}
+
+    {% if u.event or u.result or u.scores %}
+    <div class="tweet-card{{ ' is-' ~ u.medal if u.medal }}">
+      {% if u.event or u.place %}
+      <p class="tc-event">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3"/></svg>
+        <span><b>{{ u.event }}</b>{% if u.place %}<span class="muted"> · {{ u.place }}</span>{% endif %}</span>
+      </p>
+      {% endif %}
+      {% if u.result %}<p class="tc-result">{% if u.medal == 'gold' %}🥇{% elif u.medal == 'silver' %}🥈{% elif u.medal == 'bronze' %}🥉{% endif %} {{ u.result }}</p>{% endif %}
+      {% if u.scores %}
+      <table class="tc-scores">
+        <thead><tr><th scope="col">#</th><th scope="col">Team</th><th scope="col">Score</th></tr></thead>
+        <tbody>
+        {% for r in u.scores %}<tr{% if r.us %} class="is-us"{% endif %}><td>{{ loop.index }}</td><td>{{ r.team }}</td><td>{{ r.score }}</td></tr>{% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    {% if u.photos %}
+    {% set n = u.photos|length %}
+    <div class="tweet-photos n{{ [n, 4]|min }}">
+      {% for ph in u.photos[:4] %}
+      <button class="photo-open" type="button" data-full="{{ ph }}" data-group="{{ u.id }}" aria-label="Open photo {{ loop.index }} of {{ n }}">
+        <img src="{{ ph }}" alt="" loading="lazy" decoding="async">
+        {% if loop.index == 4 and n > 4 %}<span class="tweet-more">+{{ n - 4 }}</span>{% endif %}
+      </button>
+      {% endfor %}
+      {% for ph in u.photos[4:] %}<button class="photo-open" type="button" data-full="{{ ph }}" data-group="{{ u.id }}" hidden aria-label="Photo"></button>{% endfor %}
+    </div>
+    {% endif %}
+
+    {% if u.tags %}<p class="tweet-tags">{% for t in u.tags %}<span>#{{ t|replace(' ', '') }}</span>{% endfor %}</p>{% endif %}
+    <footer class="tweet-foot">
+      <button class="tweet-share" type="button" data-share="{{ site.url }}askaban/{{ u.id }}/" data-share-title="{{ u.event or site.title }}" aria-label="Share this post">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v13M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg><span>Share</span>
+      </button>
+    </footer>
+  </div>
+</article>

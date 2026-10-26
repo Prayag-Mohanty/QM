@@ -44,6 +44,7 @@ ASSETS_DIR = ROOT / "assets"
 TEMPLATES_DIR = ROOT / "templates"
 PAGES_DIR = ROOT / "pages"
 BLOG_DIR = ROOT / "blog"
+ASKABAN_DIR = ROOT / "askaban"
 
 VIEWABLE = {".pdf"}
 CONVERTIBLE = {".pptx", ".ppt", ".pps", ".ppsx", ".odp", ".key", ".docx", ".doc", ".odt"}
@@ -750,8 +751,8 @@ def split_front_matter(text: str) -> tuple[dict, str]:
     return (meta if isinstance(meta, dict) else {}), text[m.end():]
 
 
-def publish_blog_images(base: str) -> dict[str, str]:
-    """blog/images/* -> _site/blog/images/, resized for the web (cached).
+def publish_blog_images(base: str, section: str = "blog") -> dict[str, str]:
+    """<section>/images/* -> _site/<section>/images/, resized for the web (cached).
     Returns {original file name: published URL}."""
     from PIL import Image, ImageOps
     try:
@@ -759,7 +760,7 @@ def publish_blog_images(base: str) -> dict[str, str]:
         register_heif_opener()
     except ImportError:
         pass
-    src_dir, out_dir = BLOG_DIR / "images", OUT_DIR / "blog" / "images"
+    src_dir, out_dir = ROOT / section / "images", OUT_DIR / section / "images"
     urls: dict[str, str] = {}
     if not src_dir.is_dir():
         return urls
@@ -772,7 +773,7 @@ def publish_blog_images(base: str) -> dict[str, str]:
             continue
         if ext == ".gif":   # keep animations as they are
             shutil.copy2(f, out_dir / f.name)
-            urls[f.name] = f"{base}blog/images/{f.name}"
+            urls[f.name] = f"{base}{section}/images/{f.name}"
             continue
         keep_png = ext == ".png"
         name = f"{slugify(f.stem)}-{sha256(f)[:10]}{'.png' if keep_png else '.jpg'}"
@@ -787,10 +788,10 @@ def publish_blog_images(base: str) -> dict[str, str]:
                     else:
                         im.convert("RGB").save(cached, quality=84, optimize=True, progressive=True)
             except OSError as exc:
-                print(f"  ! blog image {f.name} can't be read ({exc}); save it as JPG", file=sys.stderr)
+                print(f"  ! {section} image {f.name} can't be read ({exc}); save it as JPG", file=sys.stderr)
                 continue
         shutil.copy2(cached, out_dir / name)
-        urls[f.name] = f"{base}blog/images/{name}"
+        urls[f.name] = f"{base}{section}/images/{name}"
     return urls
 
 
@@ -838,6 +839,91 @@ def collect_posts(base: str) -> list[Post]:
     return posts
 
 
+@dataclass
+class Update:
+    """One Askaban post: a short update from a quiz event."""
+    id: str
+    when: dt.datetime
+    text_html: str
+    text: str
+    event: str
+    place: str
+    result: str
+    medal: str            # "gold" / "silver" / "bronze" / ""
+    scores: list[dict]    # [{"team", "score", "us"}]
+    photos: list[str]     # published URLs
+    tags: list[str]
+
+
+def parse_when(value, fallback: dt.datetime) -> dt.datetime:
+    if isinstance(value, dt.datetime):
+        return value.replace(tzinfo=None)
+    if isinstance(value, dt.date):
+        return dt.datetime.combine(value, dt.time(12, 0))
+    m = re.match(r"\s*(\d{4}-\d{2}-\d{2})(?:[T ](\d{1,2}):(\d{2}))?", str(value or ""))
+    if not m:
+        return fallback
+    d = dt.date.fromisoformat(m[1])
+    return dt.datetime.combine(d, dt.time(int(m[2] or 12), int(m[3] or 0)))
+
+
+def medal_for(result: str) -> str:
+    r = result.lower()
+    if re.search(r"\b(winner|winners|won|champion|1st|first)\b", r):
+        return "gold"
+    if re.search(r"\b(runner[- ]?up|2nd|second)\b", r):
+        return "silver"
+    if re.search(r"\b(3rd|third)\b", r):
+        return "bronze"
+    return ""
+
+
+def parse_scores(value) -> list[dict]:
+    """["*Brandish Bandits: 92", "Team B — 86"] -> rows; a leading * marks your team."""
+    rows = []
+    for line in as_list(value) if not isinstance(value, str) else value.splitlines():
+        line = str(line).strip()
+        if not line:
+            continue
+        us = line.startswith("*")
+        line = line.lstrip("*").strip()
+        m = re.match(r"(.+?)\s*(?:[:|\t]|\s[—–-]\s)\s*([^:|\t]+)$", line)
+        team, score = (m[1].strip(), m[2].strip()) if m else (line, "")
+        rows.append({"team": team, "score": score, "us": us})
+    return rows
+
+
+def collect_updates(base: str) -> list[Update]:
+    """Askaban posts from askaban/*.md: front matter (date with time, event, place,
+    result, scores, photos, tags) plus a short text."""
+    if not ASKABAN_DIR.is_dir():
+        return []
+    images = publish_blog_images(base, "askaban")
+    updates = []
+    for f in sorted(ASKABAN_DIR.glob("*.md")):
+        if f.name.lower() == "readme.md":
+            continue
+        meta, body = split_front_matter(f.read_text(encoding="utf-8"))
+        if meta.get("draft"):
+            continue
+        body = mask_emails(body.strip())
+        html = markdown.markdown(body, extensions=["extra", "sane_lists", "smarty", "nl2br"])
+        # Plain links in the text become clickable, like on Twitter.
+        html = re.sub(r'(?<!["=>])(https?://[^\s<]+[^\s<.,;:!?)\]])',
+                      r'<a href="\1" target="_blank" rel="noopener nofollow">\1</a>', html)
+        result = str(meta.get("result") or "").strip()
+        fallback = dt.datetime.fromtimestamp(f.stat().st_mtime).replace(microsecond=0)
+        updates.append(Update(
+            id=slugify(f.stem), when=parse_when(meta.get("date"), fallback),
+            text_html=html, text=re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html)).strip(),
+            event=str(meta.get("event") or "").strip(), place=str(meta.get("place") or "").strip(),
+            result=result, medal=medal_for(result), scores=parse_scores(meta.get("scores")),
+            photos=[images.get(str(p).split("/")[-1], str(p)) for p in as_list(meta.get("photos"))],
+            tags=as_list(meta.get("tags"))))
+    updates.sort(key=lambda u: (u.when, u.id), reverse=True)
+    return updates
+
+
 def site_url(site: dict) -> str:
     url = (os.environ.get("SITE_URL") if not site.get("url") else site["url"]) or "http://localhost:8000/"
     return url.rstrip("/") + "/"
@@ -875,8 +961,9 @@ def build(site: dict) -> list[Quiz]:
     env.filters["slugify"] = slugify
     env.filters["tojson_ld"] = lambda o: jinja2.utils.markupsafe.Markup(
         json.dumps(o, ensure_ascii=False, indent=2).replace("</", "<\\/"))
+    ist = dt.timezone(dt.timedelta(hours=5, minutes=30))
     env.filters["rfc822"] = lambda d: email.utils.format_datetime(
-        dt.datetime.combine(d, dt.time(9, 0), dt.timezone.utc))
+        d.replace(tzinfo=ist) if isinstance(d, dt.datetime) else dt.datetime.combine(d, dt.time(9, 0), dt.timezone.utc))
     env.filters["pretty_date"] = lambda d: d.strftime("%-d %b %Y")
     env.filters["initials"] = lambda s: "".join(w[0] for w in str(s).split()[:2]).upper() or "Q"
     env.filters["org_ld"] = lambda n: {"@type": "CollegeOrUniversity", "name": n}
@@ -924,6 +1011,7 @@ def build(site: dict) -> list[Quiz]:
         f = ASSETS_DIR / name
         return f"{base}assets/{name}" + (f"?v={sha256(f)[:10]}" if f.is_file() else "")
     env.filters["mailcode"] = mail_code
+    env.filters["absolute"] = lambda p: absolute(p)
     env.filters["blog_ld_ref"] = lambda slug: {"@type": "BlogPosting", "url": page_url(f"blog/{slug}/")}
     env.globals["asset"] = asset
     env.globals.update(site=site, tag_list=tag_list, quiz_ld=quiz_ld,
@@ -972,13 +1060,20 @@ def build(site: dict) -> list[Quiz]:
     (OUT_DIR / "blog" / "posts.json").write_text(json.dumps(
         [{"slug": p.slug, "title": p.title, "date": p.date.isoformat(), "cover": p.cover} for p in posts],
         indent=2, ensure_ascii=False), encoding="utf-8")
+    updates = collect_updates(base)
+    write("askaban/index.html", "askaban.html", updates=updates, canonical=page_url("askaban/"))
+    for u in updates:
+        write(f"askaban/{u.id}/index.html", "update.html", u=u, canonical=page_url(f"askaban/{u.id}/"))
+    (OUT_DIR / "askaban" / "updates.json").write_text(json.dumps(
+        [{"id": u.id, "when": u.when.isoformat(timespec="minutes"), "event": u.event, "text": u.text[:140],
+          "photo": u.photos[0] if u.photos else ""} for u in updates], indent=2, ensure_ascii=False), encoding="utf-8")
     write("404.html", "404.html", canonical=url)
     write("upload/index.html", "upload.html", canonical=page_url("upload/"))
 
-    write("sitemap.xml", "sitemap.xml", quizzes=quizzes, tags=tags, posts=posts)
-    write("feed.xml", "feed.xml", quizzes=quizzes, posts=posts)
+    write("sitemap.xml", "sitemap.xml", quizzes=quizzes, tags=tags, posts=posts, updates=updates)
+    write("feed.xml", "feed.xml", quizzes=quizzes, posts=posts, updates=updates)
     write("robots.txt", "robots.txt")
-    write("llms.txt", "llms.txt", quizzes=quizzes, posts=posts)
+    write("llms.txt", "llms.txt", quizzes=quizzes, posts=posts, updates=updates)
     write("llms-full.txt", "llms-full.txt", quizzes=quizzes, posts=posts)
     (OUT_DIR / "quizzes.json").write_text(json.dumps([{
         "title": q.title, "url": page_url(f"quiz/{q.slug}/"), "description": q.summary,

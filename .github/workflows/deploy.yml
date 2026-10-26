@@ -48,6 +48,7 @@ jobs:
             .cache/fonts
             .cache/slides
             .cache/blog
+            .cache/askaban
           key: quiz-cache-${{ hashFiles('quizzes/**') }}
           restore-keys: quiz-cache-
 

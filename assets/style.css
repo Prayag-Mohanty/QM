@@ -508,3 +508,72 @@ body.embed .stage { flex: 1; width: 100%; max-height: calc(100vh - 55px); }
 .post-preview { padding: 14px 18px; min-height: 360px; margin: 0; font-size: 1rem; }
 .row-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .row-actions .btn-danger { margin-left: auto; }
+
+/* ---------- Askaban (feed) ---------- */
+.lightbox.is-single .lb-prev, .lightbox.is-single .lb-next { display: none; }
+.ask-head { max-width: 640px; margin: 0 auto 20px; }
+.ask-head h1 { margin: 0 0 6px; font-size: 2.1rem; }
+.feed { max-width: 640px; margin: 0 auto; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); overflow: hidden; }
+.askaban .crumbs { max-width: 640px; margin-inline: auto; }
+.tweet { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; padding: 16px 18px; border-top: 1px solid var(--line); }
+.tweet:first-child { border-top: 0; }
+.tweet:target { background: var(--accent-soft); }
+.tweet-avatar { width: 44px; height: 44px; border-radius: 50%; vertical-align: top; }
+.tweet-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px; line-height: 1.3; }
+.tweet-name { font-weight: 750; }
+.tweet-handle, .tweet-dot, .tweet-time { color: var(--muted); font-size: .93rem; }
+.tweet-time { text-decoration: none; }
+.tweet-time:hover { text-decoration: underline; }
+.tweet-text { margin-top: 4px; font-size: 1.02rem; line-height: 1.55; overflow-wrap: anywhere; }
+.tweet-text p { margin: 0 0 .6em; }
+.tweet-text p:last-child { margin-bottom: 0; }
+.tweet-text a { color: var(--accent); }
+.tweet-card { margin-top: 12px; border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; background: var(--soft); }
+.tweet-card.is-gold { border-color: #e2b93b; background: color-mix(in srgb, #e2b93b 12%, var(--surface)); }
+.tweet-card.is-silver { border-color: #a9b2ba; background: color-mix(in srgb, #a9b2ba 14%, var(--surface)); }
+.tweet-card.is-bronze { border-color: #c98a55; background: color-mix(in srgb, #c98a55 12%, var(--surface)); }
+.tc-event { display: flex; gap: 8px; align-items: flex-start; margin: 0; line-height: 1.35; }
+.tc-event svg { width: 18px; height: 18px; flex: none; margin-top: 1px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; color: var(--muted); }
+.tc-result { margin: 8px 0 0; font-size: 1.15rem; font-weight: 800; }
+.tc-scores { width: 100%; margin-top: 10px; border-collapse: collapse; font-size: .92rem; }
+.tc-scores th { text-align: left; font-weight: 650; color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; padding: 4px 6px; border-bottom: 1px solid var(--line); }
+.tc-scores td { padding: 6px; border-bottom: 1px solid var(--line); }
+.tc-scores tr:last-child td { border-bottom: 0; }
+.tc-scores th:first-child, .tc-scores td:first-child { width: 28px; color: var(--muted); }
+.tc-scores th:last-child, .tc-scores td:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; }
+.tc-scores tr.is-us td { background: var(--accent-soft); color: var(--ink); font-weight: 750; }
+.tweet-photos { display: grid; gap: 3px; margin-top: 12px; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+.tweet-photos .photo-open { border-radius: 0; position: relative; height: 100%; }
+.tweet-photos img { width: 100%; height: 100%; object-fit: cover; }
+.tweet-photos.n1 img { max-height: 520px; height: auto; }
+.tweet-photos.n2 { grid-template-columns: 1fr 1fr; aspect-ratio: 16 / 9; }
+.tweet-photos.n3 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; aspect-ratio: 16 / 9; }
+.tweet-photos.n3 .photo-open:first-child { grid-row: span 2; }
+.tweet-photos.n4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; aspect-ratio: 16 / 9; }
+.tweet-photos .photo-open[hidden] { display: none; }
+.tweet-more { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(0, 0, 0, .5); color: #fff; font-size: 1.6rem; font-weight: 800; }
+.tweet-tags { margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 4px 10px; color: var(--accent); font-size: .93rem; }
+.tweet-foot { margin-top: 10px; }
+.tweet-share { display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; color: var(--muted); font: 600 .85rem var(--font); padding: 4px 6px; margin-left: -6px; border-radius: 999px; cursor: pointer; }
+.tweet-share:hover { color: var(--accent); background: var(--accent-soft); }
+.tweet-share svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 640px) {
+  .feed { border-radius: 0; border-left: 0; border-right: 0; margin-inline: -16px; }
+  .tweet { grid-template-columns: 40px minmax(0, 1fr); gap: 10px; padding: 14px 16px; }
+  .tweet-avatar { width: 40px; height: 40px; }
+}
+
+/* ---------- Manage: Askaban ---------- */
+.ask-compose textarea#ask-text { width: 100%; font: 1.1rem/1.5 var(--font); padding: 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); resize: vertical; }
+.ask-photos { display: flex; flex-wrap: wrap; gap: 8px; }
+.ask-photos:empty { display: none; }
+.ask-photo { position: relative; }
+.ask-photo img { width: 110px; height: 80px; object-fit: cover; border-radius: 10px; display: block; border: 1px solid var(--line); }
+.ask-photo-x { position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; border-radius: 50%; border: 0; background: rgba(0,0,0,.65); color: #fff; cursor: pointer; font-size: .75rem; }
+.ask-compose summary { cursor: pointer; font-weight: 650; }
+.ask-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 4px; border-top: 1px solid var(--line); }
+.ask-bar .tb-spacer { flex: 1; }
+.stack .ask-bar label.btn { display: inline-flex; font-weight: 600; }
+.stack label.ask-when { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: .85rem; color: var(--muted); }
+.ask-when input { font: inherit; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+#ask-list { margin-top: 8px; }

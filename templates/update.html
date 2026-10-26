@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% set headline = (u.event ~ (": " ~ u.result if u.result else "")) if u.event else (u.text[:70] or "Update") %}
+{% block title %}{{ headline }} | Askaban | {{ site.title }}{% endblock %}
+{% block description %}{{ (u.text or headline)[:200] }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_image %}{% if u.photos %}<meta property="og:image" content="{{ absolute(u.photos[0]) }}">{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block head %}
+<script type="application/ld+json">{{ {
+  "@context": "https://schema.org", "@type": "SocialMediaPosting", "url": canonical, "headline": headline,
+  "articleBody": u.text or none, "datePublished": u.when.isoformat(timespec='minutes'),
+  "image": u.photos|map("absolute")|list or none,
+  "author": {"@type": "Person", "name": site.author, "url": site.url ~ "about/"},
+  "isPartOf": {"@type": "CollectionPage", "name": "Askaban", "url": site.url ~ "askaban/"}
+}|tojson_ld }}</script>
+{% endblock %}
+{% block main %}
+<section class="wrap page askaban">
+  <p class="crumbs"><a href="{{ site.base }}askaban/">← Askaban</a></p>
+  <div class="feed is-single">{% include "_update.html" %}</div>
+</section>
+{% include "_lightbox.html" %}
+{% endblock %}
+{% block scripts %}<script src="{{ asset("gallery.js") }}" defer></script><script src="{{ asset("askaban.js") }}" defer></script>{% endblock %}

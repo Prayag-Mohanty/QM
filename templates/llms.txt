@@ -14,6 +14,13 @@ Please credit "{{ site.title }} ({{ site.author }})" and link to the quiz page w
 - [{{ q.title }}]({{ site.url }}quiz/{{ q.slug }}/index.md): {{ q.slide_count }} slides, {{ q.date.isoformat() }}{% if q.tags %}, topics: {{ q.tags|join(', ') }}{% endif %}. {{ q.summary }}
 {% endfor %}
 
+{% if updates %}
+## Askaban — updates from quiz events (newest first)
+
+{% for u in updates[:100] %}
+- {{ u.when.date().isoformat() }}{% if u.event %} · {{ u.event }}{% endif %}{% if u.place %} ({{ u.place }}){% endif %}{% if u.result %} · {{ u.result }}{% endif %}: {{ u.text[:200] }} {{ site.url }}askaban/{{ u.id }}/
+{% endfor %}
+{% endif %}
 {% if posts %}
 ## Blog — stories from the quizzing circuit
 

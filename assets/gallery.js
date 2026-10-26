@@ -1,26 +1,34 @@
-/* About page: open a photo big, flip with arrows / swipe, close with Esc. */
+/* Photo viewer for the About page and Askaban: open a photo big, flip with
+   arrows / swipe, close with Esc. Photos sharing a data-group flip together. */
 (function () {
   "use strict";
   var box = document.getElementById("lightbox");
   if (!box || typeof box.showModal !== "function") return;
-  var buttons = Array.prototype.slice.call(document.querySelectorAll(".photo-open[data-full]"));
-  var photos = buttons.map(function (b) {
-    var cap = b.parentNode.querySelector("figcaption");
-    return { src: b.dataset.full, caption: cap ? cap.textContent : "" };
-  });
-  var img = document.getElementById("lb-img"), cap = document.getElementById("lb-cap"), at = 0;
+  var all = Array.prototype.slice.call(document.querySelectorAll(".photo-open[data-full]"));
+  var img = document.getElementById("lb-img"), cap = document.getElementById("lb-cap");
+  var photos = [], at = 0;
 
+  function captionOf(b) {
+    var fc = b.parentNode.querySelector("figcaption");
+    return fc ? fc.textContent : "";
+  }
   function show(i) {
     at = (i + photos.length) % photos.length;
     img.src = photos[at].src;
     img.alt = photos[at].caption;
     cap.textContent = photos[at].caption;
     cap.hidden = !photos[at].caption;
-    var next = photos[(at + 1) % photos.length];
-    if (next) new Image().src = next.src;
+    if (photos.length > 1) new Image().src = photos[(at + 1) % photos.length].src;
   }
-  buttons.forEach(function (b, i) {
-    b.addEventListener("click", function () { show(i); box.showModal(); });
+  all.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var group = b.dataset.group;
+      var set = group ? all.filter(function (x) { return x.dataset.group === group; }) : all.filter(function (x) { return !x.dataset.group; });
+      photos = set.map(function (x) { return { src: x.dataset.full, caption: captionOf(x) }; });
+      box.classList.toggle("is-single", photos.length < 2);
+      show(set.indexOf(b));
+      box.showModal();
+    });
   });
   box.addEventListener("click", function (e) {
     var act = e.target.closest("[data-lb]");
@@ -30,6 +38,7 @@
     } else if (e.target === box || e.target.tagName === "FIGURE") box.close();
   });
   box.addEventListener("keydown", function (e) {
+    if (photos.length < 2) return;
     if (e.key === "ArrowRight") show(at + 1);
     else if (e.key === "ArrowLeft") show(at - 1);
   });

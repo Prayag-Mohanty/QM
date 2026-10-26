@@ -25,6 +25,7 @@
   var editing = null; // {stem, yml, entries, text}
   var galleryRepo = { json: null, files: {} }; // pages/gallery.json sha, pages/gallery/<file> -> sha
   var blogRepo = { posts: {}, images: {} };     // blog/<name>.md -> sha, blog/images/<file> -> sha
+  var askRepo = {};                             // askaban/<name>.md -> sha
 
   // ---- helpers -------------------------------------------------------------
   function request(method, path, body, onProgress) {
@@ -149,9 +150,11 @@
       quizzes = {};
       galleryRepo = { json: null, files: {} };
       blogRepo = { posts: {}, images: {} };
+      askRepo = {};
       tree.tree.forEach(function (item) {
         if (item.type === "blob" && /^blog\/[^/]+\.md$/i.test(item.path) && !/readme\.md$/i.test(item.path)) blogRepo.posts[item.path.slice(5)] = item.sha;
         if (item.type === "blob" && item.path.indexOf("blog/images/") === 0) blogRepo.images[item.path.slice(12)] = item.sha;
+        if (item.type === "blob" && /^askaban\/[^/]+\.md$/i.test(item.path) && !/readme\.md$/i.test(item.path)) askRepo[item.path.slice(8)] = item.sha;
         if (item.type === "blob" && item.path === "pages/gallery.json") galleryRepo.json = item.sha;
         if (item.type === "blob" && item.path.indexOf("pages/gallery/") === 0) galleryRepo.files[item.path.slice(14)] = item.sha;
         if (item.type !== "blob" || item.path.indexOf("quizzes/") !== 0) return;
@@ -186,6 +189,7 @@
       items.forEach(function (it) { published[it.url.replace(/\/$/, "").split("/").pop()] = it; });
       renderList();
       loadPosts();
+      loadUpdates();
       return loadPhotos();
     });
   }
@@ -225,8 +229,9 @@
     $("manage").hidden = which !== "manage";
     $("photos").hidden = which !== "photos";
     $("blog").hidden = which !== "blog";
+    $("ask").hidden = which !== "ask";
     $("quiz-form").hidden = which !== "new";
-    ["new", "manage", "photos", "blog"].forEach(function (t) {
+    ["new", "manage", "photos", "ask", "blog"].forEach(function (t) {
       $("tab-" + t).classList.toggle("is-active", t === which);
       $("tab-" + t).setAttribute("aria-selected", String(t === which));
     });
@@ -235,6 +240,7 @@
   $("tab-manage").addEventListener("click", function () { showTab("manage"); });
   $("tab-photos").addEventListener("click", function () { showTab("photos"); });
   $("tab-blog").addEventListener("click", function () { showTab("blog"); });
+  $("tab-ask").addEventListener("click", function () { showTab("ask"); });
 
   function resetForm() {
     editing = null;
@@ -835,6 +841,178 @@
   window.addEventListener("beforeunload", function (e) {
     if (photos.some(function (p) { return p.blob; }) || (photosSaved && photoState() !== photosSaved)) { e.preventDefault(); e.returnValue = ""; }
   });
+
+  // ---- Askaban (askaban/<date>-<slug>.md + askaban/images/*) ----------------------
+  var updatesPublished = {};   // id -> {when, event, text, photo}
+  var askEditing = null;       // {name, text}
+  var askPhotos = [];          // [{name, url, blob?}] in order; blob = not saved yet
+  var ASK_RAW = "https://raw.githubusercontent.com/" + REPO + "/" + BRANCH + "/askaban/images/";
+
+  function nowLocal() {
+    var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+    return d.toISOString().slice(0, 16);
+  }
+  function loadUpdates() {
+    return fetch(BASE + "askaban/updates.json?t=" + Date.now()).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+      .then(function (items) {
+        updatesPublished = {};
+        items.forEach(function (u) { updatesPublished[u.id] = u; });
+        renderUpdates();
+      });
+  }
+  function askId(name) { return slugify(name.replace(/\.md$/i, "")); }
+  function renderUpdates() {
+    var names = Object.keys(askRepo).sort(function (a, b) {   // newest first (file names start with date + time)
+      var ua = updatesPublished[askId(a)], ub = updatesPublished[askId(b)];
+      return ((ub && ub.when) || b).localeCompare((ua && ua.when) || a);
+    });
+    $("ask-count").textContent = names.length || "";
+    $("ask-list").innerHTML = names.map(function (n) {
+      var u = updatesPublished[askId(n)];
+      var when = (u ? u.when : n.slice(0, 15)).replace("T", " ");
+      return '<li class="manage-item">' +
+        (u && u.photo ? '<img src="' + esc(u.photo) + '" alt="" loading="lazy">' : '<span class="manage-ph">' + (u ? "post" : "publishing") + "</span>") +
+        '<span class="manage-text"><b>' + esc(u ? (u.event || u.text || "Update") : n.replace(/\.md$/i, "")) + "</b>" +
+        '<span class="muted small">' + esc(when) + (u && u.event && u.text ? " · " + esc(u.text.slice(0, 60)) : "") + "</span></span>" +
+        '<span class="manage-actions">' +
+        (u ? '<a class="btn btn-sm" href="' + BASE + "askaban/" + esc(u.id) + '/" target="_blank" rel="noopener">View</a>' : "") +
+        '<button class="btn btn-sm btn-primary" type="button" data-ask-edit="' + esc(n) + '">Edit</button></span></li>';
+    }).join("") || '<li class="muted">No posts yet — write the first one above.</li>';
+  }
+  function renderAskPhotos() {
+    $("ask-photos").innerHTML = askPhotos.map(function (p, i) {
+      return '<span class="ask-photo"><img src="' + esc(p.url) + '" alt="">' +
+        '<button type="button" class="ask-photo-x" data-ask-photo-x="' + i + '" aria-label="Remove photo">✕</button></span>';
+    }).join("");
+  }
+  $("ask-photos").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-ask-photo-x]");
+    if (b) { askPhotos.splice(+b.dataset.askPhotoX, 1); renderAskPhotos(); }
+  });
+  $("ask-photo-file").addEventListener("change", function () {
+    Array.prototype.slice.call($("ask-photo-file").files).reduce(function (p, f) {
+      return p.then(function () {
+        return resizePhoto(f).then(function (blob) {
+          var base = slugify(f.name.replace(/\.[^.]+$/, "")).slice(0, 40).replace(/-+$/, "") || "photo";
+          askPhotos.push({ name: base + "-" + Math.random().toString(36).slice(2, 6) + ".jpg", url: URL.createObjectURL(blob), blob: blob });
+          renderAskPhotos();
+        }).catch(function (err) { alert(err.message); });
+      });
+    }, Promise.resolve()).then(function () { $("ask-photo-file").value = ""; });
+  });
+  function resetAsk() {
+    askEditing = null; askPhotos = [];
+    $("ask-form").reset();
+    $("ask-when").value = nowLocal();
+    $("ask-banner").hidden = true;
+    $("ask-delete").hidden = true;
+    $("ask-post").textContent = "Post";
+    $("ask-details").open = false;
+    renderAskPhotos();
+  }
+  $("ask-cancel").addEventListener("click", resetAsk);
+  $("ask-list").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-ask-edit]");
+    if (!b) return;
+    var name = b.dataset.askEdit;
+    request("GET", "/repos/" + REPO + "/git/blobs/" + askRepo[name]).then(function (blob) {
+      var text = base64Utf8(blob.content), fm = splitFrontMatter(text), d = fm.meta;
+      resetAsk();
+      askEditing = { name: name, text: text };
+      $("ask-text").value = fm.body.replace(/\s+$/, "");
+      var w = /(\d{4}-\d{2}-\d{2})[T ](\d{1,2}):(\d{2})/.exec(d.date || "");
+      $("ask-when").value = w ? w[1] + "T" + ("0" + w[2]).slice(-2) + ":" + w[3] : "";
+      $("ask-event").value = d.event || "";
+      $("ask-place").value = d.place || "";
+      $("ask-result").value = d.result || "";
+      $("ask-scores").value = asList(d.scores).join("\n");
+      $("ask-tags").value = asList(d.tags).join(", ");
+      $("ask-details").open = !!(d.event || d.result || d.scores);
+      askPhotos = asList(d.photos).map(function (p) { var n = p.split("/").pop(); return { name: n, url: ASK_RAW + encodeURIComponent(n) }; });
+      renderAskPhotos();
+      $("ask-view").href = BASE + "askaban/" + askId(name) + "/";
+      $("ask-banner").hidden = false;
+      $("ask-delete").hidden = false;
+      $("ask-post").textContent = "Save changes";
+      $("ask-form").scrollIntoView({ behavior: "smooth", block: "start" });
+    }).catch(function (err) { alert("Couldn’t open that post: " + err.message); });
+  });
+  function buildUpdate() {
+    var when = ($("ask-when").value || nowLocal()).replace("T", " ");
+    var lines = ["---", "date: " + JSON.stringify(when)];
+    [["event", "ask-event"], ["place", "ask-place"], ["result", "ask-result"]].forEach(function (f) {
+      var v = $(f[1]).value.trim();
+      if (v) lines.push(f[0] + ": " + JSON.stringify(v));
+    });
+    var scores = $("ask-scores").value.split("\n").map(function (l) { return l.trim(); }).filter(Boolean);
+    if (scores.length) lines.push("scores: " + JSON.stringify(scores));
+    if (askPhotos.length) lines.push("photos: " + JSON.stringify(askPhotos.map(function (p) { return "images/" + p.name; })));
+    var tags = list($("ask-tags").value);
+    if (tags.length) lines.push("tags: " + JSON.stringify(tags));
+    lines.push("---", "");
+    return lines.join("\n") + "\n" + $("ask-text").value.replace(/\s+$/, "") + "\n";
+  }
+  function askBusy(on) { $("ask-post").disabled = $("ask-delete").disabled = on; }
+  $("ask-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!$("ask-text").value.trim() && !askPhotos.length && !$("ask-event").value.trim()) return alert("Write something or add a photo first.");
+    var text = buildUpdate();
+    if (askEditing && text === askEditing.text && !askPhotos.some(function (p) { return p.blob; })) return alert("Nothing has changed.");
+    var name = askEditing ? askEditing.name : null;
+    if (!name) {
+      var when = ($("ask-when").value || nowLocal()).replace(/[-:]/g, "").replace("T", "-");   // 20261026-1540
+      var words = slugify($("ask-event").value || $("ask-text").value || "update").split("-").slice(0, 6).join("-");
+      var base = when.slice(0, 4) + "-" + when.slice(4, 6) + "-" + when.slice(6, 8) + "-" + when.slice(9, 13) + "-" + words, n = 2;
+      name = base + ".md";
+      while (askRepo[name]) name = base + "-" + n++ + ".md";
+    }
+    var fresh = askPhotos.filter(function (p) { return p.blob; });
+    var entries = [], total = fresh.reduce(function (s, p) { return s + p.blob.size; }, 0) || 1, done = 0;
+    askBusy(true);
+    progress(0.01, "Posting…");
+    fresh.reduce(function (chain, p) {
+      return chain.then(function () {
+        progress(done / total * 0.8, "Uploading photo…");
+        return readBase64(p.blob).then(function (b64) {
+          return request("POST", "/repos/" + REPO + "/git/blobs", { content: b64, encoding: "base64" });
+        }).then(function (blob) {
+          done += p.blob.size;
+          entries.push({ path: "askaban/images/" + p.name, mode: "100644", type: "blob", sha: blob.sha });
+        });
+      });
+    }, Promise.resolve()).then(function () {
+      return request("POST", "/repos/" + REPO + "/git/blobs", { content: utf8Base64(text), encoding: "base64" });
+    }).then(function (blob) {
+      entries.push({ path: "askaban/" + name, mode: "100644", type: "blob", sha: blob.sha });
+      progress(0.88, "Saving…");
+      return commitTree(entries, (askEditing ? "Update Askaban post: " : "Askaban: ") + ($("ask-event").value.trim() || $("ask-text").value.trim().slice(0, 60) || name));
+    }).then(function (sha) {
+      var url = location.origin + BASE + "askaban/";
+      resetAsk();
+      watchDeploy(sha, url, "Posted to Askaban:");
+      return loadRepo();
+    }).catch(function (err) {
+      if (err.status === 401) return showSignin("Your GitHub token has expired or was revoked. Please connect again.");
+      progress(0, "❌ Failed: " + esc(err.status === 403 && /not accessible/i.test(err.message) ? NO_WRITE : err.message));
+    }).then(function () { askBusy(false); });
+  });
+  $("ask-delete").addEventListener("click", function () {
+    var ed = askEditing;
+    if (!ed || !confirm("Delete this post from Askaban?\n\n(It can still be recovered from the GitHub history.)")) return;
+    askBusy(true);
+    progress(0.5, "Deleting…");
+    commitTree([{ path: "askaban/" + ed.name, mode: "100644", type: "blob", sha: null }], "Delete Askaban post: " + ed.name)
+      .then(function (sha) {
+        resetAsk();
+        watchDeploy(sha, location.origin + BASE + "askaban/", "The post has been removed from");
+        return loadRepo();
+      }).catch(function (err) { progress(0, "❌ Failed: " + esc(err.message)); })
+      .then(function () { askBusy(false); });
+  });
+  window.addEventListener("beforeunload", function (e) {
+    if ($("ask-text").value.trim() && !askEditing || askPhotos.some(function (p) { return p.blob; })) { e.preventDefault(); e.returnValue = ""; }
+  });
+  $("ask-when").value = nowLocal();
 
   // ---- Blog (blog/<slug>.md + blog/images/*) ------------------------------------
   var postsPublished = {};   // slug -> {title, date, cover} from the live site

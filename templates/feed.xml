@@ -6,6 +6,16 @@
   <description>{{ site.description|trim }}</description>
   <language>{{ site.language }}</language>
   <atom:link href="{{ site.url }}feed.xml" rel="self" type="application/rss+xml"/>
+  {% for u in updates[:30] %}
+  <item>
+    <title>{{ u.event or "Askaban update" }}{% if u.result %}: {{ u.result }}{% endif %}</title>
+    <link>{{ site.url }}askaban/{{ u.id }}/</link>
+    <guid isPermaLink="true">{{ site.url }}askaban/{{ u.id }}/</guid>
+    <pubDate>{{ u.when|rfc822 }}</pubDate>
+    <description>{{ u.text }}</description>
+    <category>Askaban</category>
+  </item>
+  {% endfor %}
   {% for p in posts[:20] %}
   <item>
     <title>{{ p.title }}</title>

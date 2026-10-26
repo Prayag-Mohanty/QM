@@ -31,6 +31,7 @@
       <button class="tab is-active" type="button" role="tab" id="tab-new" aria-selected="true">+ New quiz</button>
       <button class="tab" type="button" role="tab" id="tab-manage" aria-selected="false">Edit quizzes <span class="chip-n" id="quiz-count"></span></button>
       <button class="tab" type="button" role="tab" id="tab-photos" aria-selected="false">About photos <span class="chip-n" id="photo-count"></span></button>
+      <button class="tab" type="button" role="tab" id="tab-ask" aria-selected="false">Askaban <span class="chip-n" id="ask-count"></span></button>
       <button class="tab" type="button" role="tab" id="tab-blog" aria-selected="false">Blog <span class="chip-n" id="post-count"></span></button>
     </div>
 
@@ -49,6 +50,39 @@
       </label>
       <ol class="photo-list" id="photo-list"><li class="muted">Loading…</li></ol>
       <button class="btn btn-primary" type="button" id="photos-save">Save photos</button>
+    </div>
+
+    <div id="ask" hidden>
+      <form id="ask-form" class="panel stack ask-compose">
+        <div class="edit-banner" id="ask-banner" hidden>
+          <span>Editing a post · <a id="ask-view" target="_blank" rel="noopener">view ↗</a></span>
+          <button class="btn btn-sm" type="button" id="ask-cancel">Cancel</button>
+        </div>
+        <label class="sr-only" for="ask-text">What’s happening?</label>
+        <textarea id="ask-text" rows="4" maxlength="2000" placeholder="What’s happening on the circuit?"></textarea>
+        <div id="ask-photos" class="ask-photos"></div>
+        <details id="ask-details">
+          <summary>Event, result &amp; scores <span class="muted small">(optional)</span></summary>
+          <div class="stack" style="margin-top:12px">
+            <div class="row">
+              <label>Event <input id="ask-event" placeholder="e.g. Techfest Open Quiz, IIT Bombay"></label>
+              <label>Place <input id="ask-place" placeholder="e.g. Mumbai"></label>
+            </div>
+            <label>Result <span class="muted small">(“Winner”, “Runner-up” and “3rd” get a medal)</span> <input id="ask-result" placeholder="e.g. Winner · ₹50,000"></label>
+            <label>Scores <span class="muted small">(one team per line as <b>Team: score</b>, in finishing order; start your team’s line with * to highlight it)</span>
+              <textarea id="ask-scores" rows="4" placeholder="*Brandish Bandits: 92&#10;Team Quark: 86&#10;Mind Benders: 71"></textarea></label>
+            <label>Tags <span class="muted small">(optional, comma separated)</span> <input id="ask-tags" placeholder="Techfest, IITB"></label>
+          </div>
+        </details>
+        <div class="ask-bar">
+          <label class="btn btn-sm" title="Add photos">📷 Photos <input id="ask-photo-file" type="file" accept="image/*" multiple hidden></label>
+          <label class="ask-when">When <input id="ask-when" type="datetime-local"></label>
+          <span class="tb-spacer"></span>
+          <button class="btn btn-danger btn-sm" type="button" id="ask-delete" hidden>Delete</button>
+          <button class="btn btn-primary" type="submit" id="ask-post">Post</button>
+        </div>
+      </form>
+      <ul class="manage-list" id="ask-list"><li class="muted">Loading…</li></ul>
     </div>
 
     <div id="blog" hidden>
