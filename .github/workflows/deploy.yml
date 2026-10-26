@@ -30,21 +30,6 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: Install LibreOffice (only when there are PPTX/PPT/DOCX files)
-        timeout-minutes: 20
-        run: |
-          if find quizzes -type f ! -iname '*.pdf' ! -iname '*.pdf.part*' ! -iname '*.yml' ! -iname '*.yaml' ! -iname '*.md' ! -name '.*' | grep -q .; then
-            APT="-o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30"
-            PKGS="libreoffice-impress libreoffice-writer fonts-crosextra-carlito fonts-crosextra-caladea fonts-liberation2 fonts-noto-core fonts-noto-cjk fonts-noto-color-emoji fonts-dejavu ffmpeg"
-            # A stuck package mirror occasionally hangs apt; give up after 8 minutes and try once more.
-            for attempt in 1 2; do
-              if sudo timeout 480 apt-get $APT update -qq && sudo timeout 480 apt-get $APT install -y -qq --no-install-recommends $PKGS; then
-                break
-              fi
-              echo "apt attempt $attempt failed or timed out"; [ "$attempt" = 2 ] && exit 1; sleep 15
-            done
-          fi
-
       - name: Restore converted-file cache
         uses: actions/cache@v4
         with:
@@ -53,9 +38,30 @@ jobs:
             .cache/fonts
             .cache/slides
             .cache/images
+            .cache/media
             .cache/medium.json
           key: quiz-cache-${{ hashFiles('quizzes/**') }}
           restore-keys: quiz-cache-
+
+      - name: Install LibreOffice / ffmpeg (only if something new needs converting)
+        timeout-minutes: 20
+        run: |
+          # Only install what isn't covered by the cache (usually nothing).
+          NEEDS="$(python build.py --needs)"
+          echo "Tools needed: ${NEEDS:-none}"
+          PKGS=""
+          case " $NEEDS " in *" libreoffice "*) PKGS="libreoffice-impress libreoffice-writer fonts-crosextra-carlito fonts-crosextra-caladea fonts-liberation2 fonts-noto-core fonts-noto-cjk fonts-noto-color-emoji fonts-dejavu";; esac
+          case " $NEEDS " in *" ffmpeg "*) PKGS="$PKGS ffmpeg";; esac
+          if [ -n "$PKGS" ]; then
+            APT="-o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30"
+            # A stuck package mirror occasionally hangs apt; give up after 8 minutes and try once more.
+            for attempt in 1 2; do
+              if sudo timeout 480 apt-get $APT update -qq && sudo timeout 480 apt-get $APT install -y -qq --no-install-recommends $PKGS; then
+                break
+              fi
+              echo "apt attempt $attempt failed or timed out"; [ "$attempt" = 2 ] && exit 1; sleep 15
+            done
+          fi
 
       - id: pages
         uses: actions/configure-pages@v5

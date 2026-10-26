@@ -18,6 +18,7 @@ import email.utils
 import hashlib
 import json
 import os
+import posixpath
 import re
 import shutil
 import subprocess
@@ -526,7 +527,8 @@ def find_media(docs: list[Path], pdf: Path, page_count: int, meta: dict, out_dir
     return items
 
 
-def collect_quizzes(site: dict, base: str) -> list[Quiz]:
+def find_quiz_files() -> dict[str, list[Path]]:
+    """quizzes/ grouped by quiz: {stem: [its PDF/PPTX/YML files]} (parts joined)."""
     groups: dict[str, list[Path]] = {}
     parts: dict[Path, list[tuple[int, Path]]] = {}
     for p in sorted(QUIZ_DIR.rglob("*")):
@@ -544,7 +546,47 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
     for logical, joined in zip(parts, assemble_parts(parts)):
         if logical.suffix.lower() in SUPPORTED:
             groups.setdefault(str(logical.with_suffix("").relative_to(QUIZ_DIR)), []).append(joined)
+    return groups
 
+
+def tools_needed() -> list[str]:
+    """Which slow-to-install tools this build actually needs, given what is already
+    cached: LibreOffice only for PPTX/DOCX not yet converted, ffmpeg only for old
+    audio/video formats not yet transcoded. CI skips installing the rest."""
+    import zipfile
+    need = set()
+    old_media = av.VIDEO_OTHER | av.AUDIO_OTHER
+
+    def media_cached(data: bytes) -> bool:
+        digest = hashlib.sha256(data).hexdigest()[:16]
+        return any((CACHE_DIR / "media" / f"{digest}{e}").exists() for e in (".mp4", ".mp3"))
+
+    for stem, paths in find_quiz_files().items():
+        docs = sorted((p for p in paths if p.suffix.lower() in SUPPORTED),
+                      key=lambda p: (p.suffix.lower() != ".pdf", p.suffix.lower()))
+        if not docs:
+            continue
+        if docs[0].suffix.lower() != ".pdf":
+            key = hashlib.sha256((CACHE_VERSION + sha256(docs[0])).encode()).hexdigest()[:24]
+            if not (CACHE_DIR / "docs" / key / "meta.json").exists():
+                need.add("libreoffice")
+        for d in docs:
+            if d.suffix.lower() in {".pptx", ".ppsx"}:
+                try:
+                    with zipfile.ZipFile(d) as z:
+                        for n in z.namelist():
+                            if posixpath.splitext(n.lower())[1] in old_media and not media_cached(z.read(n)):
+                                need.add("ffmpeg")
+                except zipfile.BadZipFile:
+                    pass
+        for clip in clip_paths(stem):
+            if clip.suffix.lower() in old_media and not media_cached(clip.read_bytes()):
+                need.add("ffmpeg")
+    return sorted(need)
+
+
+def collect_quizzes(site: dict, base: str) -> list[Quiz]:
+    groups = find_quiz_files()
     quizzes: list[Quiz] = []
     used_slugs: set[str] = set()
     for stem, paths in groups.items():
@@ -1114,9 +1156,13 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--serve", action="store_true", help="preview the site after building")
     ap.add_argument("--port", type=int, default=8000)
+    ap.add_argument("--needs", action="store_true", help="print the tools (libreoffice, ffmpeg) this build needs, then exit")
     args = ap.parse_args()
 
     site = yaml.safe_load((ROOT / "site.yml").read_text(encoding="utf-8")) or {}
+    if args.needs:
+        print(" ".join(tools_needed()))
+        return
     if args.serve:  # preview locally regardless of the configured domain
         site["url"] = f"http://localhost:{args.port}/"
     build(site)
