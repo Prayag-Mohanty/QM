@@ -656,7 +656,8 @@ def collect_quizzes(site: dict, base: str) -> list[Quiz]:
             pages=[mask_emails(p) for p in pages],
             aspect=round(info["width"] / max(info["height"], 1), 4),
             pdf_url=f"{base}files/{slug}/{slug}.pdf",
-            thumb_url=f"{base}files/{slug}/cover.jpg",
+            # ?v= changes whenever the cover changes, so browsers and link previews never show a stale one
+            thumb_url=f"{base}files/{slug}/cover.jpg?v={hashlib.sha256((fdir / 'cover.jpg').read_bytes()).hexdigest()[:10]}",
             slides_url=slides_url,
             downloads=downloads,
             featured=bool(meta.get("featured")),
