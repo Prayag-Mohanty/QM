@@ -6,3 +6,5 @@ tags: ["Throwback","SchoolQuizzing"]
 ---
 
 Throwback to school quizzing days in Muscat, representing Indian School Muscat. Glorious days !!
+
+Gotta thank Hala, Midhun & the Xquizitz team for making some amazing memories and keeping the quizzing culture in Muscat alive with some visually exciting sets.
