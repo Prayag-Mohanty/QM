@@ -1,5 +1,7 @@
 ---
 date: "2026-10-31 19:54"
+event: "Business of Brands Quiz 2026"
+place: "Paragana, NMIMS"
 photos: ["images/20261031-191228-8kca.jpg","images/20261031-200025-3g7e.jpg","images/20261031-200042-1-3wie.jpg","images/screenshot-2026-11-03-021727-wch4.jpg"]
 captions: ["What???? The question was worse than the answer","Stuck in traffic :((","Madhav \"Thinker\" Babu","NMIMS canteen review!!"]
 ---
