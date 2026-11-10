@@ -7,33 +7,6 @@ updated: 2026-11-05
 summary: "Desserts, dishes and cocktails named after people and places, and the stories quizmasters ask about."
 ---
 
-## Quiz-ready: likely questions
-
-1. **Which dessert is named after a US land purchase from Russia?** Baked Alaska (1867). Delmonico's gets the credit.
-2. **Which two countries both claim the pavlova, and who is it named after?** Australia and New Zealand. It's named after ballerina Anna Pavlova.
-3. **Which singer gave her name to a peach dessert and a toast, and which city did her stage name come from?** Nellie Melba, from Melbourne. Escoffier created both at the Savoy.
-4. **Which upside-down tart came from two sisters' mistake?** Tarte Tatin.
-5. **Which hotel and which bakery fought the "Sweet Seven Years' War"?** Hotel Sacher vs Demel, over the Sachertorte.
-6. **Caesar salad was invented in which country?** Mexico (Tijuana), by Caesar Cardini.
-7. **Which Venetian bar invented both carpaccio and the Bellini?** Harry's Bar (Giuseppe Cipriani).
-8. **Which three unsold products made the Moscow Mule?** Smirnoff vodka, Cock 'n' Bull ginger beer and copper mugs.
-9. **Who created the espresso martini, and what was its first name?** Dick Bradsell. It was the Vodka Espresso, then the Pharmaceutical Stimulant.
-10. **Which count asked for gin instead of soda in his Americano?** Count Camillo Negroni.
-11. **Why was the Singapore Sling pink?** So women could drink in public at Raffles' Long Bar while it looked like juice.
-12. **What does "Mai Tai" mean?** "Out of this world" in Tahitian.
-13. **Why does the gin and tonic exist?** British India: quinine against malaria.
-14. **Which drink was born at a flying-boat terminal at Foynes?** Irish coffee.
-15. **Which cocktail is a registered trademark tied to Gosling's rum?** Dark 'n' Stormy.
-16. **Which Dijon mayor and priest gave his name to a drink?** Félix Kir.
-17. **Where was India's first cake baked?** Mambally's bakery, Thalassery (1883).
-18. **Which state ruling put frozen parotta in the 18% GST slab?** Karnataka's AAR (2020), in the ID Fresh Food case.
-19. **Which two Delhi restaurants fought in court over butter chicken?** Moti Mahal vs Daryaganj.
-20. **Which dish did Robin Cook call Britain's "true national dish"?** Chicken tikka masala.
-21. **Which Mumbai chef invented Gobi Manchurian?** Nelson Wang (1975).
-22. **Which pizza used the colours of the Italian flag for a queen?** Margherita (1889).
-23. **Who sold her cookie recipe to Nestlé for a lifetime supply of chocolate?** Ruth Wakefield (Toll House).
-24. **Which cocktail took its name from an 1874 New York prank?** Tom Collins.
-
 ## Desserts named after people and places
 
 | Dessert | Named after / origin | The story |

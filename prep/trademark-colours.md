@@ -7,29 +7,6 @@ updated: 2026-11-04
 summary: "Colours that brands own (or tried to): Tiffany Blue, Louboutin red, Cadbury purple, landmark cases and Pantone trivia."
 ---
 
-## Quiz-ready: likely questions
-
-1. **Which 1995 US Supreme Court case said a colour alone can be a trademark?** *Qualitex v. Jacobson*, over green-gold press pads.
-2. **Whose nail polish gave Louboutin its red sole?** An assistant's, painted on a prototype in 1993.
-3. **Which number is Tiffany Blue, and why?** Pantone 1837, the year Tiffany was founded.
-4. **Which company stopped Cadbury from owning Pantone 2685C purple?** Nestlé (Court of Appeal, 2013).
-5. **What is UPS's brown named after?** Pullman railway carriages: "Pullman Brown".
-6. **Which brand used the Pink Panther, and why does it matter?** Owens Corning. Its pink insulation was the first single-colour trademark in the US (1985).
-7. **Why are Post-it notes yellow?** The lab next door only had yellow scrap paper.
-8. **Why is Facebook blue?** Zuckerberg is red–green colour-blind.
-9. **Which newspapers gave cycling's yellow and pink jerseys their colours?** *L'Auto* (Tour de France) and *La Gazzetta dello Sport* (Giro d'Italia).
-10. **Why is Ferrari's badge yellow?** It is the colour of Modena. The horse came from WWI pilot Francesco Baracca.
-11. **Which home-improvement chain lost its abstract orange trademark in Germany's top court on 17 Sep 2026?** OBI, after challenges from Hornbach and Globus.
-12. **Which battery maker won a red trade-dress injunction against Amara Raja in April 2026?** Exide (Calcutta HC).
-13. **Which artist holds the exclusive art licence to Vantablack, and which paint was sold to everyone but him?** Anish Kapoor; Stuart Semple's "Pinkest Pink".
-14. **What is Pantone's Colour of the Year for 2026, and why is it unusual?** Cloud Dancer (11-4201), the first white.
-15. **Which colour is called the "world's ugliest" and is used on plain cigarette packs?** Pantone 448C, Opaque Couché.
-16. **What was 18-year-old William Perkin trying to make when he discovered mauve?** Quinine.
-17. **Which company is the only maker of India's election ink?** Mysore Paints & Varnish Ltd.
-18. **In Kathakali, which make-up type marks noble heroes like Arjuna?** Pacha (green).
-19. **Why did Pepsi paint a Concorde blue?** For Project Blue (1996), its rebrand to blue.
-20. **Why was the FT printed on pink paper?** Unbleached paper was cheaper, and the colour made it stand out (1893).
-
 ## Colour trademarks and landmark cases
 
 **The rule in one line:** a single colour can be a trademark only if consumers see it as pointing to one source ("secondary meaning"), and it can't be **functional** (orange for safety, black for outboard motors).

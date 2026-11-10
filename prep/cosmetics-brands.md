@@ -9,28 +9,6 @@ summary: "Beauty and personal-care brands: who founded them, what the names mean
 
 A companion to the hotel-chains doc for the Christ Com finals: the beauty groups, the famous brands and India's names, with founders, name and logo stories, CEOs, taglines and quiz hooks.
 
-## Quiz-ready stories
-
-If you only have ten minutes, revise these. Each one is a likely connect or identify question.
-
-1. **Maybelline** = Mabel (the founder's sister) + Vaseline.
-2. **Revlon**: the "L" is for Charles Lachman, the partner of the Revson brothers.
-3. **Nivea** comes from Latin *nivis*, snow. **Vaseline** is said to come from *Wasser* + *elaion*.
-4. **Lakmé** is named after a French opera. Tata created it at Nehru's urging, to save foreign exchange.
-5. **Vicco** = Vishnu Industrial Chemical Company. **Dabur** = Daktar Burman. **FSN** (Nykaa) = Falguni Sanjay Nayar. **VLCC** = Vandana Luthra Curls and Curves. **MAC** = Make-up Art Cosmetics.
-6. **Avon** is named after Stratford-upon-Avon. It began when a book salesman gave away perfume.
-7. **Sephora** = Greek *sephos* (pretty) + Zipporah.
-8. **Shalimar** perfume (Guerlain) is named after Lahore's Shalimar Gardens. **Lakmé** is ultimately Lakshmi. That makes two South Asian links in French beauty.
-9. **Chanel No. 5** was the fifth sample. Chanel's global CEO is Leena Nair from Kolhapur.
-10. **Indian-origin CEOs:** Leena Nair (Chanel), Shailesh Jejurikar (P&G, from Jan 2026), Priya Nair (HUL).
-11. **Soap opera** comes from P&G sponsoring radio serials.
-12. **Thrissur:** Chandrika soap (Irinjalakuda, 1940; Wipro since 2003) and Ujala (Jyothy Labs, named after the founder's daughter).
-13. **Indulekha** hair oil shares its name with the first Malayalam novel's heroine.
-14. **Boroline**'s elephant logo gives it the nickname *haathi chhaap*. **Godrej**'s Chavi (1918) is presented as the first soap made from vegetable oil.
-15. **2025–26 deals and moves:** HUL bought Minimalist; L'Oréal agreed to buy Kering Beauté; Coty's CEO Sue Nabi left; Glow & Lovely was renamed from Fair & Lovely back in 2020.
-
-Logos are shown for Unilever and Dior, the only ones available in an open icon set. The rest are described in words.
-
 ## The big beauty groups
 
 A handful of groups own most of the famous names. Three Indian-origin leaders run some of them: Leena Nair (Chanel), Shailesh Jejurikar (P&G) and Priya Nair (Hindustan Unilever).

@@ -9,25 +9,6 @@ summary: "Business papers and magazines, their columns and namesakes, newsletter
 
 Twelfth in the Christ Com prep set: the business papers and magazines, their columns and namesakes, newsletters, podcasts, famous lists, owners and editors.
 
-## Quiz-ready
-
-If you only have ten minutes, revise these. Column names are the classic "identify the namesake" question.
-
-1. **The Economist's columns**: **Bagehot** (Britain; its third editor), **Lexington** (US; the 1775 battle), **Charlemagne** (Europe), **Banyan** (Asia; the tree), **Chaguan** (China; teahouse), **Bello** (Latin America; Andrés Bello), **Schumpeter** (business), **Buttonwood** (finance; the NYSE's founding tree), **Bartleby** (work; Melville's clerk), **Johnson** (language; Samuel Johnson), **Babbage** (tech).
-2. **Espresso** is The Economist's daily app; ***1843*** is its magazine, named after the founding year; **EIU** is its research arm.
-3. The Economist was founded by **James Wilson** in 1843 to fight the **Corn Laws**. **Exor** (Agnelli) owns about 43%; **Stephen Smith** bought the Rothschilds' 26.9% in **2026**.
-4. **FT**: pink paper (1893), owned by **Nikkei**; the **Lex** column, **Lunch with the FT**, **HTSI** (*How To Spend It*), **Alphaville**.
-5. **WSJ**: Dow, Jones and Bergstresser; **hedcut** dot portraits; **Heard on the Street**; the **A-hed**; owned by Murdoch's News Corp.
-6. **Nikkei 225** is named after the newspaper. **Reuters** started with carrier pigeons.
-7. **Forbes**: "The Capitalist Tool"; the Forbes 400 (1982). **Fortune**: Henry Luce; the Fortune 500 (1955); owned by a Thai businessman.
-8. **Bloomberg**: Matt Levine's *Money Stuff*; *Businessweek* bought in 2009.
-9. **2026**: Axel Springer bought the *Telegraph*; James Murdoch bought *New York* magazine.
-10. ***Business Standard*** is owned by the Kotak family. ***Mint*** launched with the WSJ. **NDTV Profit** was BloombergQuint. **Network18** (Reliance) owns CNBC-TV18, Moneycontrol and Forbes India.
-11. **The Ken**: one story a day, no ads; *The Nutgraf*, *First Principles*, *Long and Short*, *Two by Two*; the ***Daybreak*** podcast.
-12. ***Moneylife*** was founded by Sucheta Dalal and Debashis Basu, the *Scam 1992* source authors.
-13. **Business India** (1978) was India's first business magazine; it gives the Businessman of the Year award.
-14. **Kerala**: Manorama's ***Sambadyam*** and its business summit; ***Dhanam*** in Kochi.
-
 ## The Economist
 
 Almost every Economist column is named after a person, place or object tied to its subject, so each one is a ready-made identify question. The paper still calls itself a "newspaper", leaves its articles unsigned, and in **2026** Canadian billionaire **Stephen Smith** bought the Rothschild family's **26.9%** stake.

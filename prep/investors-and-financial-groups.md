@@ -9,31 +9,6 @@ summary: "Venture capital, private equity, hedge funds and investment groups: wh
 
 Seventh in the Christ Com prep set: who the big money firms are, where their names come from, who runs them, and the stories a quizmaster would ask about.
 
-## Quiz-ready
-
-If you only have ten minutes, revise these.
-
-1. **Blackstone** = *Schwarz* (black) + *Peter* (stone). **BlackRock** began inside Blackstone.
-2. **Vanguard** is named after Nelson's flagship at the Battle of the Nile. **Sequoia** is named after the redwoods. **Carlyle** is named after a New York hotel.
-3. **a16z** = a + 16 letters + z. **Y Combinator** = a lambda-calculus function. **KKR** = Kohlberg, Kravis (and his cousin) Roberts.
-4. **Georges Doriot** (ARDC, 1946) is the father of VC; he also founded INSEAD and backed DEC.
-5. **The first hedge fund**: Alfred Winslow Jones (1949), a journalist.
-6. **Renaissance**: Jim Simons's Medallion Fund. **Citadel**: Ken Griffin started in his Harvard dorm. **D.E. Shaw**: Jeff Bezos worked there before Amazon.
-7. **LTCM** had two Nobel laureates and collapsed in 1998. **Soros** "broke the Bank of England" in 1992.
-8. **Man Group** started as a rum broker and sponsored the Man Booker Prize.
-9. **Elliott Management** had an Argentine navy ship seized in Ghana.
-10. **Sequoia India** became **Peak XV** (2024). **Matrix India** became **Z47**.
-11. **SoftBank Vision Fund**: Masayoshi Son, Saudi money, WeWork and OYO.
-12. **Norway's oil fund** owns about 1.5% of all listed shares in the world.
-13. **Berkshire**: Greg Abel became CEO on 1 Jan 2026. Buffett bought the textile mill out of spite.
-14. **Rothschild**: five sons, five arrows. **HSBC**'s lions are Stephen and Stitt. **Citi**'s logo was sketched on a napkin.
-15. **Diners Club**: the forgotten wallet. **Visa**: BankAmericard. **RuPay** = Rupee + Payment.
-16. **Jane Street**: barred by SEBI in 2025, with ₹4,843 crore impounded. **Hindenburg** is named after the airship.
-17. **Zerodha** = Zero + *rodha* (barrier). **Rare Enterprises** = RAkesh + REkha. **Kotak Mahindra**: Anand Mahindra was an early investor.
-18. **Thrissur**: KSFE (chitty), Manappuram (Bain 2025), South Indian Bank, CSB Bank (Fairfax), Dhanlaxmi, ESAF.
-19. **Federal Bank**: K.P. Hormis, Aluva, 1931; Blackstone is set to become its biggest shareholder.
-20. **2 and 20**: the hedge-fund and PE fee model (a 2% fee plus 20% of profits).
-
 ## Venture capital and accelerators
 
 VC firms back young companies for a stake. Modern VC dates to 1946 and Georges Doriot. In 2026, AI rounds for OpenAI and Anthropic pushed venture funding to records, and Sequoia's India arm now runs as **Peak XV**.

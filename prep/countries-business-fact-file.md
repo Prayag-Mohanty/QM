@@ -9,32 +9,9 @@ summary: "Every country's currency, economy, richest person, top exports, airlin
 
 Ninth in the Christ Com prep set: every country with its currency, what it is famous for, the size of its economy, its richest person, its top exports, its flag-carrier airline and its national broadcaster.
 
-## How to read this, and the quiz-ready facts
+## How to read this
 
 The richest-person column uses **Forbes's "richest billionaire in each country" list (March 2026)**. A "—" means Forbes listed no billionaire there. Forbes goes by citizenship, which explains surprises like Canada's. G20 GDP is the IMF's October 2026 projection. Other GDP figures are rough recent estimates in US dollars, good for size, not for a tie-breaker.
-
-**Twenty facts most likely to be asked**
-
-1. **India is #6** in the IMF's 2026 ranking, behind Japan and the UK, and is projected to return to **#4 in 2027**. The top three are the US, China and Germany.
-2. **Canada**'s richest person is **Changpeng Zhao** of Binance, who is a Canadian citizen.
-3. **Tether**, the crypto stablecoin, made the richest people in **Italy** (Giancarlo Devasini) and the **Netherlands** (Jean-Louis van der Velde).
-4. **Oman**'s richest is **P.N.C. Menon** of Sobha, from Palakkad in Kerala.
-5. **Brazil**'s richest is **Eduardo Saverin**, co-founder of Facebook. **Pakistan**'s is **Sualeh Asif**, co-founder of the AI coding tool Cursor. **Romania**'s are Databricks' Matei Zaharia and Ion Stoica.
-6. **Austria**: Mark Mateschitz (Red Bull). **Switzerland**: the Apontes (MSC shipping). **Czechia**: Michal Strnad (ammunition maker CSG). **Hong Kong**: Robin Zeng (CATL batteries).
-7. **Barbados**: **Rihanna** (Fenty). **Belize**: Kenneth Dart (foam cups). **Eswatini**: Nathan Kirsh. **St Kitts**: Justin Sun (crypto).
-8. **Vietnam**'s Pham Nhat Vuong (Vingroup) made his first fortune selling instant noodles in **Ukraine**. **Nepal**'s Binod Chaudhary makes Wai Wai noodles.
-9. **Kuwait, Bahrain and Oman** have the three highest-valued currency units.
-10. **Bulgaria** adopted the euro on 1 Jan 2026 (the 21st member). **Croatia** joined in 2023. **Timor-Leste** became ASEAN's 11th member in 2025.
-11. **World #1 producers:** cocoa = Côte d'Ivoire; cobalt = DR Congo; vanilla = Madagascar; saffron = Iran; copper = Chile; uranium = Kazakhstan; nickel and palm oil = Indonesia; lithium and iron ore = Australia; cork = Portugal; olive oil = Spain; coffee = Brazil; tea exports (black) = Kenya; phosphate reserves = Morocco.
-12. **Only-here products:** tanzanite (Tanzania), true cinnamon (mostly Sri Lanka), most of the world's gum arabic (Sudan) and ylang-ylang (Comoros).
-13. **Ship registries**: Panama, Liberia and the Marshall Islands. **Tuvalu** earns from leasing its .tv domain.
-14. **Airlines:** KLM (1919) is the oldest still using its original name; Avianca dates from 1919 too. Turkish Airlines flies to the most countries. Ethiopian is Africa's largest. Air India is owned by Tata. Korean Air has absorbed Asiana. KM Malta Airlines replaced Air Malta.
-15. **Broadcasters:** BBC (UK), NHK (Japan), Doordarshan and AIR (India, under Prasar Bharati), CCTV (China), ABC (Australia), CBC (Canada), RAI (Italy), RTÉ (Ireland), KBS (South Korea), TRT (Turkey), SABC (South Africa), NRK (Norway), Yle (Finland), Kan (Israel), PTV (Pakistan).
-16. **Firsts:** Ghana was the first sub-Saharan country to win independence (1957). Haiti was the first Black republic. Liberia was founded by freed American slaves. Costa Rica has had no army since 1948.
-17. **Name stories:** the port of Mocha (Yemen) gave its name to the coffee; Bikini Atoll to the swimsuit; Bulgaria to the yoghurt bacterium.
-18. **Turkey**'s richest, Hamdi Ulukaya, made his money from Chobani yoghurt in the US.
-19. **Liechtenstein** is the world's top maker of false teeth (Ivoclar).
-20. **Botswana**'s currency, the pula, means "rain".
 
 ## G20: the big economies
 

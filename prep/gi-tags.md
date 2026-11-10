@@ -7,31 +7,6 @@ updated: 2026-11-05
 summary: "Geographical Indications: the law, India's count, Kerala's full list, famous GI fights and world GIs."
 ---
 
-## Quiz-ready: likely GI questions
-
-1. **What was India's first GI?** Darjeeling Tea (2004–05).
-2. **Where is India's GI Registry?** Chennai.
-3. **Which Act governs GIs in India, and when did it come into force?** The GI of Goods Act 1999, in force from 15 Sep 2003.
-4. **How many GIs did India have in the May 2026 register?** 822. Uttar Pradesh leads with 79.
-5. **Which state got the most new GIs in 2025–26?** Madhya Pradesh (26), out of a record 125.
-6. **Which Thrissur snap melon, used for juice, got a GI in 2022–23?** Kodungallur Pottuvellari.
-7. **Which Thrissur nendran banana is offered at Guruvayur?** Chengalikodan.
-8. **Which Kerala GI is a mirror made of metal?** Aranmula Kannadi.
-9. **Which Kerala rice is used in Ayurvedic massage?** Navara.
-10. **Which Kerala rice is grown in saline fields alternating with prawns?** Pokkali (and Kaipad in Kannur).
-11. **Which Malappuram GI comes from the world's oldest teak plantation?** Nilambur Teak (Conolly's Plot).
-12. **Which Kerala drum, the backbone of Kathakali music, is a GI?** Palakkad Maddalam.
-13. **Which two states fought over the rasgulla?** West Bengal (2017) and Odisha (2019).
-14. **Which US company's Basmati patent pushed India towards a GI law?** RiceTec.
-15. **Which Indian GI chappal did Prada show on a Milan runway in 2025?** Kolhapuri chappal.
-16. **Which was the first Indian alcoholic drink with a GI?** Goa's feni.
-17. **Which cheese started France's AOC system?** Roquefort (1925).
-18. **Which country lost the feta fight at the EU court?** Denmark.
-19. **Why can't cheese from Stilton village be called Stilton?** The village is outside the designated counties.
-20. **Which perfume did YSL have to rename after a Champagne lawsuit?** "Champagne" (1993), later sold as Yvresse.
-21. **Which Malabar spice brought Vasco da Gama to Kerala?** Malabar pepper ("black gold").
-22. **Which Kerala GI weave is linked to the 2018-flood "Chekutty" dolls?** Chendamangalam handloom.
-
 ## GI basics
 
 - **What it is**: a sign that a product's **quality or reputation comes from its place of origin**. It's a type of IP protected under the **WTO TRIPS** agreement (Articles 22–24). Wine and spirits get stronger protection under Article 23.

@@ -9,30 +9,6 @@ summary: "The world's biggest banks, central and development banks, the oldest b
 
 Tenth in the Christ Com prep set: the world's major banks with founders, name stories and current CEOs, plus central banks, development banks, the oldest banks and the famous collapses. Indian banks have their own doc.
 
-## Quiz-ready
-
-If you only have ten minutes, revise these. They're the kind of founder, name and logo story Major Nair asked about with Manappuram.
-
-1. **Bank of America** began as the **Bank of Italy**, founded by Amadeo Giannini, who lent from a plank after the 1906 earthquake. Its BankAmericard became **Visa**.
-2. **Wells Fargo**'s founders also started **American Express**.
-3. **Chase** is named after Salmon P. Chase. **BNY** was founded by Alexander Hamilton. The Manhattan Company was Aaron Burr's "water company".
-4. **HSBC** = Hongkong and Shanghai Banking Corporation; its lions are Stephen and Stitt.
-5. **Barclays**: the spread eagle and the **first cash machine** (1967). Its CEO, C.S. Venkatakrishnan, was born in India.
-6. **Mizuho** = "abundant rice harvest". **DBS** = Development Bank of Singapore. **Grameen** = rural.
-7. **Monte dei Paschi** (1472) is the oldest bank still operating. **Riksbank** (1668) is the oldest central bank and funds the economics Nobel.
-8. **Bank of England** = "The Old Lady of Threadneedle Street". The **Fed** was planned at Jekyll Island.
-9. **BIS** (Basel) is "the central bank of central banks", hence the Basel rules.
-10. **Kevin Warsh** is the new Fed chair (2026). **Ajay Banga** runs the World Bank. **Dilma Rousseff** runs the BRICS bank, whose first head was K.V. Kamath. **Zou Jiayi** is the AIIB's first woman president.
-11. **Barings** was broken by Nick Leeson and sold for £1. HSBC bought **SVB UK** for £1.
-12. **Credit Suisse** was absorbed by UBS (2023). **Lehman** was the biggest US bankruptcy.
-13. **"God's banker"** Roberto Calvi was found under Blackfriars Bridge. **BCCI** was the "Bank of Crooks and Criminals".
-14. **ICBC** is the world's largest bank. China has the top four.
-15. **Al Rajhi** is the largest Islamic bank. **FAB** is the largest in the Middle East and Africa.
-16. **India links:** SMBC is Yes Bank's top shareholder; Emirates NBD owns 60% of RBL; DBS absorbed Lakshmi Vilas Bank; Fairfax is buying IDBI Bank.
-17. **Nubank**'s purple card; Buffett invested. **Revolut** finally got its UK banking licence.
-18. **Lloyds Bank** is not **Lloyd's of London**, the insurance market.
-19. **Jane Fraser** (Citi) was the first woman to run a major Wall Street bank. **Tan Su Shan** is DBS's first woman CEO.
-
 ## The biggest banks, US and Europe
 
 The four largest banks in the world are all Chinese and state-owned. **ICBC** is #1 at about $7.65 trillion in assets (S&P Global, year-end 2025). JPMorgan is the largest outside China. SBI and HDFC Bank are India's only entries in the global top 100.

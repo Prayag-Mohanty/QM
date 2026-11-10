@@ -7,31 +7,6 @@ updated: 2026-11-04
 summary: "Witty tickers, single letters, famous changes, mistaken-identity rallies, 2026 listings and NSE symbols."
 ---
 
-## Quiz-ready: likely questions
-
-1. **Which airline trades as LUV, and why?** Southwest, after its home at Dallas Love Field and its "Love Airline" ads.
-2. **HOG is the ticker of which company?** Harley-Davidson.
-3. **Which company swapped its ticker SUNW for the name of its programming language?** Sun Microsystems, which became JAVA.
-4. **FB became META in 2022. Which fund gave up the META ticker?** The Roundhill Metaverse ETF, which became METV.
-5. **Square's parent changed SQ to what in 2025?** XYZ (Block).
-6. **Which tiny firm soared because investors confused it with Zoom Video?** Zoom Technologies (ZOOM). The real ticker was ZM.
-7. **Which stock jumped more than 5,000% after Musk tweeted "Use Signal"?** Signal Advance (SIGL).
-8. **Which share has never split and costs more than $700,000?** Berkshire Hathaway Class A (BRK.A).
-9. **What do GOOGL and GOOG separate?** Voting Class A from non-voting Class C.
-10. **Which single-letter ticker did US Steel hold from 1901 until Nippon Steel's takeover?** X.
-11. **What is SpaceX's ticker, and when did it list?** SPCX on Nasdaq, 12 Jun 2026, about $2 trillion.
-12. **Jio Platforms listed on 28 Oct 2026. What was its listing premium?** 21.36% (₹1,119 to ₹1,358).
-13. **Info Edge trades on NSE under which symbol?** NAUKRI.
-14. **Which Kerala-founded company has India's highest-priced large-cap share and began by making toy balloons?** MRF (Madras Rubber Factory).
-15. **Which Hong Kong code did Alibaba choose, and why?** 9988. 8 sounds like "prosper" in Cantonese.
-16. **Name four listed banks headquartered in Thrissur.** South Indian Bank, CSB Bank, Dhanlaxmi Bank and ESAF Small Finance Bank.
-17. **What does Victoria's Secret's 2026 ticker read?** VSXY (from VSCO).
-18. **What do the three GE tickers after the break-up stand for?** GE (Aerospace), GEHC (HealthCare) and GEV (Vernova).
-19. **Which ticker connects Trump Media with a 1990s Trump casino firm?** DJT.
-20. **Who invented the stock ticker in 1867?** Edward Calahan, and Edison improved it.
-
-**Pattern:** expect "identify the company from its ticker" visuals, such as LUV, HOG, BUD, CAKE, NAUKRI and 9988.
-
 ## Witty and punny tickers (US)
 
 | Ticker | Company | The joke or story |

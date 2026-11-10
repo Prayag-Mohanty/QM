@@ -7,31 +7,6 @@ updated: 2026-11-05
 summary: "Visa, Mastercard, Diners Club, RuPay, meal cards, UPI and wallets: origin stories, card firsts and India hooks."
 ---
 
-## Quiz-ready: likely questions
-
-1. **Who forgot his wallet at Major's Cabin Grill, and what came of it?** Frank McNamara. It led to **Diners Club** (1950) and the "First Supper".
-2. **What was Visa called before 1976, and who renamed it?** BankAmericard. **Dee Hock** renamed it.
-3. **What was the "Fresno Drop"?** Bank of America mailing 60,000 unsolicited BankAmericards to Fresno in 1958.
-4. **What did Visa's blue, white and gold bands represent?** California's sky, clouds and golden hills.
-5. **Master Charge became Mastercard in which year?** 1979.
-6. **Which former Mastercard CEO now heads the World Bank?** Ajay Banga.
-7. **Henry Wells and William Fargo founded which two companies?** American Express (1850) and Wells Fargo (1852).
-8. **Which product did Marcellus Berry invent for Amex in 1891?** The traveller's cheque.
-9. **Where was the first ATM, and who invented it?** Barclays Enfield (1967). John Shepherd-Barron, born in **Shillong**.
-10. **Why is a PIN usually four digits?** Shepherd-Barron's wife could only remember four.
-11. **Whose wife's clothes iron helped make the magnetic stripe?** IBM's Forrest Parry's wife, Dorothea.
-12. **What does EMV stand for?** Europay, Mastercard, Visa.
-13. **What is Sodexo's benefits business now called?** Pluxee (spun off in 2024).
-14. **Which hotel group did Edenred spin off from?** Accor (2010).
-15. **What does the name Mir mean, and why was the card created?** "World" or "peace". Russia launched it after the 2014 sanctions.
-16. **Which retailer launched Discover in 1985?** Sears.
-17. **What was Google Pay called at its India launch?** Tez.
-18. **Which RBI rule got Mastercard, Amex and Diners barred from new customers in 2021?** Data localisation.
-19. **Which Kenyan mobile-money service takes its name from the Swahili word for money?** M-Pesa.
-20. **How many UPI transactions were made in Sep 2026?** 24.07 billion, with more than 800 million a day for the first time.
-21. **The LuLu Exchange founder comes from which Thrissur village?** Nattika (M.A. Yusuff Ali).
-22. **What does Paytm stand for?** Pay Through Mobile.
-
 ## Card networks
 
 | Network | Origin and name | Logo, slogans and trivia | Now |

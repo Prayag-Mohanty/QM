@@ -9,29 +9,6 @@ summary: "Every major Indian bank: founders, name and logo stories, mergers, los
 
 Eleventh in the Christ Com prep set: every major Indian bank with its founder, year, birthplace, name and logo story, mergers and current head. Built for questions like the Manappuram one in Major Nair's prelims.
 
-## Quiz-ready
-
-These are Manappuram-style questions: a founder, a hometown, a name meaning, a logo or a 2026 deal. If you only have ten minutes, revise these.
-
-1. **Manappuram** is named after the sandy coastal belt of Thrissur where V.C. Padmanabhan started in **1949** at Valapad. Bain Capital took control in 2025.
-2. **Thrissur** is home to South Indian Bank (1929), CSB Bank (1920, Catholic Syrian Bank), Dhanlaxmi (1927; centenary in 2027), ESAF (Evangelical Social Action Forum), KSFE and Manappuram.
-3. **Federal Bank**: K.P. Hormis, Nedumpuram, 1931, started as Travancore Federal Bank. Blackstone is about to become its biggest shareholder.
-4. **Nedungadi Bank** (Kozhikode, 1899) was Kerala's first commercial bank. Its founder Appu Nedungadi wrote *Kundalatha*. It merged into PNB.
-5. **State Bank of Travancore** was founded under Sir C.P. Ramaswami Iyer and merged into SBI in 2017. **Lord Krishna Bank** (Kodungallur) ended up in HDFC Bank.
-6. **SBI**'s keyhole logo is said to be inspired by Kankaria Lake. It descends from the Bank of Calcutta (1806) and the Imperial Bank (1921).
-7. **PNB** (Lahore, 1894): Lala Lajpat Rai and Dyal Singh Majithia; the first bank with only Indian capital.
-8. **Bank of Baroda**: Maharaja Sayajirao Gaekwad III; the Baroda Sun logo; absorbed Dena and Vijaya, India's first three-way merger.
-9. **Canara Bank** was named after the Canara coast. Mangalore and Udupi gave India Canara, Syndicate, Corporation, Vijaya and Karnataka Bank.
-10. **Union Bank** was opened by Gandhi. **UCO Bank** was founded by G.D. Birla as United Commercial Bank. **IOB** was named "Overseas" for its Burma and Malaya trade.
-11. **Allahabad Bank**'s logo showed the Triveni Sangam, from Major Nair's prelims; it merged into Indian Bank.
-12. **Axis** was UTI Bank. **RBL** = Ratnakar Bank Limited (Kolhapur). **Bandhan** = bond. **IndusInd** is named for the Indus, the Sindhi homeland river. **Kotak Mahindra**: Anand Mahindra was an early investor.
-13. **Yes Bank**: co-founder Ashok Kapur died in 26/11. The bank was rescued by SBI in 2020; SMBC is now its top shareholder.
-14. **2026 deals**: Emirates NBD owns 60% of RBL; Fairfax is buying 60.72% of IDBI for ₹52,878 crore; SBI's chairman is C.S. Setty; the RBI governor is Sanjay Malhotra.
-15. **RBI**: 1 April 1935, Kolkata; a tiger and palm tree (originally a lion); first governor Osborne Smith; first Indian governor C.D. Deshmukh; Manmohan Singh is the only PM who signed banknotes.
-16. **Nationalisation**: 14 banks on 19 July 1969; 6 more on 15 April 1980.
-17. **Firsts**: Airtel Payments Bank was the first payments bank. ICICI was the first Indian bank on the NYSE. DBS (with Lakshmi Vilas) was the first foreign bank to absorb an Indian one. Kotak was the first NBFC to become a bank.
-18. **HDFC** = Housing Development Finance Corporation. **ICICI** = Industrial Credit and Investment Corporation of India. **IDFC** = Infrastructure Development Finance Company. **DCB** = Development Credit Bank (Aga Khan).
-
 ## RBI and the history of Indian banking
 
 Indian banking history runs through five dates worth memorising. **1806**: Bank of Calcutta, SBI's ancestor. **1935**: the RBI. **19 July 1969**: 14 banks nationalised. **1994**: the first new private bank licences. **2019–20**: mergers cut public-sector banks to 12. In 2026 the story is foreign ownership: Emirates NBD took RBL, Fairfax won IDBI, and SMBC is Yes Bank's top shareholder.

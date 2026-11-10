@@ -9,27 +9,6 @@ summary: "The big hotel groups, luxury houses and Indian chains: founders, name 
 
 A reference for the Christ Com finals: the world's big hotel groups, the famous luxury houses and India's chains, with founders, name and logo stories, current CEOs and quiz hooks.
 
-## Quiz-ready stories
-
-If you only have ten minutes, revise these. Each one is a likely connect or identify question.
-
-1. **Holiday Inn** is named after a 1942 Bing Crosby film. Its later owner, Bass, had the UK's first registered trademark, the red triangle.
-2. **Hyatt** is a man's first name: Hyatt von Dehn sold his LAX motel to Jay Pritzker in 1957.
-3. **Shangri-La** comes from James Hilton's novel *Lost Horizon*. A Hilton named a rival chain.
-4. **Conrad Hilton** went to Cisco, Texas, to buy a bank and bought a hotel instead (1919).
-5. **Marriott** began as an A&W root-beer stand in 1927.
-6. **InterContinental** was started by an airline, Pan Am, in 1946. Radisson Blu comes from SAS, another airline.
-7. **César Ritz** was "king of hoteliers and hotelier of kings". His name gave English the word "ritzy".
-8. **Taj Mahal Palace** opened in 1903. The story that Jamsetji Tata was refused entry to Watson's Hotel is a legend.
-9. **The Leela** is named after the founder's wife. Captain C.P. Krishnan Nair came from Kannur.
-10. **CGH Earth** began in 1957 as the Casino Restaurant for dock workers on Willingdon Island, Kochi.
-11. **OYO** stands for "On Your Own". The parent company is now PRISM, and it owns Motel 6.
-12. **Singapore Sling** (Raffles), **Waldorf salad** (Waldorf Astoria) and **piña colada** (Caribe Hilton's claim) all came from hotels.
-13. **Aman** means peace; **Schloss** (Leela's company) means castle; **EIH** means East India Hotels.
-14. **2026 leadership changes:** Dominic Dragisich became Choice CEO; Mark Hoplamazian became Hyatt chairman and CEO; Isadore Sharp became Four Seasons chairman emeritus; Sébastien Bazin will leave Accor by 2028.
-
-Logos are shown for Marriott, Hilton, Ritz-Carlton and OYO, the only hotel logos available in an open icon set. The others are described in words.
-
 ## Taglines, signatures and in-room quirks
 
 These are the small, specific facts quizmasters build questions on, like the copy of Conrad Hilton's *Be My Guest* left in Hilton rooms. Each chain gets its slogan, its signature touch, its loyalty programme and one or two extra tidbits.

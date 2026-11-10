@@ -9,31 +9,6 @@ summary: "Management practices with who invented them and why they're named that
 
 Sixth in the Christ Com prep set: management practices with who invented them and the story behind the name, then the business and finance books a quizmaster is likely to ask about.
 
-## Quiz-ready
-
-If you only have ten minutes, revise these.
-
-1. **Kanban** was inspired by American supermarket restocking. **Jidoka** came from Sakichi Toyoda's loom, which stopped itself when a thread broke.
-2. **Poka-yoke** was first called *baka-yoke* ("fool-proofing"). Shigeo Shingo.
-3. **Lean** was coined by John Krafcik (1988), later CEO of Waymo.
-4. **Six Sigma**: Bill Smith at Motorola (1986). Its experts are ranked by karate belts.
-5. **Deming** taught Japan quality; Japan named its top quality prize after him (1951).
-6. **Pareto**: the peas in his garden. Joseph Juran named the 80/20 principle after him.
-7. **BCG matrix**: stars, cash cows, question marks, dogs. Bruce Henderson, 1970.
-8. **Porter's Five Forces**: HBR, 1979. His consultancy Monitor went bankrupt in 2012.
-9. **Blue Ocean**: Cirque du Soleil. **Jobs to be done**: the milkshake. **Disruption**: Christensen.
-10. **Maslow** never drew the pyramid. **Hawthorne**: the lighting experiments at Western Electric.
-11. **OKRs**: Andy Grove at Intel, taken to Google by John Doerr in 1999.
-12. **Johari window** = Joseph Luft + Harrington Ingham.
-13. **Pomodoro** = a tomato-shaped kitchen timer. **Brainstorming** = Alex Osborn, the "O" of BBDO.
-14. **Scrum** is named after rugby. The **Agile Manifesto** was written at a ski lodge in Snowbird, Utah (2001). **Skunk Works** comes from the *Li'l Abner* comic.
-15. **Amazon**: no PowerPoint, six-page memos, two-pizza teams. **Netflix**: the culture deck and the keeper test. **3M**: the Post-it Note.
-16. **Dabbawalas** (1890). **Amul**: Kurien from Kozhikode and Operation Flood. **Aravind** was inspired by McDonald's.
-17. ***The Goal*** is a novel. ***Zero to One*** began as class notes. ***Good to Great***'s Circuit City later failed.
-18. ***The Intelligent Investor***'s Mr. Market. ***A Random Walk***'s blindfolded monkey. ***Reminiscences*** is Jesse Livermore's life.
-19. ***Cadbury's Purple Reign*** came up in Major Nair's prelims.
-20. ***The Polyester Prince*** (Ambani) was kept out of Indian shops.
-
 ## Japanese and quality practices
 
 Most of these came out of Toyota after the war, often by borrowing from the US. Kanban was inspired by American supermarket shelves, and the quality movement was taught to Japan by the American W. Edwards Deming.

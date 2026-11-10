@@ -9,27 +9,6 @@ summary: "Notable people from the world, India and Kerala who died in 2026, with
 
 Thirteenth in the Christ Com prep set: notable people who died in 2026, with the one fact a quizmaster would build a question on.
 
-## Quiz-ready: likely questions
-
-1. **Two Star Trek deaths in October 2026.** Walter Koenig (Chekov) died on 25 Oct, then Sir Patrick Stewart (Picard) on 28 Oct. Picard's drink order: "Tea. Earl Grey. Hot."
-2. **Which actor's death on 8 Oct 2026 also recalls a farmers' charity, Naam Foundation?** Nana Patekar.
-3. **Which Malayalam comic actor won the National Award for playing an attar seller saving for Hajj?** Salim Kumar, for *Adaminte Makan Abu*. He died on 6 Jun 2026.
-4. **Dolly the sheep was named after whom?** Dolly Parton, who died on 25 Aug 2026 — the same day as Tim Curry.
-5. **Which founder, who died in 2026, brought a US convenience brand to Japan in 1974, so that the Japanese franchisee eventually owned the parent?** Toshifumi Suzuki, of 7-Eleven.
-6. **What did ASOS originally stand for?** "As Seen On Screen". Co-founder Quentin Griffiths died in 2026.
-7. **Which 2026 death founded the first 24-hour news channel and gave $1 billion to the UN?** Ted Turner.
-8. **Why was ZZ Top's Frank Beard the odd one out?** He was the only member without a beard.
-9. **Which pitcher, who died in Aug 2026, is an eponym for an elbow surgery?** Tommy John.
-10. **Which sports network founder died on 18 Aug 2026?** Bill Rasmussen, of ESPN.
-11. **Which judge, who died in Aug 2026, headed the inquiry into the 1992 Babri demolition?** Justice **M.S. Liberhan** — *his commission* ran for 17 years.
-12. **Which retailer was named for the "generation gap"?** Gap. Co-founder Doris Fisher died in 2026.
-13. **Which Wayanad tribal farmer and Padma Shri recipient, who died in 2026, was known for saving rice seeds?** Cheruvayal Raman.
-14. **Which singer, who died in Apr 2026, ran a restaurant chain in the Gulf and the UK named after herself?** Asha Bhosle.
-15. **Which artist, who died in 2026, was famous for polka dots and collaborated with Louis Vuitton?** Yayoi Kusama.
-16. **Which Hinduja Group brother died a year ago (4 Nov 2025), and which truck maker does the group own?** Gopichand Hinduja; Ashok Leyland.
-
-**Pattern to expect:** a death plus a brand. ESPN, CNN, Gap, ASOS, 7-Eleven, Diesel/Replay, Dollywood, LV x Kusama, Hinduja/Ashok Leyland, and Confident Group for Kerala.
-
 ## Kerala
 
 The ones Major Nair is most likely to use. Malayalam cinema plus Kerala institutions and business.

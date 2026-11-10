@@ -9,42 +9,6 @@ summary: "About 150 Indian startups valued at $200 million to $1 billion, with t
 
 Based on Inc42's Soonicorn Tracker: 156 Indian startups valued between $200 million and $1 billion (updated 8 September 2026). Founding years and HQs below come from Inc42's table; name, logo and founder stories marked with a link were checked against a source.
 
-## Quiz-ready stories
-
-If you learn nothing else from this list, learn these. Each is a name, logo or founder story with a clear question in it.
-
-**Kerala links (most useful for Christ Com):**
-
-| Company | The story |
-| --- | --- |
-| iD Fresh Food | ["iD" stands for idli-dosa](https://www.equentis.com/blog/?p=57951) (with a nod to founder P.C. Musthafa's ID card). Musthafa, a [Class 6 failure from a village near Kalpetta, Wayanad](https://www.businesstoday.in/latest/trends/story/failed-class-6-worked-on-plantations-how-pc-musthafa-built-id-fresh-food-worth-rs4450-crore-545109-2026-07-25), later studied at IIM Bangalore; he and four cousins started in [a 50 sq ft kitchen in Thippasandra, Bengaluru](https://deccanchronicle.com/nation/current-affairs/171118/whipping-up-a-recipe-for-success.html). Premji Invest is an investor. |
-| MedGenome | [Spun out in 2013 from SciGenom, a genomics lab Sam Santhosh founded in Kochi](https://inc42.com/startups/medgenome-growth-story); Santhosh [hails from Thrissur](https://samsanthosh.blogspot.com/2016/10/the-hindu-oct-12-2016.html) and earlier ran California Software (Calsoft). |
-| Blue Tokai | ["Tokai" is an old Malabari word for a peacock's plume](https://deccanchronicle.com/lifestyle/when-coffee-habit-led-to-business-shivam-shahis-blue-tokai-story-1953815); peacocks roam coffee estates, so the logo is a peacock. |
-| Fi, Jupiter, Scapia | All three are built on **Federal Bank**, the Aluva-headquartered Kerala bank, as their banking partner. |
-| Rupeek | Doorstep gold loans: a startup rival to Kerala's gold-loan giants, Muthoot and Manappuram. |
-
-**The best of the rest:**
-
-| Company | The story |
-| --- | --- |
-| ideaForge | The drone Rancho flies in *3 Idiots* (2009) was [an early prototype of its NETRA UAV](https://www.businessinsider.in/heres-the-stellar-work-done-by-four-iitians-who-built-drone-rancho-for-the-famous-movie-3-idiots/articleshow/57390579.cms), built by IIT Bombay students who began with a plan for a hovercraft on Powai Lake. |
-| Agnikul Cosmos | *Agni* + *kul*. Its Agnibaan SOrTeD (30 May 2024) was [the world's first rocket with a single-piece 3D-printed engine](https://www.businesstoday.in/technology/news/story/indian-space-startup-agnikul-makes-history-with-worlds-first-3d-printed-rocket-engine-launch-431557-2024-05-31) (Agnilet), India's first semi-cryogenic engine flight, and the first launch from a private launchpad, Dhanush, at Sriharikota. An IIT Madras startup. |
-| HOCCO | [Short for House of Chona Collaborative](https://vibesofindia.com/?p=301333): the Havmor family's comeback after selling Havmor to Lotte for ₹1,020 crore in 2017. Havmor itself began as "Have More" in Karachi in 1944. |
-| Awfis | [The name is "office" spelt the way it is pronounced](https://startuptalky.com/awfis-success-story/). |
-| GIVA | [From the Sanskrit *jeeva*, life](https://giva.co/pages/about-giva); Anushka Sharma is its brand ambassador. |
-| Yulu | [The name means "simple" in a Chinese language](https://www.markhub24.com/post/the-simple-fix-to-india-s-most-complicated-problem-the-story-of-yulu); co-founder Amit Gupta had learned from InMobi's first name, mKhoj, how a hard name hurts global scale. |
-| MyGate | Founder Vijay Arisetty is [a former IAF helicopter pilot who won the Shaurya Chakra](https://mygate.com/?p=993333) for rescuing tsunami victims in the Andamans in 2004. |
-| Aye Finance | The logo carries **आय**, Hindi for income. |
-| Kissht | *Kisht* is Hindi for an instalment. |
-| DeHaat | *Dehaat* is Hindi for the countryside. |
-| Chalo | Hindi for "let's go". |
-| Dhruva Space | Dhruva is the pole star. |
-| Third Wave Coffee | Named for the "third wave" of specialty coffee. |
-| Inshorts | News in 60 words; founded by IIT Kharagpur dropouts. |
-| Digantara | Founded in 2018 by [19-year-old Anirudh Sharma](https://www.magzter.com/de/stories/newspaper/Business-Standard/FROM-PETRI-DISH-TO-PAYLOAD-INDIAS-NEXT-BIG-BANG); its satellite Pushan-Alpha is [named after the Hindu solar deity](https://www.broadcastandcablesat.co.in/?p=58475). |
-
-**Renamed companies worth knowing:** Fibe (formerly EarlySalary), Clear (formerly ClearTax), HackerRank (began as InterviewStreet), Yellow.ai (formerly Yellow Messenger), Cashify (formerly ReGlobe), SAFE Security (formerly Lucideus), M2P Fintech ([formerly YAP](https://craft.co/m2p-fintech)), and Infibeam Avenues, now listed by Inc42 as Avenues AI.
-
 ## Fintech
 
 Fintech is the largest sector on the list: 38 of the 156 soonicorns.

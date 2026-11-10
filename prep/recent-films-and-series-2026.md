@@ -9,29 +9,6 @@ summary: "What released in September and October 2026, and the brand, business o
 
 Eighth in the Christ Com prep set: what released in the last two months, and the brand, business or tech connect behind each one.
 
-## Quiz-ready
-
-If you only have ten minutes, revise these. Each one has a brand, business or tech link built in.
-
-1. ***The Social Reckoning*** (9 Oct): Sorkin's Facebook Files film. Jeremy Strong plays Zuckerberg, Mikey Madison plays Frances Haugen, Jeremy Allen White plays *WSJ*'s Jeff Horwitz. It flopped.
-2. **Capcom's double**: *Resident Evil* (18 Sep, franchise-best $60 m opening; called *Biohazard* in Japan) and *Street Fighter* (16 Oct, No. 1).
-3. ***Digger***: Tom Cruise as oil tycoon Digger Rockwell, directed by Iñárritu, with a weak opening on a $125 m budget.
-4. ***Coyote vs. Acme***: shelved by Warner Bros for a tax write-off, rescued by Ketchup Entertainment. Wile E. Coyote sues Acme.
-5. ***Wildwood***: from **Laika**, the stop-motion studio owned by Nike's Phil Knight and run by his son Travis.
-6. ***Clayface***: DC Studios, released by a Warner Bros that is now part of **Skydance**.
-7. ***Wonka's The Golden Ticket***: a Netflix reality show for the 1971 film's 55th anniversary, with a recreated Gene Wilder voice. Quaker Oats funded the original. Netflix owns the Roald Dahl Story Company.
-8. ***Cupertino***: CBS legal drama about suing Big Tech, named after Apple's home town.
-9. ***Get Jiro***: Anthony Bourdain's world where chefs rule Los Angeles.
-10. ***Spider-Man: Brand New Day***: the biggest US superhero gross ever. Sony owns the rights; Marvel co-produces.
-11. ***The One About Matthew Perry***: a Netflix documentary titled in *Friends* episode style.
-12. ***Animals***: Ben Affleck's Netflix thriller, made by **Artists Equity**.
-13. ***Drishyam 3: The Conclusion*** (Hindi, 2 Oct): about ₹379 crore net. *Drishyam* was the first Indian film remade in Chinese (*Sheep Without a Shepherd*).
-14. ***Jailer 2***: Sun Pictures (owners of Sunrisers Hyderabad), ₹666 crore in 10 days, and the biggest Tamil film ever in Kerala. *Jailer* 1's bonuses were a BMW X7 and a Porsche.
-15. ***Mirzapur The Movie***: a Prime Video series turned into a cinema release.
-16. ***Thudakkam***: Vismaya Mohanlal's debut. Its producer, Antony Perumbavoor, was Mohanlal's driver.
-17. ***Toxic***: Yash's film, directed by Malayali Geetu Mohandas.
-18. ***East of Eden***: Zoe Kazan adapts the book her grandfather Elia Kazan filmed.
-
 ## Hollywood and global films
 
 The autumn's business stories: **Capcom** had two video-game adaptations in four weeks (*Resident Evil*, *Street Fighter*). Aaron Sorkin's Facebook sequel **flopped**. And a film Warner Bros shelved for a tax write-off, *Coyote vs. Acme*, finally reached cinemas.

@@ -9,27 +9,6 @@ summary: "Stock-market, economy and deal jargon, each with a one-line meaning an
 
 Fifth in the Christ Com prep set: stock-market, economy and deal jargon, each with a one-line meaning and the origin story a quizmaster would ask about.
 
-## Quiz-ready
-
-If you only have ten minutes, revise these. Each one is a "who coined it" or "named after what" question.
-
-1. **Greenshoe**: the Green Shoe Manufacturing Company (1963). **Red herring**: the red-ink warning on the prospectus.
-2. **Blue chip**: poker chips. **Bellwether**: the belled ram. **Tenbagger**: Peter Lynch, from baseball.
-3. **Bull and bear**: horns up, paws down. The *Charging Bull* was guerrilla art.
-4. **Dead cat bounce**: *Financial Times*, 1985.
-5. **Stagflation**: Iain Macleod, 1965. **Shrinkflation**: Pippa Malmgren (and Toblerone's gaps).
-6. **Big Mac index**: *The Economist*, 1986. India's version uses the **Maharaja Mac**. **Lipstick index**: Leonard Lauder. **Hemline index**: George Taylor.
-7. **Laffer curve**: drawn on a napkin. **Phillips**: also built the water-powered MONIAC.
-8. **Animal spirits**: Keynes. **Irrational exuberance**: Greenspan. **Invisible hand**: Adam Smith (it appears only once).
-9. **Black swan**: Taleb. **Grey rhino**: Wucker. **BRIC**: Jim O'Neill. **Hindu rate of growth**: Raj Krishna.
-10. **Unicorn**: Aileen Lee (2013). **Poison pill**: Martin Lipton. **Pac-Man defence**: the video game.
-11. **Black Monday** (1987), **Black Wednesday** (1992, Soros), **Black Tuesday** (1929), **Black Friday** (1869, gold).
-12. **Bourse**: the Van der Beurze inn, Bruges. **Wall Street**: the Dutch wall. **NYSE**: buttonwood tree. **BSE**: banyan tree.
-13. **Sensex** = sensitive index (coined by Deepak Mohoni). **Nifty** = National + Fifty; base date 3 Nov 1995.
-14. **Cobra effect**: British Delhi's cobra bounty. **Dutch disease**: *The Economist*, 1977.
-15. **2026**: Jio's IPO had no offer for sale; SpaceX made the largest IPO ever; muhurat trading is on 8 Nov in the afternoon.
-16. **₹ symbol**: D. Udaya Kumar, IIT Bombay (2010).
-
 ## IPOs and capital raising
 
 The quiz-worthy ones carry a hidden story: the **greenshoe** is named after a shoe company and the **red herring** after red ink. 2026 gave a live example of a large IPO with no offer for sale: Jio Platforms' ₹30,213 crore issue was all new shares.

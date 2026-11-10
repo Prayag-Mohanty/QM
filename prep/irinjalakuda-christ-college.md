@@ -7,31 +7,6 @@ updated: 2026-11-05
 summary: "Home-ground hooks for a quiz at Christ College, Irinjalakuda: famous alumni, local people, Koodalmanikyam and local business."
 ---
 
-## Quiz-ready: likely home-ground questions
-
-Hosts love a "local connect" question, and Major Nair has already used **Manappuram** in prelims.
-
-1. **Which Christ College alumnus heads the Thrissur gold-loan firm Major Nair asked about in prelims?** V.P. Nandakumar, MD and CEO of Manappuram Finance.
-2. **Which alumnus founded V-Guard and Wonderla, and donated a kidney to a stranger?** Kochouseph Chittilappilly.
-3. **Which ISRO chairman, who led Mangalyaan, studied at Christ College and is also a Kathakali artist?** K. Radhakrishnan.
-4. **Which playback singer, called "Bhava Gayakan", studied zoology at Christ College?** P. Jayachandran.
-5. **Which Irinjalakuda-born actor became Netflix's Malayalam superhero?** Tovino Thomas (*Minnal Murali*).
-6. **Which actor, an MP for Chalakudy and long-time AMMA president, wrote about laughing in a cancer ward?** Innocent.
-7. **Which medieval mathematician, linked to Irinjalakuda, has an infinite series for π named partly after him?** Madhava of Sangamagrama (the Madhava–Leibniz series).
-8. **Koodalmanikyam is a rare temple dedicated to which brother of Rama?** Bharata.
-9. **Which Irinjalakuda-born Mint editor wrote the *Dork* trilogy and took champagne as his Mastermind subject?** Sidin Vadukut.
-10. **Which Christ College athlete won the 1,500 m at the 2017 and 2019 Asian Championships?** P.U. Chitra.
-11. **Which art form was among the first named a UNESCO Masterpiece of Intangible Heritage in 2001, and has two schools in Irinjalakuda?** Koodiyattam (Natana Kairali and the Ammannur Gurukulam).
-12. **Who founded Christ College in 1956, and which order runs it?** Fr. Gabriel Chiramel; the CMI, founded by St Kuriakose Elias Chavara.
-13. **What is Christ College's motto?** "Jeevitha Prabha".
-14. **Which co-operative bank near Irinjalakuda was hit by a multi-crore fraud in 2021?** Karuvannur Service Co-operative Bank.
-15. **Which Irinjalakuda-based listed company makes cattle feed?** KSE Ltd (Kerala Solvent Extractions).
-16. **Which Irinjalakuda poet wrote the Kathakali classic *Nalacharitham*?** Unnayi Variyar.
-17. **Which Irinjalakuda composer, of Thaikkudam Bridge, scored the Tamil film *96*?** Govind Vasantha.
-18. **Which Christ College alumnus became Kerala's Industries Minister?** P. Rajeev.
-
-**Tip:** if you're stuck on a Kerala business or film question tomorrow, try a Christ College alumnus first: Nandakumar, Chittilappilly, Joju George, Kamal or Radhakrishnan.
-
 ## Christ College, Irinjalakuda
 
 **The basics:**

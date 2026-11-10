@@ -7,42 +7,6 @@ updated: 2026-11-04
 summary: "French, Italian, British and American houses, sportswear and fast fashion, the luxury conglomerates and Indian fashion."
 ---
 
-## Quiz-ready: likely questions
-
-Name origins first, the way Major Nair likes them.
-
-1. **Which brand's name was rearranged from the letters of "Zorba" because a nearby bar already had that name?** Zara.
-2. **Which brand got its Q from a clerk's misreading of the C in its abbreviated name?** Uniqlo (Unique Clothing Warehouse).
-3. **Which brand's name joins the Swedish word for "hers" with a hunting-store owner's first name?** H&M (Hennes & Mauritz).
-4. **Which two brands came from a brothers' feud in Herzogenaurach?** Adidas (Adi Dassler) and Puma (Rudolf Dassler, originally "Ruda").
-5. **Who designed the Swoosh, and for how much?** Carolyn Davidson, for $35.
-6. **Which brand's logo was created in 1896 to stop counterfeiters?** The Louis Vuitton monogram.
-7. **What did Guccio Gucci do in London that inspired his brand?** He was a lift boy and porter at the Savoy Hotel.
-8. **Which luxury house's logo is a carriage with no driver, and why?** Hermès. The house supplies the carriage, and the customer drives.
-9. **What is the No. 5 in Chanel No. 5?** The fifth sample Ernest Beaux presented, and Coco's lucky number.
-10. **Which dress led to Google Images?** Jennifer Lopez's green Versace jungle dress at the 2000 Grammys.
-11. **Where does the name Moncler come from?** The village of Monestier-de-Clermont, near Grenoble.
-12. **Which brand was named Diesel because the word is the same in every language?** Diesel, Renzo Rosso's brand.
-13. **What is Pantone 1837?** Tiffany Blue, named after Tiffany's founding year.
-14. **Which Bottega Veneta tagline replaces a logo?** "When your own initials are enough." The woven intrecciato leather is the logo.
-15. **Which date is called the birthday of blue jeans?** 20 May 1873, when Levi Strauss and Jacob Davis got the rivet patent.
-16. **Whose daughter married Neville Wadia, making Nusli Wadia his grandson?** Muhammad Ali Jinnah.
-17. **Which Thrissur family founded both a silk chain and a jewellery giant?** The Kalyan Group (Kalyan Silks and Kalyan Jewellers).
-18. **Which Kerala garment firm launched a political party called Twenty20?** Kitex (Sabu M. Jacob).
-19. **Which Kolhapur-born ex-Unilever executive runs Chanel?** Leena Nair.
-20. **What does the Kering name come from, and what is its logo?** Breton "ker" (home), pronounced like "caring". The logo is an owl.
-
-**2026 headlines to know:**
-
-- Valentino Garavani died on 19 Jan.
-- Anta bought Artemis's 29% of Puma for $1.8 bn (Jan).
-- Pieter Mulier became Versace's chief creative officer (named Feb, starting 1 Jul) under its new owner Prada.
-- Bottega CEO Rongone moved to Moncler (Mar).
-- Shein listed in Hong Kong on 1 Sep and slid on debut.
-- Kering is in its first full year under ex-Renault CEO Luca de Meo, with Demna at Gucci.
-- Chanel (Blazy), Dior (Jonathan Anderson) and Balenciaga (Piccioli) are on their second seasons after the great 2025 designer reshuffle.
-- Giorgio Armani died in Sept 2025; his will points to a stake sale.
-
 ## French houses
 
 CD = creative director, as of 2026.

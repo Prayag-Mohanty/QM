@@ -9,31 +9,6 @@ summary: "Films and series with a brand or business connection, from product pla
 
 Third in the Christ Com prep set, after hotels and cosmetics: films and shows with a business or brand story behind them, the kind of fact a quizmaster turns into a connect or a visual.
 
-## Quiz-ready stories
-
-If you only have ten minutes, revise these.
-
-1. **Fight Club**: a Starbucks cup in nearly every scene, as Fincher's dig at consumer culture. **Game of Thrones** had an accidental cup that wasn't even Starbucks.
-2. **E.T.**: Mars said no to M&M's, so Reese's Pieces got the part and sales jumped about 65%.
-3. **Willy Wonka (1971)** was financed by Quaker Oats to launch the Wonka Bar. That's why the title isn't *Charlie*.
-4. **Cast Away**: FedEx didn't pay for its placement. Wilson the volleyball is a brand.
-5. **Bond**: Omega replaced Rolex in *GoldenEye*. Heineken paid for *Skyfall*.
-6. **Ray-Ban** was saved by *Risky Business* (Wayfarer) and *Top Gun* (Aviator).
-7. **The Matrix**'s "banana phone", the Nokia 8110, was re-released in 2018.
-8. **Stranger Things** brought back New Coke (2019). **Squid Game** sent Vans slip-ons up about 7,800%.
-9. **Knives Out**: Apple doesn't let villains use iPhones on screen.
-10. **Office Space**'s red Swingline stapler didn't exist until the film created demand for it.
-11. **Soylent**, **Bubba Gump** and **Duff** are fictional brands that became real.
-12. **Die Hard**'s Nakatomi Plaza is Fox Plaza, Fox's own headquarters.
-13. **The Simpsons** joked in 1998 about Fox becoming part of Disney. It happened in 2019.
-14. **Mad Men** ends with the real Coca-Cola "Hilltop" ad. "It's toasted" is Lucky Strike's real slogan.
-15. **The Founder**: Kroc bought out the McDonald brothers. **Air**: Deloris Jordan got Michael a royalty on every Air Jordan.
-16. **Jerry Maguire**: Reebok sued over a cut ad. **Super Size Me**: McDonald's dropped Super Size.
-17. **Lightning McQueen** is named after Pixar animator Glenn McQueen.
-18. **Guru** = Dhirubhai Ambani. **Soorarai Pottru** = Captain Gopinath (*Simply Fly*). **Pad Man** = Muruganantham.
-19. **Pranchiyettan and the Saint**: Mammootty as a Thrissur rice trader. **Varavelpu**: a Gulf returnee's bus business meets Kerala's unions.
-20. **Barbie and Ken** are named after Ruth Handler's children, Barbara and Kenneth.
-
 ## Product placement and brand cameos
 
 The most askable placements are the ones that changed a brand's sales, or the ones a director hid on purpose. Fight Club and E.T. are the classics.

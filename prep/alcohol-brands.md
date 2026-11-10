@@ -9,33 +9,6 @@ summary: "Drinks groups, spirits, beers and champagnes, Indian and Kerala labels
 
 Fourth in the Christ Com prep set, after hotels, cosmetics and films: the drinks groups, the famous spirits, beers and champagnes, and India's and Kerala's labels, with founders, name and logo stories, CEOs, taglines and quiz hooks.
 
-## Quiz-ready stories
-
-If you only have ten minutes, revise these.
-
-1. **Diageo** = *dies* (day) + *geo* (world). It was formed by the Guinness–Grand Metropolitan merger in 1997.
-2. **Carlsberg** = Carl (J.C. Jacobsen's son) + *berg* (hill). The **pH scale** was invented at the Carlsberg Laboratory.
-3. **Bacardi**'s bat comes from fruit bats in the first distillery. The family left Cuba after Castro.
-4. **Smirnoff** began as Smirnov, from Moscow. The Moscow Mule was invented to sell it.
-5. **Jack Daniel's** is made in a dry county, and was taught by Nathan "Nearest" Green.
-6. **Johnnie Walker**'s square bottle wasted less space in crates. The Striding Man is by Tom Browne.
-7. **Royal Salute** is 21 years old, for the 21-gun salute at the 1953 coronation. **VAT 69** was vat number 69.
-8. **Guinness**: a 9,000-year lease; the harp that made Ireland's harp face the other way; the Guinness World Records.
-9. **Budweiser** is named after Budweis (České Budějovice). **Stella** means star. **Corona** means crown. **Cuervo** means crow.
-10. **Peroni Nastro Azzurro** = "blue ribbon", after the liner *Rex*. **Beck's** key = Bremen's coat of arms.
-11. **Veuve** means widow (Clicquot). **Dom Pérignon** was a monk. **Cristal** was made for a tsar.
-12. **Chartreuse**, the colour, is named after the liqueur.
-13. **RCB** is named after Royal Challenge whisky. United Spirits sold it in Mar 2026 for ₹16,660 crore.
-14. **Old Monk**'s brewery was founded by Edward Dyer, father of General Dyer of Jallianwala Bagh. It never advertised.
-15. **Kingfisher Airlines** was named after the beer. **Bira 91**: 91 is India's dialling code.
-16. **Sula** is named after Sulabha Samant. **Amrut**'s single malt launched in Glasgow (2004).
-17. **Suntory time!** comes from *Lost in Translation*. Suntory bought Jim Beam in 2014.
-18. **Kerala**: Bevco sold ₹771 crore in Onam 2026. Jawan rum is made by Travancore Sugars. The government brandy was renamed from Malabar Mystery to **Minnal Magic**.
-19. **2026 CEO changes**: Sir Dave Lewis at Diageo; Rafael Oliveira at Heineken; Brown-Forman searching for a successor.
-20. **Surrogate ads**: Indian liquor brands advertise soda, water or music CDs under the same name.
-
-Logos are shown for Carlsberg and Jameson, the only drinks logos in the open icon set. The others are described in words.
-
 ## The big drinks groups
 
 About ten groups own most famous labels. Three changed CEOs in 2026: Diageo (Sir Dave Lewis, ex-Tesco), Heineken (Rafael Oliveira, ex-JDE Peet's), and Brown-Forman, whose CEO is retiring with no successor yet.
