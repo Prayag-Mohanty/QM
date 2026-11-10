@@ -56,3 +56,31 @@
   });
   pick(location.hash === "#blog" ? "blog" : "feed", false);
 })();
+
+/* Feed: show 5 posts, then a "View more posts" button that reveals 5 at a time.
+   (Every post is still in the page, so search engines see them all.) */
+(function () {
+  "use strict";
+  var feed = document.querySelector("[data-feed]"), more = document.querySelector("[data-feed-more]");
+  if (!feed || !more) return;
+  var STEP = 5, posts = Array.prototype.slice.call(feed.querySelectorAll(":scope > .tweet")), shown = 0;
+  function showUpTo(n, focus) {
+    var first = shown;
+    shown = Math.min(Math.max(n, shown), posts.length);
+    posts.forEach(function (p, i) { p.hidden = i >= shown; });
+    var left = posts.length - shown;
+    more.hidden = left <= 0;
+    more.textContent = "View more posts (" + left + " more)";
+    if (focus && posts[first]) { posts[first].setAttribute("tabindex", "-1"); posts[first].focus({ preventScroll: true }); }
+  }
+  // A link to a specific post (…/askaban/#post-id) opens the feed far enough to show it.
+  function revealHash() {
+    var id = decodeURIComponent(location.hash.slice(1)), i = -1;
+    posts.forEach(function (p, j) { if (p.id === id) i = j; });
+    if (i >= shown) { showUpTo(i + 1); posts[i].scrollIntoView({ block: "start" }); }
+  }
+  more.addEventListener("click", function () { showUpTo(shown + STEP, true); });
+  window.addEventListener("hashchange", revealHash);
+  showUpTo(STEP);
+  if (location.hash) revealHash();
+})();

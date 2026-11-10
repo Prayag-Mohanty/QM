@@ -25,9 +25,10 @@
     <section class="ask-col ask-feed" id="ask-feed" aria-labelledby="ask-feed-h" role="tabpanel">
       <h2 class="ask-col-h" id="ask-feed-h">Feed</h2>
       {% if updates %}
-      <div class="feed">
+      <div class="feed" data-feed>
         {% for u in updates %}{% include "_update.html" %}{% endfor %}
       </div>
+      {% if updates|length > 5 %}<button class="btn feed-more" type="button" data-feed-more hidden>View more posts</button>{% endif %}
       {% else %}
       <p class="empty ask-empty">No updates yet. The first dispatch is coming soon.</p>
       {% endif %}

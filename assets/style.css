@@ -627,3 +627,5 @@ body.embed .stage { flex: 1; width: 100%; max-height: calc(100vh - 55px); }
   .prep-head h1, .prep-doc-head h1 { font-size: 1.7rem; }
   .table-wrap { margin-inline: -16px; border-radius: 0; border-left: 0; border-right: 0; }
 }
+.feed-more { display: flex; width: 100%; justify-content: center; margin-top: 12px; }
+.feed-more[hidden] { display: none; }
