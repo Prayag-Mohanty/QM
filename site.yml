@@ -70,7 +70,7 @@ blog_articles:
     title: "3.75 Points: My Month in the IIT Bombay Faction Quiz League"
     excerpt: "Four factions, four quizzes, one SBT win, and a league lost by less than a single answer."
 
-# Quiz Prep (Askaban → Quiz Prep): reading material by category, shown in this
+# Quiz Prep (the /prep/ section): reading material by category, shown in this
 # order. A category with no files yet appears as "coming soon". Each resource is
 # one Markdown file in prep/ (see prep/README.md); its `category:` must match a
 # name here, and `group:` sorts it under one of the category's groups.

@@ -1,8 +1,8 @@
 # Quiz Prep
 
-Reading material for quizzers, shown on the site at `/askaban/prep/` (linked from the
-**Quiz Prep** column on Askaban). Each resource is one Markdown file here; its address
-is `/askaban/prep/<file name>/`, so a file's name should not change once it is shared.
+Reading material for quizzers, shown on the site at `/prep/` (the **Quiz Prep** link in
+the top menu). Each resource is one Markdown file here; its address
+is `/prep/<file name>/`, so a file's name should not change once it is shared.
 
 ```markdown
 ---

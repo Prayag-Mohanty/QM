@@ -35,7 +35,7 @@
   });
 })();
 
-/* Phones: Feed / Quiz Prep / Blog tabs (desktop shows the columns side by side). */
+/* Phones: Feed / Blog tabs (desktop shows both columns side by side). */
 (function () {
   "use strict";
   var tabs = document.querySelector(".ask-tabs"), layout = document.querySelector(".ask-layout");
@@ -48,12 +48,11 @@
       t.classList.toggle("is-active", on);
       t.setAttribute("aria-selected", String(on));
     });
-    if (push) history.replaceState(null, "", which === "feed" ? location.pathname + location.search : "#" + which);
+    if (push) history.replaceState(null, "", which === "blog" ? "#blog" : location.pathname + location.search);
   }
   tabs.addEventListener("click", function (e) {
     var t = e.target.closest("[data-ask-tab]");
     if (t) { pick(t.dataset.askTab, true); window.scrollTo({ top: tabs.offsetTop - 70, behavior: "smooth" }); }
   });
-  var start = location.hash.slice(1);
-  pick(start === "blog" || start === "prep" ? start : "feed", false);
+  pick(location.hash === "#blog" ? "blog" : "feed", false);
 })();

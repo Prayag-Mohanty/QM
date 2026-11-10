@@ -1,18 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Quiz Prep | Askaban | {{ site.title }}{% endblock %}
+{% block title %}Quiz Prep | {{ site.title }}{% endblock %}
 {% block description %}Quiz prep reading by {{ site.author }}: business, sci-tech, HELM, sports, MELA, India and general quiz references with the stories quizmasters ask about.{% endblock %}
 {% block head %}
 <script type="application/ld+json">{{ {
   "@context": "https://schema.org", "@type": "CollectionPage", "name": "Quiz Prep", "url": canonical,
   "description": "Reading material for quizzers, by category.",
   "author": {"@type": "Person", "name": site.author, "url": site.url ~ "about/"},
-  "isPartOf": {"@type": "CollectionPage", "name": "Askaban", "url": site.url ~ "askaban/"},
   "hasPart": prep_docs|map(attribute="title")|list or none
 }|tojson_ld }}</script>
 {% endblock %}
 {% block main %}
 <section class="wrap page prep-hub">
-  <p class="crumbs"><a href="{{ site.base }}askaban/">← Askaban</a></p>
   <header class="prep-head">
     <h1>Quiz Prep</h1>
     <p class="lede">Reading material I put together before quizzes: the names, logos, founders, origin stories and recent news that questions get built on. Free to read and share.</p>
@@ -36,7 +34,7 @@
       <ul class="prep-grid">
         {% for d in g.docs %}
         <li>
-          <a class="prep-card" href="{{ site.base }}askaban/prep/{{ d.slug }}/">
+          <a class="prep-card" href="{{ site.base }}prep/{{ d.slug }}/">
             <span class="prep-card-title">{{ d.title }}</span>
             {% if d.summary %}<span class="prep-card-sum">{{ d.summary }}</span>{% endif %}
             <span class="prep-card-meta">{{ d.minutes }} min read{% if d.updated %} · updated {{ d.updated|pretty_date }}{% endif %}</span>

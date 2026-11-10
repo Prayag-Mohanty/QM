@@ -8,12 +8,12 @@
   "description": d.summary or none, "dateModified": d.updated.isoformat() if d.updated else none,
   "articleSection": d.category, "educationalUse": "quiz preparation",
   "author": {"@type": "Person", "name": site.author, "url": site.url ~ "about/"},
-  "isPartOf": {"@type": "CollectionPage", "name": "Quiz Prep", "url": site.url ~ "askaban/prep/"}
+  "isPartOf": {"@type": "CollectionPage", "name": "Quiz Prep", "url": site.url ~ "prep/"}
 }|tojson_ld }}</script>
 {% endblock %}
 {% block main %}
 <article class="wrap page prep-doc">
-  <p class="crumbs"><a href="{{ site.base }}askaban/">Askaban</a> / <a href="{{ site.base }}askaban/prep/">Quiz Prep</a> / <a href="{{ site.base }}askaban/prep/#{{ cat.slug }}">{{ cat.name }}</a></p>
+  <p class="crumbs"><a href="{{ site.base }}prep/">Quiz Prep</a> / <a href="{{ site.base }}prep/#{{ cat.slug }}">{{ cat.name }}</a></p>
   <header class="prep-doc-head">
     <h1>{{ d.title }}</h1>
     {% if d.summary %}<p class="lede">{{ d.summary }}</p>{% endif %}
@@ -35,8 +35,8 @@
       {{ d.html|safe }}
       <p class="prep-note muted">Facts marked * come from general knowledge rather than a checked source, and figures are as of the update date. Spotted a mistake? <a href="{{ site.base }}about/#contact">Tell me</a>.</p>
       <nav class="prep-pager" aria-label="More in {{ cat.name }}">
-        {% if prev %}<a class="btn" href="{{ site.base }}askaban/prep/{{ prev.slug }}/">← {{ prev.title }}</a>{% endif %}
-        {% if next %}<a class="btn" href="{{ site.base }}askaban/prep/{{ next.slug }}/">{{ next.title }} →</a>{% endif %}
+        {% if prev %}<a class="btn" href="{{ site.base }}prep/{{ prev.slug }}/">← {{ prev.title }}</a>{% endif %}
+        {% if next %}<a class="btn" href="{{ site.base }}prep/{{ next.slug }}/">{{ next.title }} →</a>{% endif %}
       </nav>
     </div>
   </div>

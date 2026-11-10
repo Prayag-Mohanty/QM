@@ -18,9 +18,9 @@
   <url><loc>{{ site.url }}askaban/{{ u.id }}/</loc><lastmod>{{ u.when.date().isoformat() }}</lastmod>{% for ph in u.photos[:4] %}<image:image><image:loc>{{ absolute(ph) }}</image:loc></image:image>{% endfor %}</url>
   {% endfor %}
   {% if prep_docs %}
-  <url><loc>{{ site.url }}askaban/prep/</loc></url>
+  <url><loc>{{ site.url }}prep/</loc></url>
   {% for d in prep_docs %}
-  <url><loc>{{ site.url }}askaban/prep/{{ d.slug }}/</loc>{% if d.updated %}<lastmod>{{ d.updated.isoformat() }}</lastmod>{% endif %}</url>
+  <url><loc>{{ site.url }}prep/{{ d.slug }}/</loc>{% if d.updated %}<lastmod>{{ d.updated.isoformat() }}</lastmod>{% endif %}</url>
   {% endfor %}
   {% endif %}
 </urlset>

@@ -32,7 +32,7 @@ Please credit "{{ site.title }} ({{ site.author }})" and link to the quiz page w
 ## Quiz Prep — reading material for quizzers
 
 {% for d in prep_docs %}
-- [{{ d.title }}]({{ site.url }}askaban/prep/{{ d.slug }}/) ({{ d.category }}): {{ d.summary }}
+- [{{ d.title }}]({{ site.url }}prep/{{ d.slug }}/) ({{ d.category }}): {{ d.summary }}
 {% endfor %}
 
 {% endif %}

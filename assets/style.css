@@ -562,29 +562,15 @@ body.embed .stage { flex: 1; width: 100%; max-height: calc(100vh - 55px); }
   .ask-tab { flex: 1; padding: 14px 8px; border: 0; background: none; font: 700 .95rem var(--font); color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; }
   .ask-tab.is-active { color: var(--ink); border-bottom-color: var(--accent); }
   .ask-layout[data-active] .ask-col-h { display: none; }
-  .ask-layout[data-active="feed"] .ask-side,
-  .ask-layout[data-active="blog"] .ask-feed, .ask-layout[data-active="blog"] .ask-prep,
-  .ask-layout[data-active="prep"] .ask-feed, .ask-layout[data-active="prep"] .ask-blog { display: none; }
-  .ask-layout[data-active] .ask-side { gap: 0; }
-  .ask-layout:not([data-active]) .ask-side { margin-top: 28px; }
+  .ask-layout[data-active="feed"] .ask-blog, .ask-layout[data-active="blog"] .ask-feed { display: none; }
+  .ask-layout:not([data-active]) .ask-blog { margin-top: 28px; }
 }
 @media (max-width: 640px) {
   .articles { border-radius: 0; border-left: 0; border-right: 0; margin-inline: -16px; }
   .medium-more { width: auto; }
 }
 
-/* ---------- Quiz Prep (Askaban) ---------- */
-.ask-side { display: grid; gap: 28px; align-content: start; min-width: 0; }
-.prep-box { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); padding: 16px; display: grid; gap: 12px; }
-.prep-box-intro { margin: 0; color: var(--muted); font-size: .92rem; line-height: 1.45; }
-.prep-box-cats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.prep-box-cats a { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px; background: var(--soft); text-decoration: none; font-weight: 650; font-size: .9rem; color: var(--ink); }
-.prep-box-cats a:hover { background: var(--accent-soft); color: var(--accent); }
-.prep-box-cats a.is-empty { color: var(--muted); font-weight: 550; }
-.prep-box-n { font-size: .78rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
-.prep-box-cats a.is-empty .prep-box-n { color: var(--muted); font-weight: 500; }
-.prep-box-open { justify-content: center; }
-
+/* ---------- Quiz Prep ---------- */
 .prep-hub .crumbs, .prep-doc .crumbs { max-width: none; margin: 0 0 12px; }
 .prep-head { margin: 0 0 18px; max-width: 760px; }
 .prep-head h1 { margin: 0 0 6px; font-size: 2.1rem; }

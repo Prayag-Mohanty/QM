@@ -1207,13 +1207,21 @@ def build(site: dict) -> list[Quiz]:
     prep_categories, prep_docs = collect_prep(site, base)
     env.globals.update(prep_categories=prep_categories, prep_docs=prep_docs)
     write("askaban/index.html", "askaban.html", updates=updates, articles=articles, canonical=page_url("askaban/"))
-    write("askaban/prep/index.html", "prep.html", canonical=page_url("askaban/prep/"))
+    write("prep/index.html", "prep.html", canonical=page_url("prep/"))
     for cat in prep_categories:
         for i, d in enumerate(cat["docs"]):
-            write(f"askaban/prep/{d.slug}/index.html", "prep_doc.html", d=d, cat=cat,
+            write(f"prep/{d.slug}/index.html", "prep_doc.html", d=d, cat=cat,
                   prev=cat["docs"][i - 1] if i else None,
                   next=cat["docs"][i + 1] if i + 1 < len(cat["docs"]) else None,
-                  canonical=page_url(f"askaban/prep/{d.slug}/"))
+                  canonical=page_url(f"prep/{d.slug}/"))
+    # Quiz Prep briefly lived at /askaban/prep/; forward any shared links.
+    for rel in ["prep/"] + [f"prep/{d.slug}/" for d in prep_docs]:
+        target = page_url(rel)
+        (OUT_DIR / "askaban" / rel).mkdir(parents=True, exist_ok=True)
+        (OUT_DIR / "askaban" / rel / "index.html").write_text(
+            f'<!doctype html><meta charset="utf-8"><title>Moved</title><link rel="canonical" href="{target}">'
+            f'<meta http-equiv="refresh" content="0; url={target}"><p>Moved to <a href="{target}">{target}</a>.</p>',
+            encoding="utf-8")
     if prep_docs:
         print(f"  {len(prep_docs)} Quiz Prep resource(s)")
     for u in updates:
