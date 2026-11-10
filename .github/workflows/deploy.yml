@@ -80,12 +80,23 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url }}
     outputs:
-      page_url: ${{ steps.deployment.outputs.page_url }}
+      page_url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url }}
+    timeout-minutes: 70
     steps:
+      # GitHub Pages sometimes sits on "syncing files" for a long time; wait up to
+      # 30 minutes (default is 10) and try once more before giving up.
       - id: deployment
         uses: actions/deploy-pages@v4
+        continue-on-error: true
+        with:
+          timeout: 1800000
+      - id: deployment_retry
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+        with:
+          timeout: 1800000
 
   indexnow:
     # Pings Bing & co. so new or edited quizzes are crawled quickly. Never blocks publishing.
