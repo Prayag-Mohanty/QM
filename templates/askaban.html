@@ -13,11 +13,12 @@
 <section class="wrap-wide page askaban">
   <header class="ask-head">
     <h1>Askaban</h1>
-    <p class="lede">Dispatches from the quizzing circuit (every event, every result, every buzzer-beater) and the longer stories behind them.</p>
+    <p class="lede">Dispatches from the quizzing circuit (every event, every result, every buzzer-beater), the longer stories behind them, and the prep that went into them.</p>
   </header>
 
   <div class="ask-tabs" role="tablist" aria-label="Askaban sections" hidden>
     <button class="ask-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="ask-feed" data-ask-tab="feed">Feed</button>
+    <button class="ask-tab" type="button" role="tab" aria-selected="false" aria-controls="ask-prep" data-ask-tab="prep">Quiz Prep{% if prep_docs %} <span class="chip-n">{{ prep_docs|length }}</span>{% endif %}</button>
     <button class="ask-tab" type="button" role="tab" aria-selected="false" aria-controls="ask-blog" data-ask-tab="blog">Blog{% if articles %} <span class="chip-n">{{ articles|length }}</span>{% endif %}</button>
   </div>
 
@@ -33,6 +34,24 @@
       {% endif %}
     </section>
 
+    <div class="ask-side">
+    <section class="ask-col ask-prep" id="ask-prep" aria-labelledby="ask-prep-h" role="tabpanel">
+      <h2 class="ask-col-h" id="ask-prep-h">Quiz Prep</h2>
+      <div class="prep-box">
+        <p class="prep-box-intro">Reading material for quizzers: names, logos, founders and the stories behind them.</p>
+        <ul class="prep-box-cats">
+          {% for c in prep_categories %}
+          <li>
+            <a href="{{ site.base }}askaban/prep/#{{ c.slug }}"{% if not c.docs %} class="is-empty"{% endif %}>
+              <span>{{ c.name }}</span>
+              <span class="prep-box-n">{% if c.docs %}{{ c.docs|length }}{% else %}soon{% endif %}</span>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+        <a class="btn btn-primary prep-box-open" href="{{ site.base }}askaban/prep/">Open Quiz Prep</a>
+      </div>
+    </section>
     <aside class="ask-col ask-blog" id="ask-blog" aria-labelledby="ask-blog-h" role="tabpanel">
       <h2 class="ask-col-h" id="ask-blog-h">Blog</h2>
       {% if articles %}
@@ -61,6 +80,7 @@
       </a>
       {% endif %}
     </aside>
+    </div>
   </div>
 </section>
 {% include "_lightbox.html" %}

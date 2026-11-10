@@ -46,6 +46,7 @@ ASSETS_DIR = ROOT / "assets"
 TEMPLATES_DIR = ROOT / "templates"
 PAGES_DIR = ROOT / "pages"
 ASKABAN_DIR = ROOT / "askaban"
+PREP_DIR = ROOT / "prep"
 
 VIEWABLE = {".pdf"}
 CONVERTIBLE = {".pptx", ".ppt", ".pps", ".ppsx", ".odp", ".key", ".docx", ".doc", ".odt"}
@@ -921,6 +922,64 @@ def collect_updates(base: str) -> list[Update]:
     return updates
 
 
+@dataclass
+class PrepDoc:
+    """One Quiz Prep resource: a long reference page from prep/<slug>.md."""
+    slug: str
+    title: str
+    category: str
+    group: str
+    order: int
+    updated: dt.date | None
+    summary: str
+    html: str
+    toc: list[dict]       # [{"id", "name"}] for each ## heading
+    minutes: int
+
+
+def collect_prep(site: dict, base: str) -> tuple[list[dict], list[PrepDoc]]:
+    """Quiz Prep resources from prep/*.md (front matter: title, category, group,
+    order, updated, summary). Categories come from site.yml (prep_categories), in
+    that order; a category with no resources yet still shows, as "coming soon"."""
+    docs: list[PrepDoc] = []
+    if PREP_DIR.is_dir():
+        images = publish_images(base, "prep")
+        for f in sorted(PREP_DIR.glob("*.md")):
+            if f.name.lower() == "readme.md":
+                continue
+            meta, body = split_front_matter(f.read_text(encoding="utf-8"))
+            if meta.get("draft"):
+                continue
+            md = markdown.Markdown(extensions=["extra", "sane_lists", "toc"],
+                                   extension_configs={"toc": {"toc_depth": "2-3"}})
+            html = md.convert(body.strip())
+            html = re.sub(r'src="images/([^"]+)"',
+                          lambda m: f'src="{images.get(m[1], base + "prep/images/" + m[1])}" loading="lazy" decoding="async"', html)
+            html = html.replace("<table>", '<div class="table-wrap"><table>').replace("</table>", "</table></div>")
+            html = re.sub(r'<a href="(https?://[^"]+)"', r'<a href="\1" target="_blank" rel="noopener nofollow"', html)
+            toc = [{"id": t["id"], "name": unescape(t["name"])} for t in md.toc_tokens if t.get("level") == 2]
+            words = len(re.sub(r"<[^>]+>", " ", html).split())
+            docs.append(PrepDoc(
+                slug=slugify(str(meta.get("slug") or f.stem)), title=str(meta.get("title") or title_from_filename(f.stem)),
+                category=str(meta.get("category") or "General").strip(), group=str(meta.get("group") or "").strip(),
+                order=int(meta.get("order") or 99), updated=to_date(meta.get("updated")),
+                summary=str(meta.get("summary") or "").strip(), html=html, toc=toc,
+                minutes=max(1, round(words / 230))))
+    configured = [c for c in site.get("prep_categories") or [] if isinstance(c, dict) and c.get("name")]
+    names = [str(c["name"]) for c in configured]
+    names += sorted({d.category for d in docs} - set(names))          # a category used but not configured
+    categories = []
+    for name in names:
+        conf = next((c for c in configured if str(c["name"]) == name), {})
+        mine = sorted((d for d in docs if d.category == name), key=lambda d: (d.order, d.title.lower()))
+        group_order = [str(g) for g in conf.get("groups") or []]
+        group_order += [g for g in dict.fromkeys(d.group for d in mine) if g not in group_order]
+        groups = [{"name": g, "docs": [d for d in mine if d.group == g]} for g in group_order]
+        categories.append({"name": name, "slug": slugify(name), "blurb": str(conf.get("blurb") or ""),
+                           "docs": mine, "groups": [g for g in groups if g["docs"]]})
+    return categories, docs
+
+
 def medium_feed_url(profile: str) -> str:
     """'https://medium.com/@name', '@name', 'name.medium.com' or a publication URL -> its RSS feed."""
     p = profile.strip().rstrip("/")
@@ -1145,7 +1204,18 @@ def build(site: dict) -> list[Quiz]:
         f'<!doctype html><meta charset="utf-8"><title>Moved</title><link rel="canonical" href="{target}">'
         f'<meta http-equiv="refresh" content="0; url={target}"><p>The blog is now part of <a href="{target}">Askaban</a>.</p>',
         encoding="utf-8")
+    prep_categories, prep_docs = collect_prep(site, base)
+    env.globals.update(prep_categories=prep_categories, prep_docs=prep_docs)
     write("askaban/index.html", "askaban.html", updates=updates, articles=articles, canonical=page_url("askaban/"))
+    write("askaban/prep/index.html", "prep.html", canonical=page_url("askaban/prep/"))
+    for cat in prep_categories:
+        for i, d in enumerate(cat["docs"]):
+            write(f"askaban/prep/{d.slug}/index.html", "prep_doc.html", d=d, cat=cat,
+                  prev=cat["docs"][i - 1] if i else None,
+                  next=cat["docs"][i + 1] if i + 1 < len(cat["docs"]) else None,
+                  canonical=page_url(f"askaban/prep/{d.slug}/"))
+    if prep_docs:
+        print(f"  {len(prep_docs)} Quiz Prep resource(s)")
     for u in updates:
         write(f"askaban/{u.id}/index.html", "update.html", u=u, canonical=page_url(f"askaban/{u.id}/"))
     (OUT_DIR / "askaban" / "updates.json").write_text(json.dumps(

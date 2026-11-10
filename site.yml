@@ -70,6 +70,31 @@ blog_articles:
     title: "3.75 Points: My Month in the IIT Bombay Faction Quiz League"
     excerpt: "Four factions, four quizzes, one SBT win, and a league lost by less than a single answer."
 
+# Quiz Prep (Askaban → Quiz Prep): reading material by category, shown in this
+# order. A category with no files yet appears as "coming soon". Each resource is
+# one Markdown file in prep/ (see prep/README.md); its `category:` must match a
+# name here, and `group:` sorts it under one of the category's groups.
+prep_categories:
+  - name: Business
+    blurb: "Brands, banks, markets, media and the business news a quizmaster builds questions on."
+    groups:
+      - Start here
+      - Brands and companies
+      - Banking, finance and markets
+      - Media and entertainment
+      - World and current affairs
+  - name: SciTech
+    blurb: "Science, technology, space and the companies behind them."
+  - name: HELM
+  - name: Sports
+    blurb: "Players, leagues, trophies, rules and records."
+  - name: MELA
+    blurb: "Music, entertainment, literature and the arts."
+  - name: India
+    blurb: "Indian history, geography, culture and current affairs."
+  - name: General
+    blurb: "Timelines and references that help in any quiz."
+
 # "For bricks & bouquets, contact me" on quiz pages, and the About page's Email button.
 contact_email: topper1728@gmail.com
 

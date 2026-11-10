@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ d.title }} | Quiz Prep | {{ site.title }}{% endblock %}
+{% block description %}{{ d.summary or (d.title ~ ": quiz prep notes by " ~ site.author) }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block head %}
+<script type="application/ld+json">{{ {
+  "@context": "https://schema.org", "@type": "Article", "url": canonical, "headline": d.title,
+  "description": d.summary or none, "dateModified": d.updated.isoformat() if d.updated else none,
+  "articleSection": d.category, "educationalUse": "quiz preparation",
+  "author": {"@type": "Person", "name": site.author, "url": site.url ~ "about/"},
+  "isPartOf": {"@type": "CollectionPage", "name": "Quiz Prep", "url": site.url ~ "askaban/prep/"}
+}|tojson_ld }}</script>
+{% endblock %}
+{% block main %}
+<article class="wrap page prep-doc">
+  <p class="crumbs"><a href="{{ site.base }}askaban/">Askaban</a> / <a href="{{ site.base }}askaban/prep/">Quiz Prep</a> / <a href="{{ site.base }}askaban/prep/#{{ cat.slug }}">{{ cat.name }}</a></p>
+  <header class="prep-doc-head">
+    <h1>{{ d.title }}</h1>
+    {% if d.summary %}<p class="lede">{{ d.summary }}</p>{% endif %}
+    <p class="prep-card-meta">{{ cat.name }}{% if d.group %} · {{ d.group }}{% endif %} · {{ d.minutes }} min read{% if d.updated %} · updated {{ d.updated|pretty_date }}{% endif %}</p>
+  </header>
+
+  <div class="prep-doc-layout">
+    {% if d.toc|length > 2 %}
+    <nav class="prep-toc" aria-label="On this page">
+      <details open>
+        <summary>On this page</summary>
+        <ol>
+          {% for t in d.toc %}<li><a href="#{{ t.id }}">{{ t.name }}</a></li>{% endfor %}
+        </ol>
+      </details>
+    </nav>
+    {% endif %}
+    <div class="prose prep-prose">
+      {{ d.html|safe }}
+      <p class="prep-note muted">Facts marked * come from general knowledge rather than a checked source, and figures are as of the update date. Spotted a mistake? <a href="{{ site.base }}about/#contact">Tell me</a>.</p>
+      <nav class="prep-pager" aria-label="More in {{ cat.name }}">
+        {% if prev %}<a class="btn" href="{{ site.base }}askaban/prep/{{ prev.slug }}/">← {{ prev.title }}</a>{% endif %}
+        {% if next %}<a class="btn" href="{{ site.base }}askaban/prep/{{ next.slug }}/">{{ next.title }} →</a>{% endif %}
+      </nav>
+    </div>
+  </div>
+</article>
+{% endblock %}

@@ -28,6 +28,14 @@ Please credit "{{ site.title }} ({{ site.author }})" and link to the quiz page w
 - [{{ a.title }}]({{ a.url }}){% if a.date %}: {{ a.date }}{% endif %}. {{ a.excerpt }}
 {% endfor %}
 {% endif %}
+{% if prep_docs %}
+## Quiz Prep — reading material for quizzers
+
+{% for d in prep_docs %}
+- [{{ d.title }}]({{ site.url }}askaban/prep/{{ d.slug }}/) ({{ d.category }}): {{ d.summary }}
+{% endfor %}
+
+{% endif %}
 ## Optional
 
 - [Topics]({{ site.url }}tags/)
