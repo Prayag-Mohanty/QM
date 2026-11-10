@@ -46,6 +46,7 @@ The logos and bottles carry the best stories: Bacardi's bat, Johnnie Walker's st
 | **Black Dog** | 1883 | Diageo | Walter Millard, a Scot who worked in India. | Named after his favourite fishing fly. The brand is hugely popular in India. |
 | **Maker's Mark** | 1953, Kentucky | Suntory | The Samuels family. | Every bottle is hand-dipped in **red wax**. It spells "whisky" without the "e", to honour the family's Scottish roots. |
 | **Yamazaki / Hibiki** | 1923, Japan | Suntory | Japan's first malt-whisky distillery. | Masataka Taketsuru learned whisky-making in Scotland, then co-founded Yamazaki and later Nikka. |
+| **Wild Turkey** | Kentucky | Campari Group | Named in **1940** after executive Thomas McCarthy took bottles of unreleased 101-proof bourbon on a **wild turkey hunting trip**. | His friends spent the next year asking for "more of that wild turkey bourbon", and the nickname became the brand. |
 
 ### Vodka, rum, gin and tequila
 
@@ -54,6 +55,7 @@ The logos and bottles carry the best stories: Bacardi's bat, Johnnie Walker's st
 | **Smirnoff** | 1864, Moscow | Diageo | Pyotr Smirnov's vodka. His son Vladimir fled the Bolsheviks and changed the spelling to Smirnoff. | The US rights passed to Rudolph Kunett, then Heublein. The **Moscow Mule** (vodka, ginger beer, copper mug) was invented in 1941 to sell it. |
 | **Absolut** | 1879, Åhus, Sweden | Pernod Ricard | Lars Olsson Smith's "Absolut rent brännvin", or "absolutely pure vodka". | The bottle is based on an old Swedish medicine bottle. The "Absolut \_\_\_" ad series (TBWA, from 1980) ran for 25 years. Andy Warhol painted the bottle in 1985. |
 | **Grey Goose** | 1997, Cognac, France | Bacardi | Sidney Frank invented a French super-premium vodka for the US market. | He sold it to Bacardi in 2004 for about $2 bn. |
+| **Atomik** | 2019, Ukraine | Chernobyl Spirit Company | Rye and water sourced **inside the Chernobyl Exclusion Zone**, led by Prof. **Jim Smith** of Portsmouth. | Distillation removes radioactive particulates, leaving only trace natural Carbon-14. In **March 2021 Ukraine's SBU seized 1,500 bottles** bound for the UK over paperwork — though 75% of profits were earmarked for Chernobyl-affected communities. It later switched to apples grown just outside the zone. |
 | **Captain Morgan** | 1944 | Diageo | Seagram named it after **Henry Morgan**, a Welsh privateer. | Famous for the "Captain pose". |
 | **Havana Club** | 1934, Cuba | Pernod Ricard (with Cuba) | A Cuban rum. | Pernod and Bacardi have fought over the US rights to the name for decades. |
 | **Mount Gay** | 1703, Barbados | Rémy Cointreau | — | Often called the oldest rum brand. |
@@ -70,7 +72,9 @@ The logos and bottles carry the best stories: Bacardi's bat, Johnnie Walker's st
 
 | Brand | Est., place | Owner | Origin | Trivia |
 | --- | --- | --- | --- | --- |
-| **Hennessy** | 1765, Cognac | LVMH | Richard Hennessy, an Irish officer in the French army. | Created the first "XO" (extra old) in 1870. |
+| **Hennessy** | 1765, Cognac | LVMH | Richard Hennessy, an Irish officer in the French army — one of the "**Wild Geese**" who left Ireland after 1691 rather than live under English rule. Wounded at **Fontenoy** (1745), he settled in Cognac. | Created the first "XO" (extra old) in 1870. The fist-and-hatchet emblem is his family's Irish coat of arms. |
+| **Angostura** | 1824, Venezuela (now Trinidad) | Family-owned | Johann Siegert's aromatic bitters, first made as a medicine for Bolívar's troops. | The **oversized label** that overhangs the neck is a **mistake**: in the 1870s one brother designed the bottle and the other the label without checking sizes. A competition judge told them to keep it because it was unmistakable. Only **five living people** are said to know the recipe. |
+| **Malört** | 1930s, Chicago | CH Distillery | Carl Jeppson's bitter wormwood liqueur. | During **Prohibition** he reportedly convinced officials it tasted so foul it had to be **medicinal**, and kept selling it legally. About **90%** of sales are still in Cook County; a shot with a beer chaser is the "**Chicago Handshake**". |
 | **Rémy Martin** | 1724, Cognac | Rémy Cointreau | — | The centaur logo. |
 | **Martell** | 1715, Cognac | Pernod Ricard | Jean Martell from Jersey. | The oldest of the great cognac houses. |
 | **Courvoisier** | 1828 | Campari (2024) | — | Sold as "the brandy of Napoleon". |
