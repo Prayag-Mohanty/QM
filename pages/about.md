@@ -15,6 +15,7 @@ Feel free to use them.
 
 ## Quizzing Achievements
 
+- **Winner** — Christ Com Quiz 2026
 - **Winner** — NTPC Electron Quiz 2025, Western Regionals
 - **Winner** — Tata Crucible Campus Quiz 2021, Goa edition
 - **Winner** — Zerodha Varsity Quiz 2026, Mumbai edition
