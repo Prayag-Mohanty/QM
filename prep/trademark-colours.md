@@ -19,6 +19,8 @@ summary: "Colours that brands own (or tried to): Tiffany Blue, Louboutin red, Ca
 | **Tiffany Blue, Tiffany & Co.** | Box and colour (registered 1998) | Custom **Pantone 1837**, the founding year. Robin's-egg blue was a Victorian favourite. You can't buy the box; it comes only with a purchase.\* |
 | **Purple, Cadbury** | Pantone **2685C** for milk chocolate | Used since 1914, and said to honour **Queen Victoria**. Applied for in 2004, opposed by **Nestlé**. The **Court of Appeal ruled for Nestlé in 2013**, saying the description was too vague, and a second attempt failed in 2022. So **Cadbury doesn't own purple** in the UK. |
 | **Brown, UPS** | "Pullman Brown" trucks and uniforms | Named after **Pullman railway carriages**; also hides dirt. Slogan "**What can Brown do for you?**"\* |
+| **Light blue, Maersk** | The sky-blue behind its white **seven-pointed star** | The star dates from **1886**: Captain **Peter Mærsk Møller** prayed for a sign when his wife **Anna** fell gravely ill at sea, saw a single star, and put it on the funnel of his first steamship, *Laura*, after she recovered. Maersk won exclusive rights to its light blue in **Denmark**, reportedly only the second Danish colour mark. Its containers switched from **grey to bright blue in 2025**, after 51 years. |
+| **Purple, Whiskas (Mars)** | A custom purple for cat food | Used since **2000**, applied for in Australia in 2002. **Nestlé** (Purina) opposed it and the Registrar agreed, but the **Federal Court of Australia** (Justice Bennett) ruled for Mars: the purple worked as a “badge of origin” because Mars launched it as a brand-new colour and promoted it heavily. Nestlé dropped its opposition, reportedly in a deal to keep purple on Purina. **Russia** refused a similar Whiskas colour mark. |
 | **Magenta, T-Mobile / Deutsche Telekom** | RAL 4010 (Telemagenta) | Notorious for suing over magenta. In 2019 it took on insurance start-up **Lemonade**'s pink.\* |
 | **Green and yellow, John Deere** | Tractors | "Nothing runs like a Deere". Won colour cases against rivals copying the combination.\* |
 | **Canary yellow, 3M** | **Post-it** notes | Chosen by accident: the **scrap paper next door was yellow**. Spencer Silver's "failed" weak glue (1968), plus Art Fry's need for a hymn-book bookmark.\* |
@@ -79,6 +81,7 @@ summary: "Colours that brands own (or tried to): Tiffany Blue, Louboutin red, Ca
 ### Logistics and retail
 
 - **UPS brown**.
+- **Maersk light blue**: the white star on a sky-blue funnel and hull; its boxes turned bright blue in 2025.
 - **DHL yellow and red**: from Deutsche Post's posthorn yellow.
 - **FedEx purple and orange**: the **hidden arrow** between the E and the x.
 - **IKEA blue and yellow**: the **Swedish flag**.
@@ -168,6 +171,10 @@ summary: "Colours that brands own (or tried to): Tiffany Blue, Louboutin red, Ca
 - [Design Week: Cadbury loses legal fight over Pantone 2685C](https://www.designweek.co.uk/cadbury-loses-legal-fight-over-rights-to-pantone-2685c-purple/)
 - [Hypebeast: Pantone's 2026 Colour of the Year is Cloud Dancer](https://hypebeast.com/2025/12/pantone-2026-color-of-the-year-cloud-dancer-info)
 - [NHPR: Pantone's 2026 colour is white](https://www.nhpr.org/2025-12-04/you-read-that-white-pantones-2026-color-of-the-year-is-cloud-dancer)
+- [Maersk: the story of the star](https://www.maersk.com/news/articles/2022/12/22/a-star-is-born)
+- [FreshPlaza: Maersk updates container colour after 51 years (2025)](https://www.freshplaza.com/europe/article/9729317/maersk-updates-container-color-after-51-years)
+- [Asia IP: Whiskas purple registered after Federal Court appeal](https://asiaiplaw.com/article/whiskas-purple-successfully-registered-after-a-cat-fight-in-federal-court)
+- [Bloomberg Law: Russia denies colour mark for Whiskas](https://news.bloomberglaw.com/ip-law/russian-agency-denies-color-trademark-for-whiskas-cat-food)
 - [FindLaw: Qualitex, colours alone may be registered](https://corporate.findlaw.com/intellectual-property/u-s-supreme-court-decides-colors-alone-may-be-registered-as-a.html)
 
 The origin stories are brand lore from general knowledge, marked \*.

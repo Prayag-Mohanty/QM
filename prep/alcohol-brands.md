@@ -100,6 +100,7 @@ Beer names are often places (Budweiser, Tsingtao, Stella's Leuven roots), and ch
 | **Peroni Nastro Azzurro** | 1846; Nastro Azzurro from 1963 | Asahi | — | *Nastro Azzurro* means "blue ribbon", after the Italian liner *Rex* won the Blue Riband for the fastest Atlantic crossing in 1933. |
 | **Pabst Blue Ribbon** | 1844, Milwaukee | Pabst | — | The blue ribbons were once tied to bottles to mark prize-winning beer. |
 | **Foster's** | 1888, Melbourne | Asahi / Heineken (UK) | Founded by two American brothers named Foster. | Sold abroad as "Australian for beer", but barely drunk in Australia, which drinks VB (Victoria Bitter, from his prelims). |
+| **Castle Lager** | 1888 (Castle Brewery), Johannesburg | AB InBev (via SAB) | Brewed by **Charles Glass**, an Englishman who had brewed for British troops in India, for prospectors in the **Witwatersrand gold rush**; *The Digger's News* called it "a phenomenal success" in 1889. **South African Breweries (SAB)** was built on it in 1895 and listed on the Johannesburg exchange in 1897. | SAB grew into **SABMiller**, which **AB InBev** bought in 2016 for about **£69 billion**. Sister brands: **Castle Lite** and **Castle Milk Stout**.\* |
 | **Tsingtao** | 1903, Qingdao | Tsingtao Brewery | Founded by German settlers in the German concession of Qingdao. | That is why a Chinese beer is a German-style lager. |
 | **Asahi Super Dry** | 1987, Tokyo | Asahi | Japan's first "dry" beer. | The "Asahi Flame" on its Tokyo headquarters, by Philippe Starck, is nicknamed the "golden turd". |
 | **Hoegaarden / Leffe** | Belgium | AB InBev | A witbier and an abbey beer. | Trappist beers (Westvleteren, Chimay) can only be made in Trappist monasteries. |
@@ -241,6 +242,7 @@ In India, liquor ads are banned, so brands advertise "surrogates": the same name
 
 CEOs, 2026 deals and the Kerala figures were checked against the pages below. Brand histories and slogans are standard drinks lore, so confirm any single date before using it in a tie-breaker.
 
+- [Daily Investor: the man behind Castle Lager](https://dailyinvestor.com/south-africa/61688/the-man-behind-castle-lager/)
 - [Diageo appoints Sir Dave Lewis as CEO (Investegate)](https://www.investegate.co.uk/announcement/rns/diageo--dge/sir-dave-lewis-appointed-diageo-plc-ceo/9222252)
 - [Heineken unveils new chief executive (BeverageDaily)](https://www.beveragedaily.com/Article/2026/06/23/heineken-unveils-new-chief-executive/)
 - [Brown-Forman CEO retirement 8-K (SEC)](https://www.sec.gov/Archives/edgar/data/0000014693/000001469326000033/fy27julyceoannouncesretire.htm)
