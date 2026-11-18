@@ -122,7 +122,3 @@ Apple's new CEO is worth knowing properly.
 | **Godrej** | Ardeshir Godrej trained as a **lawyer**, tried surgical instruments and locks first. His soap was the **first Indian soap made without animal fat**, using vegetable oil — which let it pass both Hindu and Muslim objections during the Swadeshi movement. |
 | **Onida** | An acronym: **O**ur **N**ational **I**ndian **D**omestic **A**ppliances. Its devil mascot sold the line "Neighbour's Envy, Owner's Pride" — unusually, a **villain** as a brand mascot. |
 | **Voltas** | A 1954 joint venture between Swiss trading house **Volkart Brothers** and **Tata** — the name is a portmanteau of the two. |
-
-## Sources
-
-Founding stories and first products are standard business history, cross-checked against company heritage pages. CEO appointments and 2026 leadership changes were checked against news reporting at the update date; leadership moves fast, so confirm a current CEO before using it in a live quiz.

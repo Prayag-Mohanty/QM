@@ -3,8 +3,8 @@ title: "GI Tags"
 category: Business
 group: "World and current affairs"
 order: 3
-updated: 2026-11-05
-summary: "Geographical Indications: the law, India's count, Kerala's full list, famous GI fights and world GIs."
+updated: 2026-11-18
+summary: "Geographical Indications: the law, India's count, Kerala's full list, the best-known GIs of every state, famous GI fights and world GIs."
 ---
 
 ## GI basics
@@ -88,28 +88,350 @@ GI Kerala lists **31 products** (20 agricultural, 11 handicraft). Spices Board t
 | **Feni** | Goa's **cashew feni** was the **first alcoholic drink from India** to get a GI (2009).\* |
 | **Banarasi saree vs Kanchipuram** | Both are GIs. Kanchipuram silk got its tag in 2005. Banarasi's was disputed by weavers in Mubarakpur, Azamgarh, who are included.\* |
 
-### Classic GI-by-state list (one or two per state)
-
-| State | GIs to know |
-| --- | --- |
-| **Uttar Pradesh** (most GIs) | Banarasi saree, **Lucknow Chikankari**, **Agra Petha**, **Kannauj perfume (attar)**, Moradabad metal craft, **Malihabadi Dussehri mango**, **Kalanamak rice** (the "Buddha rice") |
-| **Tamil Nadu** | **Kanchipuram silk**, **Thanjavur painting**, Thanjavur doll (thalaiyatti bommai), **Madurai malli** (jasmine), **Palani panchamirtham** (the first temple prasadam GI), **Kovilpatti kadalai mittai**, **Srivilliputtur palkova** |
-| **Karnataka** | **Mysore silk**, Mysore sandal soap, **Channapatna toys**, **Coorg orange / Coorg Arabica**, **Bidriware**, **Udupi mallige** |
-| **West Bengal** | **Darjeeling tea**, Banglar Rasogolla, **Joynagarer Moa**, **Santiniketan batik** (2025–26), Bishnupur Dashavatar tash (2026) |
-| **Odisha** | Odisha Rasagola, **Kandhamal haladi** (turmeric), **Koraput Kala Jeera rice**, **Pattachitra** |
-| **Maharashtra** | **Kolhapuri chappal**, **Alphonso (Ratnagiri / Devgad) mango**, **Nashik grapes**, Paithani saree, **Alibag white onion** |
-| **Gujarat** | **Gir Kesar mango**, **Patan Patola**, **Kutch embroidery** |
-| **Rajasthan** | **Bikaneri bhujia**, **Blue pottery of Jaipur**, **Makrana marble**, Kota Doria |
-| **Bihar** | **Shahi litchi** (Muzaffarpur), **Madhubani painting**, **Mithila makhana**, **Bhagalpur silk, Bhagalpuri Zardalu mango** |
-| **J&K / Ladakh** | **Kashmir saffron**, **Pashmina**, **Raktsey Karpo apricot** (Ladakh) |
-| **Assam / North-East** | **Assam Muga silk**, **Bhut jolokia** (Naga king chilli), **Assam Gamosa** (2022–23), **Tezpur litchi**, Mizo chilli |
-| **Goa** | **Feni**, Khola chilli |
-| **Andhra / Telangana** | **Tirupati laddu**, **Pochampally ikat**, Hyderabadi haleem (the **first meat product** GI, 2010), **Tandur red gram** |
-| **Madhya Pradesh** (2025–26 leader) | **Chanderi saree**, **Ratlami sev**, **Khajuraho stone craft**, **Gwalior papier-mâché** |
-| **Himachal** | **Kangra tea**, **Kullu shawl**, Chamba rumal |
-| **Punjab / Haryana** | **Phulkari**, **Sirsa Kinnow** (2026) |
-
 *\* From general knowledge; check before relying on it.*
+
+## GI tags by state
+
+The best-known GIs of every state and UT, in the same format as Kerala above. A state's full list can run past 70 (UP has 79), so these are the ones quizmasters reach for. GI names and places are standard; hooks and years are from general knowledge.\*
+
+### Andhra Pradesh
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Tirupati Laddu** | Tirumala | Made in the temple kitchen (*potu*); GI 2009. The 2024 ghee row. |
+| **Kondapalli Bommalu** | Krishna district | Light wooden toys carved from soft *tella poniki* wood. |
+| **Etikoppaka toys** | Anakapalli | Lacquered wooden toys coloured with natural dyes. |
+| **Srikalahasti Kalamkari** | Tirupati district | Hand-painted with a pen (*kalam*), unlike block-printed Machilipatnam Kalamkari (also a GI). |
+| **Uppada Jamdani saree** | East Godavari | Jamdani weaving from Bengal adapted on the Andhra coast. |
+| **Mangalagiri and Dharmavaram sarees** | Guntur / Anantapur | Dharmavaram is known for heavy silk wedding sarees. |
+| **Bobbili Veena** | Vizianagaram | Carved from a single block of jackwood. |
+| **Guntur Sannam chilli** | Guntur | Guntur is Asia's biggest chilli market. |
+| **Banaganapalle mango** | Kurnool | The "king of mangoes" of the Deccan. |
+| **Araku Valley Arabica coffee** | Alluri Sitharama Raju district | Tribal-grown coffee; sold in a Paris café (Araku). |
+| **Bandar Laddu** | Machilipatnam | *Bandar* was Machilipatnam's old name. |
+
+### Arunachal Pradesh
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Arunachal Orange** | Across the state |  |
+| **Yak Churpi** | West Kameng, Tawang | Hard cheese made from yak milk. |
+| **Khaw Tai (Khamti rice)** | Namsai | A sticky rice of the Tai Khamti people. |
+| **Idu Mishmi textiles** | Dibang Valley |  |
+
+### Assam
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Muga silk** | Brahmaputra valley | The **golden silk** found only in Assam; GI 2007. |
+| **Joha rice** | Across Assam | Scented short-grain rice. |
+| **Boka Chaul** ("magic rice") | Lower Assam | Soaks in cold water and is ready to eat, no cooking. Eaten by Ahom soldiers. |
+| **Tezpur litchi** | Sonitpur |  |
+| **Karbi Anglong ginger** | Karbi Anglong |  |
+| **Kaji Nemu** | Across Assam | A long seedless lemon. |
+| **Assam Gamosa** | Across Assam | The white-and-red handwoven towel, given as a mark of respect. |
+| **Bodo Aronai** and other Bodo products | Bodoland | A batch of Bodo foods, drinks and textiles was tagged in 2024. |
+
+### Bihar
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Madhubani (Mithila) painting** | Mithila region | Revived after the 1934 Bihar earthquake exposed painted walls. |
+| **Shahi Litchi** | Muzaffarpur | Bihar grows most of India's litchis. |
+| **Mithila Makhana** | Mithila | Fox nuts; India's makhana is mostly from Bihar. GI 2022. |
+| **Bhagalpur silk** | Bhagalpur | Tussar "silk city". |
+| **Bhagalpuri Zardalu mango** | Bhagalpur |  |
+| **Magahi paan** | Magadh |  |
+| **Katarni rice** | Bhagalpur | Aromatic rice. |
+| **Silao Khaja** | Silao, Nalanda | A layered sweet near Nalanda. |
+| **Sujni embroidery** and **Sikki grass craft** | Muzaffarpur / Mithila |  |
+| **Marcha rice** | West Champaran | Pepper-scented rice. |
+
+### Chhattisgarh
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Bastar Dhokra** | Bastar | Lost-wax metal casting; the "Dancing Girl" of Mohenjo-daro used the same method. |
+| **Bastar wooden craft** and **Bastar iron craft** | Bastar |  |
+| **Champa Kosa silk** | Janjgir-Champa | Tussar (kosa) silk. |
+| **Jeeraphool rice** | Surguja | Small-grained aromatic rice. |
+| **Nagri Dubraj rice** | Dhamtari | Called the "basmati of Chhattisgarh". |
+
+### Goa
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Feni** | Across Goa | The first Indian alcoholic drink with a GI (2009). |
+| **Khola chilli** | Canacona |  |
+| **Harmal chilli** | Pernem |  |
+| **Myndoli banana** | Ibrampur | A long banana used in *halwa*. |
+| **Bebinca** | Across Goa | The layered Goan dessert; GI 2023. |
+| **Agassaim brinjal** | Agassaim |  |
+
+### Gujarat
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Patan Patola** | Patan | **Double ikat**: both warp and weft are dyed before weaving. A pair can take a year. |
+| **Kutch embroidery** | Kutch |  |
+| **Gir Kesar mango** | Junagadh, Gir | Named "Kesar" (saffron) by the Nawab of Junagadh (1934). |
+| **Jamnagari Bandhani** | Jamnagar | Tie-dye; Jamnagar's water is said to give the reds their brightness. |
+| **Sankheda furniture** | Sankheda | Lacquered teak furniture. |
+| **Agates of Cambay** | Khambhat | Bead-making since Harappan times. |
+| **Surat Zari craft** | Surat | Metal-thread work for saree borders. |
+| **Tangaliya shawl** | Surendranagar | Woven by the Dangasia community. |
+| **Bhalia wheat** | Bhal region | Grown without irrigation, on winter moisture. |
+| **Pethapur printing blocks** | Gandhinagar | Wooden blocks used for hand printing. |
+
+### Haryana and Punjab
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Phulkari** | Punjab, Haryana, Rajasthan | "Flower work" embroidery, shared by three states. |
+| **Basmati** | Punjab, Haryana and five more states | See the Basmati fight above. |
+| **Sirsa Kinnow** | Sirsa, Haryana | Tagged in 2026. |
+
+### Himachal Pradesh
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Kangra tea** | Kangra | Grown since the 1840s. |
+| **Kullu shawl** | Kullu | **Himachal's first GI** (2004); geometric borders. |
+| **Kinnauri shawl** | Kinnaur |  |
+| **Chamba rumal** | Chamba | An embroidered "painting in thread"; a 16th-century Chamba rumal is in the V&A. |
+| **Kangra paintings** | Kangra | Pahari miniatures, often of Radha and Krishna. |
+| **Himachali Kala Zeera** | Kinnaur, Lahaul | Black cumin. |
+| **Himachali Chulli oil** | Kinnaur | From wild apricot kernels. |
+
+### Jharkhand
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Sohrai Khovar painting** | Hazaribagh | Mural art made by women for the Sohrai harvest festival and weddings (*khovar*). |
+
+### Karnataka
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Mysore silk** | Mysuru | Made by KSIC; the "pure zari" sarees. |
+| **Mysore Sandal Soap** | Bengaluru (KSDL) | A rare GI for a **factory brand** (1916). |
+| **Channapatna toys** | Channapatna | Lacquered wooden toys; Channapatna is the "toy town". |
+| **Bidriware** | Bidar | Black zinc alloy inlaid with silver; the blackening uses soil from Bidar fort. |
+| **Coorg orange** and **Coorg Arabica coffee** | Kodagu |  |
+| **Udupi Mallige** and **Mysore Mallige** | Udupi / Mysuru | Jasmine. |
+| **Dharwad Pedha** | Dharwad | Made by the Thakur family, from Unnao (UP). |
+| **Ilkal saree** and **Molakalmuru saree** | Bagalkot / Chitradurga |  |
+| **Navalgund durries** | Dharwad |  |
+| **Byadagi chilli** | Haveri | Deep red and mild, prized for colour; also used to extract natural red dye (oleoresin). |
+| **Nanjangud Rasabale** | Mysuru | A banana grown in Nanjangud's black soil. |
+| **Kasuti embroidery** | North Karnataka |  |
+
+### Kerala
+
+See the Kerala tables above.
+
+### Madhya Pradesh
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Chanderi saree** | Ashoknagar | Sheer silk-cotton with gold butis. |
+| **Maheshwari saree** | Maheshwar | Patronised by **Ahilyabai Holkar** (18th century); revived by the **Rehwa Society** (1979). |
+| **Bagh print** | Dhar | Block printing using the Baghini river's water. |
+| **Ratlami sev** | Ratlam |  |
+| **Jhabua Kadaknath** | Jhabua | The all-black chicken; MP won the 2018 GI over Chhattisgarh. |
+| **Sharbati wheat** | Sehore | The "golden grain" used for premium atta. |
+| **Khajuraho stone craft** | Chhatarpur | Tagged in 2025–26. |
+| **Gwalior papier-mâché** | Gwalior |  |
+| **Leather toys of Indore** | Indore |  |
+| **Sailana Balam Kakadi** | Ratlam | A cucumber; tagged in 2026. |
+
+### Maharashtra
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Kolhapuri chappal** | Kolhapur (with Karnataka) | GI 2019. Prada's 2025 "inspired" sandals row. |
+| **Alphonso mango** | Ratnagiri, Sindhudurg | Named after Afonso de Albuquerque. |
+| **Nashik grapes** | Nashik | Nashik is India's wine and grape capital. |
+| **Paithani saree** | Paithan, Yeola | Peacock-motif silk; Paithan was the Satavahana capital Pratishthana. |
+| **Puneri Pagadi** | Pune | The turban; GI 2009. |
+| **Solapur chaddar** and **Solapur terry towel** | Solapur |  |
+| **Nagpur orange** | Nagpur | Nagpur is the "Orange City". |
+| **Mahabaleshwar strawberry** | Mahabaleshwar |  |
+| **Alibag white onion** | Raigad |  |
+| **Warli painting** | Palghar | Stick-figure art of the Warli tribe; Jivya Soma Mashe made it famous. |
+| **Sangli turmeric** and **Waigaon turmeric** | Sangli / Wardha |  |
+
+### Manipur
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Chak-hao** | Manipur valley | Black rice, eaten at feasts; GI 2020. |
+| **Kachai lemon** | Ukhrul | A large, juicy lemon from Kachai village. |
+| **Tamenglong orange** | Tamenglong |  |
+| **Hathei chilli** | Sirarakhong, Ukhrul | Celebrated with its own festival. |
+| **Shaphee Lanphee**, **Wangkhei Phee** and **Moirang Phee** | Manipur | Traditional textiles. |
+
+### Meghalaya
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Khasi mandarin** | Khasi Hills |  |
+| **Memong Narang** | Garo Hills | A wild citrus, the "orange of the spirits". |
+| **Garo Dakmanda** and **Larnai pottery** | Garo Hills / Jaintia Hills | Tagged in 2024. |
+
+### Mizoram
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Mizo chilli** | Across Mizoram | A small, very hot bird's-eye chilli. |
+| **Tawlhlohpuan** | Aizawl | A heavy cloth; its name means "not to move backwards", a symbol of courage. |
+| **Mizo Puanchei** | Across Mizoram | The colourful shawl worn at Chapchar Kut. |
+| **Pawndum**, **Ngotekherh** and **Hmaram** | Across Mizoram | Traditional textiles. |
+
+### Nagaland
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Naga Mircha** (King chilli, bhut jolokia) | Across Nagaland | Once the world's hottest chilli (Guinness, 2007). |
+| **Naga tree tomato** | Across Nagaland |  |
+| **Chakhesang shawl** | Phek | Woven by the Chakhesang Naga. |
+| **Naga cucumber** | Across Nagaland | Known for its sweetness. |
+
+### Odisha
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Odisha Rasagola** | Across Odisha | GI 2019, after Bengal's 2017 tag. |
+| **Kandhamal Haladi** | Kandhamal | Organic tribal turmeric. |
+| **Koraput Kala Jeera rice** | Koraput | The "prince of rice"; aromatic black rice. |
+| **Pattachitra** | Raghurajpur, Puri | Cloth painting tied to Jagannath; Raghurajpur is a heritage crafts village. |
+| **Sambalpuri Bandha saree** | Sambalpur | Ikat weaving. |
+| **Bomkai saree** | Ganjam |  |
+| **Konark stone carving** | Puri |  |
+| **Pipli applique** | Pipli, Puri | Used for the canopies of the Rath Yatra. |
+| **Cuttack silver filigree (Tarakasi)** | Cuttack | Tagged in 2024. |
+| **Similipal Kai chutney** | Mayurbhanj | **Red-ant chutney**; tagged in 2024. |
+| **Kotpad handloom** | Koraput | Dyed with *aal* root. |
+
+### Rajasthan
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Bikaneri Bhujia** | Bikaner | GI 2010; Haldiram's began in Bikaner. |
+| **Blue pottery** | Jaipur | Made from quartz, not clay; has Turko-Persian roots. |
+| **Makrana marble** | Makrana | The marble of the **Taj Mahal**; GI 2015. |
+| **Kota Doria** | Kota | Light chequered sarees. |
+| **Sanganeri print** and **Bagru print** | Jaipur | Hand block printing. |
+| **Molela clay work** | Rajsamand | Terracotta plaques of folk deities. |
+| **Kathputlis** | Across Rajasthan | String puppets. |
+| **Thewa art** | Pratapgarh | Gold fused onto glass; a single family's craft. |
+| **Pokaran pottery** | Jaisalmer |  |
+| **Sojat mehndi** | Pali | Henna; Sojat is the "mehndi city". |
+
+### Sikkim
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Sikkim Large Cardamom** | Across Sikkim | Sikkim is the biggest grower in India. |
+| **Dalle Khursani** | Across Sikkim | A round, very hot cherry chilli. |
+
+### Tamil Nadu
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Kanchipuram silk** | Kanchipuram | GI 2005; the "silk city". |
+| **Thanjavur painting** and **Thanjavur doll** | Thanjavur | The doll is the bobble-headed *thalaiyatti bommai*. |
+| **Madurai Malli** | Madurai | Jasmine. |
+| **Palani Panchamirtham** | Palani | The **first temple prasadam** to get a GI. |
+| **Kovilpatti Kadalai Mittai** | Kovilpatti | Peanut candy made with Thoothukudi jaggery. |
+| **Srivilliputtur Palkova** | Srivilliputtur |  |
+| **Nilgiri tea** | Nilgiris |  |
+| **Erode turmeric** | Erode | Erode is the "turmeric city". |
+| **Dindigul locks** | Dindigul | Dindigul is the "lock city". |
+| **Swamimalai bronze icons** | Thanjavur | Chola-style lost-wax bronzes. |
+| **Bhavani Jamakkalam** | Erode | Cotton carpets. |
+| **Pathamadai mats** | Tirunelveli | Fine korai-grass mats. |
+| **Eathomozhy tall coconut** | Kanyakumari |  |
+
+### Telangana
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Pochampally Ikat** | Yadadri Bhuvanagiri | Pochampally is the "silk city" of Telangana. |
+| **Hyderabadi Haleem** | Hyderabad | The first **meat dish** in India to get a GI (2010). |
+| **Tandur red gram** | Vikarabad |  |
+| **Nirmal toys and paintings** | Nirmal |  |
+| **Karimnagar silver filigree** | Karimnagar |  |
+| **Gadwal saree** and **Narayanpet handloom** | Jogulamba Gadwal / Narayanpet |  |
+| **Cheriyal scroll painting** | Siddipet | Long scrolls used by storytellers. |
+| **Pembarthi metal craft** | Jangaon |  |
+| **Adilabad Dokra** | Adilabad | Lost-wax metal casting. |
+| **Telia Rumal** | Puttapaka | Oil-treated ikat once worn by Arab fishermen. |
+
+### Tripura
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Tripura Queen pineapple** | Across Tripura | The state fruit. |
+| **Risa textile** | Across Tripura | A handwoven cloth worn by Tripuri women; tagged in 2024. |
+
+### Uttar Pradesh
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Banaras brocades and sarees** | Varanasi | Weavers in Mubarakpur, Azamgarh are included. |
+| **Lucknow chikankari** | Lucknow | Linked by legend to **Nur Jahan**. |
+| **Lucknow Zardozi** | Lucknow | Gold-thread embroidery. |
+| **Kannauj perfume (attar)** | Kannauj | "The Grasse of the East"; makes *mitti attar*, the smell of rain. |
+| **Moradabad metal craft** | Moradabad | Moradabad is the "brass city" (*Peetal Nagri*). |
+| **Firozabad glass** | Firozabad | The bangle capital. |
+| **Bhadohi carpets** | Bhadohi | India's "carpet city". |
+| **Malihabadi Dussehri mango** | Malihabad, Lucknow |  |
+| **Kalanamak rice** | Siddharthnagar | The "Buddha rice", said to be a gift of the Buddha. |
+| **Allahabadi Surkha guava** | Prayagraj | Red-skinned guava. |
+| **Saharanpur wood craft** | Saharanpur |  |
+| **Khurja pottery** | Bulandshahr |  |
+| **Banarasi paan** and **Banarasi Langda mango** | Varanasi | Tagged in 2023 with other Kashi items. |
+
+### Uttarakhand
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Uttarakhand Tejpat** | Across Uttarakhand | Bay leaf; the state's first GI. |
+| **Aipan** | Kumaon | Ritual floor and wall art in red and white. |
+| **Munsyari Rajma** | Pithoragarh | Kidney beans. |
+| **Ringal craft** | Across Uttarakhand | Dwarf-bamboo baskets. |
+
+### West Bengal
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Darjeeling Tea** | Darjeeling | **India's first GI** (2004–05). |
+| **Banglar Rasogolla** | Across Bengal | GI 2017. |
+| **Joynagarer Moa** | Joynagar, South 24 Parganas | Made with *nolen gur* and *kanakchur* puffed rice. |
+| **Bardhaman Sitabhog** and **Mihidana** | Bardhaman | Sitabhog is said to have been made for Lord Curzon's 1904 visit. |
+| **Banglar Nolen Gur** | Across Bengal | Date-palm jaggery; tagged in 2025–26. |
+| **Baluchari saree** | Bishnupur | Borders woven with epic and Mughal scenes. |
+| **Shantipur** and **Dhaniakhali sarees** | Nadia / Hooghly |  |
+| **Nakshi Kantha** | Across Bengal | Embroidered quilts. |
+| **Bankura Panchmura terracotta** | Bankura | The **Bankura horse**. |
+| **Purulia Chhau mask** | Purulia | Masks for the Chhau dance. |
+| **Malda Fazli**, **Himsagar** and **Lakshmanbhog** mangoes | Malda / Murshidabad |  |
+| **Gobindobhog rice** and **Tulaipanji rice** | Bardhaman / Uttar Dinajpur | Gobindobhog is used for *payesh*. |
+| **Santiniketan batik** | Birbhum | Tagged in 2025–26. |
+| **Bishnupur Dashavatar Tash** | Bishnupur | Round playing cards painted with Vishnu's ten avatars; tagged in 2026. |
+
+### Union territories
+
+| GI | Place | Hook |
+| --- | --- | --- |
+| **Kashmir Saffron** | Pampore, Jammu and Kashmir | GI 2020. Pampore is the "saffron town". |
+| **Kashmir Pashmina** | Jammu and Kashmir | From the Changthangi goat. |
+| **Kani shawl** | Kanihama, Jammu and Kashmir | Woven with small wooden spools (*kanis*). |
+| **Kashmir Sozani**, **Papier-mâché**, **Khatamband** and **Walnut wood carving** | Jammu and Kashmir | Khatamband is a wooden ceiling made of interlocking pieces, without nails. |
+| **Basohli painting** | Kathua, Jammu | Pahari miniature style. |
+| **Raktsey Karpo apricot** | Ladakh | A white-seeded apricot; GI 2022. |
+| **Villianur terracotta** | Puducherry |  |
 
 ## World GIs and famous disputes
 
@@ -144,5 +466,3 @@ GI Kerala lists **31 products** (20 agricultural, 11 handicraft). Spices Board t
 - [GI Kerala: list of Kerala GI products](https://www.gikerala.in/about)
 - [The Federal: Kerala tops India's GI list in FY 2022–23](https://thefederal.com/news/kerala-tops-indias-gi-tag-list-in-fy-2022-23)
 - [IP India: state-wise registered GIs (official PDF)](https://ipindia.gov.in/frontend/pdf/gi/registered/State_wise_Registered_GI_of_India.pdf)
-
-The counts, Kerala list and 2026 additions come from these sources. The disputes and world GIs are from general knowledge (marked \*).

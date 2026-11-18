@@ -162,5 +162,3 @@ CD = creative director, as of 2026.
 - [NPR: Shein IPO on the Hong Kong exchange (1 Sep 2026)](https://www.npr.org/2026/09/01/g-s1-141410/shein-ipo-hong-kong-stock-exchange)
 - [NPR: Valentino Garavani dead at 93 (19 Jan 2026)](https://www.npr.org/2026/01/19/1114518694/valentino-garavani-dead)
 - [Wikipedia: Kalyan Silks](https://en.wikipedia.org/wiki/Kalyan_Silks)
-
-Most of the origin, name and logo stories are well-known brand lore from general knowledge, marked \*. Check anything you want to bank on.

@@ -243,8 +243,6 @@ Two dates matter this week. The Nifty's base date is **3 November 1995**, so it 
 
 ## Sources
 
-Most entries are standard finance and economics history. The 2026 dates were checked against the pages below; confirm any single coinage date before using it in a tie-breaker.
-
 - [Muhurat trading 2026: NSE and BSE timings (Business Today)](https://www.businesstoday.in/markets/stocks/story/muhurat-trading-2026-nse-bse-announce-diwali-timings-check-full-schedule-562486-2026-10-19)
 - [NSE schedules a rare afternoon muhurat session on 8 Nov (Outlook Money)](https://www.outlookmoney.com/invest/diwali-muhurat-trading-2026-nse-schedules-rare-afternoon-session-on-november-8-check-full-schedule)
 - [BSE SENSEX (Wikipedia)](https://en.wikipedia.org/wiki/BSE_SENSEX)

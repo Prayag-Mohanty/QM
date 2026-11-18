@@ -72,7 +72,3 @@ Before 1962 the Air Force and Navy ran **separate** schemes, and the same aircra
 The Air Force's sixth-generation **NGAD** fighter was awarded to **Boeing** in **March 2025** and designated the **F-47**. The Air Force's stated justification is threefold: it echoes the WWII **P-47 Thunderbolt**, it marks the Air Force's founding year (**1947**), and its own release says it recognises the **47th president's** support for the programme. FOIA-obtained emails later reported by Bloomberg showed officials drafting that historical justification **after** the number had been announced publicly.
 
 First flight is targeted for **2028**, with roughly 200 aircraft expected in service in the mid-2030s. The Navy's parallel sixth-generation programme, **F/A-XX**, has a winner picked between Boeing and Northrop Grumman but no publicly announced designation yet.
-
-## Sources
-
-Manufacturer histories and designation-system rules are standard aviation reference material. The Skunk Works etymology is Lockheed's own account. The F-47 designation, its stated justification and the programme timeline were checked against reporting at the update date; the F/A-XX designation was still unannounced then, so confirm before using it.

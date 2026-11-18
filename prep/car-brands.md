@@ -143,7 +143,3 @@ The system is usually the question, not the individual car.
 | **Tesla** | **S3XY** | Ford's "Model E" trademark forced the stylised 3. |
 | **Land Rover** | **Wheelbase, then marketing** | The Defender was just the "Ninety" and "One Ten" (inches) until **1990**, when the name was invented. It was never designed as a military vehicle. |
 | **Peugeot** | **Zero in the middle** | 201, 208, 308, 508 — the convention since **1929**, and the reason the Porsche 901 had to be renamed. |
-
-## Sources
-
-Founding stories, name etymologies and model naming conventions are standard automotive history, cross-checked against manufacturer heritage pages and reference sources. Logo-meaning claims are often disputed (the Chevrolet bowtie and the BMW roundel especially) and are flagged as such above. Check any single founding year before relying on it.

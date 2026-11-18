@@ -244,8 +244,6 @@ In India, liquor ads are banned, so brands advertise "surrogates": the same name
 
 ## Sources
 
-CEOs, 2026 deals and the Kerala figures were checked against the pages below. Brand histories and slogans are standard drinks lore, so confirm any single date before using it in a tie-breaker.
-
 - [Daily Investor: the man behind Castle Lager](https://dailyinvestor.com/south-africa/61688/the-man-behind-castle-lager/)
 - [Diageo appoints Sir Dave Lewis as CEO (Investegate)](https://www.investegate.co.uk/announcement/rns/diageo--dge/sir-dave-lewis-appointed-diageo-plc-ceo/9222252)
 - [Heineken unveils new chief executive (BeverageDaily)](https://www.beveragedaily.com/Article/2026/06/23/heineken-unveils-new-chief-executive/)
@@ -262,11 +260,10 @@ CEOs, 2026 deals and the Kerala figures were checked against the pages below. Br
 - [Kerala's new liquor brand renamed Minnal Magic (Hindusthan Samachar)](https://english.hindusthansamachar.in//Encyc/2026/2/21/Kerala-govt-new-liquor-brand-.php)
 - [Jawan production increase (Kerala Kaumudi)](https://keralakaumudi.com/en/news/kerala/general/jawan-production-to-be-increased-half-liter-and-premium-bottles-also-expected-1088894)
 - Logos: [Simple Icons](https://simpleicons.org) (Carlsberg, Jameson)
-
-Cocktails and wine:
-
 - [Espresso martini (Wikipedia)](https://en.wikipedia.org/wiki/Espresso_martini)
 - [The origin story of the Moscow Mule (InsideHook)](https://www.insidehook.com/cocktails/origin-story-moscow-mule-most-la-drink-ever)
 - [How every 19 Crimes bottle tells a story (Coldist)](https://coldist.com/from-infamous-to-legendary-how-every-19-crimes-bottle-tells-a-story/)
 - [19 Crimes living labels with a holographic Snoop Dogg (The Drinks Business)](https://www.thedrinksbusiness.com/2021/12/19-crimes-living-wine-labels-include-holographic-snoop-dogg/)
 - [50 things to know about the Judgment of Paris (Napa Valley)](https://www.napavalley.com/blog/judgment-of-paris-facts/)
+
+*\* From general knowledge.*

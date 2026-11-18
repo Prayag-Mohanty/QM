@@ -116,5 +116,3 @@ summary: "Visa, Mastercard, Diners Club, RuPay, meal cards, UPI and wallets: ori
 - [FXStreet: Capital One closes acquisition of Discover (May 2025)](https://www.fxstreet.com/news/done-deal-capital-one-closes-on-acquisition-of-discover-202505200725)
 - [Doctor of Credit: Capital One debit cards switching to the Discover network](https://www.doctorofcredit.com/capital-one-debit-cards-switching-from-mastercard-to-discover-payment-network/amp)
 - [Electronic Payments International: Discover buys Diners Club](https://www.electronicpaymentsinternational.com/news/discover-to-buy-diners-club)
-
-Origin stories and firsts are from general knowledge (marked \*). They're well-established, but check any exact figure.

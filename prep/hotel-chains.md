@@ -126,8 +126,6 @@ The finals are run by a Kerala quizmaster, so these local links are worth knowin
 
 ## Sources
 
-CEO names were checked against 2026 reports. The older history comes from standard company histories, so verify any single detail before relying on it in a tie-breaker.
-
 - [Top hospitality executive moves, Q2 2026 (Hotel Dive)](https://www.hoteldive.com/news/top-hospitality-industry-executive-moves-q2-2026/824125/)
 - [Choice names Dominic Dragisich permanent CEO (Travel Weekly)](https://www.travelweekly.com/Travel-News/Hotel-News/Choice-names-Dominic-Dragisich-permanent-CEO)
 - [Hyatt: Thomas J. Pritzker retires; Hoplamazian becomes chairman and CEO](https://newsroom.hyatt.com/021626-Hyatt-Announces-Thomas-J-Pritzker-Retires-as-Executive-Chairman-and-Will-Not-Seek-Re-Election-to-Board-of-Directors-Mark-S-Hoplamazian-Assumes-Combined-Role-of-Chairman-of-the-Board-and-Chief-Executive-Officer)
@@ -147,9 +145,6 @@ CEO names were checked against 2026 reports. The older history comes from standa
 - [CGH founder Dominic dies (Oneindia, 2007)](https://www.oneindia.com/2007/08/13/cgh-founder-dominic-dies-1187026335.html)
 - [Twenty14 Holdings buys the Caledonian (Hospitality Net)](https://www.hospitalitynet.org/news/4086446.html)
 - Logos: [Simple Icons](https://simpleicons.org) (Marriott, Hilton, Ritz-Carlton, OYO)
-
-Taglines and signatures:
-
 - [Hilton launches "Hilton. For the Stay" (Hospitality Net)](https://www.hospitalitynet.org/news/4111623.html)
 - [Hilton and Deepika Padukone: It Matters Where You Stay](https://robbreport.co.th/hilton-and-deepika-padukone-remind-the-world-why-it-matters-where-you-stay)
 - [Super 8 brings back $8.88 room rates (Wyndham)](https://corporate.wyndhamhotels.com/news-releases/super-8-by-wyndham-turns-back-the-clock-with-8-88-room-rates/)

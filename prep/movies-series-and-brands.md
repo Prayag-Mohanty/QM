@@ -138,8 +138,6 @@ Indian business cinema is mostly biopics in disguise: *Guru* is Dhirubhai Ambani
 
 ## Sources
 
-The headline facts below were checked; the rest are standard film trivia. Confirm any single number before using it in a tie-breaker.
-
 - [David Fincher hid Starbucks cups in Fight Club (The Digital Fix)](https://www.thedigitalfix.com/fight-club/david-fincher-starbucks-cups)
 - [Say no to E.T.? (Snopes)](https://www.snopes.com/fact-check/say-no-to-et/)
 - [Vans slip-on sales up 7,800% after Squid Game (The Sole Supplier)](https://thesolesupplier.co.uk/news/vans-slip-on-sales-grew-by-7800-since-squid-games-series-premiere/)

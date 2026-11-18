@@ -128,5 +128,3 @@ The ones Major Nair is most likely to use. Malayalam cinema plus Kerala institut
 - [Wikipedia: Toshifumi Suzuki](https://en.wikipedia.org/wiki/Toshifumi_Suzuki)
 - [Fortune: Joshua Baer dies at 50](https://fortune.com/2026/06/18/joshua-baer-capital-factory-austin-death/)
 - [Legacy.com: Juan Atkins](https://legacy.com/legacy/notable-deaths/juan-atkins)
-
-**Gaps:** Wikipedia's September and October 2026 death lists couldn't be opened here, so Kerala and India coverage for those two months is thinner. Scan Manorama or Mathrubhumi obituaries tonight.

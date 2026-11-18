@@ -256,8 +256,6 @@ Australia is in the G20 table. The Pacific's best business hook is **Tuvalu**, w
 
 ## Sources
 
-The rich-list and G20 GDP figures were checked against the pages below. Smaller countries' GDP, exports, airlines and broadcasters are from standard reference knowledge; airlines and state broadcasters change, so confirm any single one before relying on it.
-
 - [The Richest Billionaire In Each Country 2026 (Forbes)](https://www.forbes.com/sites/asia-alexander/2026/03/11/the-richest-billionaire-in-each-country/)
 - [World's largest economies in 2026, IMF October 2026 projections (CareerIndia)](https://www.careerindia.com/news/worlds-largest-economies-in-2026-top-10-countries-ranked-by-gdp-067471.html)
 - [India expected to overtake Japan in 2027, IMF (Bernama)](https://bernama.com/en/world/news.php?id=2621724)

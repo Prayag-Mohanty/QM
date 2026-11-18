@@ -138,5 +138,3 @@ The town's nickname is **"Varadanangalude Nadu"**.
 - [Wikipedia: Sidin Vadukut](https://en.wikipedia.org/wiki/Sidin_Vadukut)
 - [Onmanorama: Karuvannur bank fraud explained](https://www.onmanorama.com/news/kerala/2023/10/12/explained-why-karuvannur-bank-fraud-was-multipronged-organised-scam.html)
 - [Wikipedia mirror: Kerala Solvent Extractions (KSE Ltd)](https://bafybeiemxf5abjwjbikoz4mc3a3dla6ual3jsgpdr4cjr3oz3evfyavhwq.ipfs.4everland.io/wiki/Kerala_Solvent_Extractions_Ltd.html)
-
-Names and roles come from the sources above. Extra hooks, such as film titles and awards, are from general knowledge and marked \*.
