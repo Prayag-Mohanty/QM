@@ -617,6 +617,18 @@ body.embed .stage { flex: 1; width: 100%; max-height: calc(100vh - 55px); }
 /* Small, equal-size photos (prep pages): every picture is cropped to the same 4:3 frame. */
 .prep-prose p > img.place-thumb { width: 209px; height: 157px; max-width: 100%; object-fit: cover; object-position: center 30%; margin: 4px 8px 4px 0; vertical-align: top; display: inline-block; }
 .prep-prose td img.place-thumb { width: 209px; height: 157px; max-width: none; border-radius: 8px; object-fit: cover; object-position: center 30%; margin: 2px 0 8px; display: block; }
+/* Flags and emblems (prep pages): every flag the same height, every emblem the same box. */
+.prep-prose img.flag-thumb { height: 48px; width: auto; max-width: 124px; border: 1px solid var(--line); border-radius: 3px; object-fit: contain; display: block; background: transparent; }
+.prep-prose img.emblem-thumb { height: 64px; width: auto; max-width: 80px; border-radius: 0; object-fit: contain; display: block; background: transparent; margin-bottom: 4px; }
+.table-wrap:has(img.flag-thumb) td:first-child { min-width: 0; width: 1%; }
+.table-wrap:has(img.flag-thumb) td:nth-child(2) { min-width: 96px; }
+.table-wrap:has(img.flag-thumb) td:nth-child(3), .table-wrap:has(img.flag-thumb) td:nth-child(5) { min-width: 260px; }
+.table-wrap:has(img.flag-thumb) td:nth-child(4) { min-width: 96px; font-size: .8rem; color: var(--muted); }
+@media (max-width: 640px) {
+  .prep-prose img.flag-thumb { height: 36px; max-width: 92px; }
+  .prep-prose img.emblem-thumb { height: 52px; max-width: 64px; }
+  .table-wrap:has(img.flag-thumb) td:nth-child(3), .table-wrap:has(img.flag-thumb) td:nth-child(5) { min-width: 220px; }
+}
 .prep-note { margin-top: 2.5em; padding-top: 14px; border-top: 1px solid var(--line); font-size: .88rem; }
 .prep-pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-top: 18px; }
 .prep-pager .btn { white-space: normal; text-align: left; line-height: 1.3; }
