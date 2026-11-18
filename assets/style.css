@@ -620,6 +620,7 @@ body.embed .stage { flex: 1; width: 100%; max-height: calc(100vh - 55px); }
 /* Flags and emblems (prep pages): every flag the same height, every emblem the same box. */
 .prep-prose img.flag-thumb { height: 48px; width: auto; max-width: 124px; border: 1px solid var(--line); border-radius: 3px; object-fit: contain; display: block; background: transparent; }
 .prep-prose img.emblem-thumb { height: 64px; width: auto; max-width: 80px; border-radius: 0; object-fit: contain; display: block; background: transparent; margin-bottom: 4px; }
+.prep-prose img.flag-thumb.flag-extra { margin-top: 8px; }
 .table-wrap:has(img.flag-thumb) td:first-child { min-width: 0; width: 1%; }
 .table-wrap:has(img.flag-thumb) td:nth-child(2) { min-width: 96px; }
 .table-wrap:has(img.flag-thumb) td:nth-child(3), .table-wrap:has(img.flag-thumb) td:nth-child(5) { min-width: 260px; }
