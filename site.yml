@@ -96,6 +96,11 @@ prep_categories:
   - name: General
     blurb: "Timelines and references that help in any quiz."
 
+# Quiz Prep pages merged into another page: old file name -> new file name.
+# The old address forwards to the new one.
+prep_moved:
+  world-flags-deep-dive-trivia: world-flags-and-emblems
+
 # "For bricks & bouquets, contact me" on quiz pages, and the About page's Email button.
 contact_email: topper1728@gmail.com
 

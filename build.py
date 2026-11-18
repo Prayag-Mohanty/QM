@@ -1214,6 +1214,14 @@ def build(site: dict) -> list[Quiz]:
                   prev=cat["docs"][i - 1] if i else None,
                   next=cat["docs"][i + 1] if i + 1 < len(cat["docs"]) else None,
                   canonical=page_url(f"prep/{d.slug}/"))
+    # Quiz Prep pages that were merged into another page (site.yml -> prep_moved).
+    for old_slug, new_slug in (site.get("prep_moved") or {}).items():
+        target = page_url(f"prep/{new_slug}/")
+        (OUT_DIR / "prep" / old_slug).mkdir(parents=True, exist_ok=True)
+        (OUT_DIR / "prep" / old_slug / "index.html").write_text(
+            f'<!doctype html><meta charset="utf-8"><title>Moved</title><link rel="canonical" href="{target}">'
+            f'<meta http-equiv="refresh" content="0; url={target}"><p>Moved to <a href="{target}">{target}</a>.</p>',
+            encoding="utf-8")
     # Quiz Prep briefly lived at /askaban/prep/; forward any shared links.
     for rel in ["prep/"] + [f"prep/{d.slug}/" for d in prep_docs]:
         target = page_url(rel)

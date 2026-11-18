@@ -27,3 +27,5 @@ Each `##` heading becomes an entry in the page's "On this page" list.
   to fill.
 - Pictures go in `prep/images/` and are referenced as `images/<file>`.
 - Add `draft: true` to the front matter to keep a file off the site.
+- If you merge a page into another, delete its file and add `old-name: new-name` under
+  `prep_moved` in `site.yml`, so links to the old address forward to the new page.
