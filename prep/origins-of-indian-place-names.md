@@ -41,7 +41,7 @@ summary: "How every Indian state, union territory and capital got its name, plus
 - **Kerala (Keralam)**: "Land of Coconuts" (*Kera* = coconut tree, *Alam* = land), or from the **Chera** dynasty (*Cheralam*).
 - **Sikkim**: Limbu *Su* (new) + *Khyim* (palace or house). In the late 17th century the second Chogyal, **Tensung Namgyal**, moved the capital from **Yuksom** to a new palace at **Rabdentse**. His Limbu queen, **Thungwamukma**, called it *Su-Khyim* ("New Palace"), and the name spread to the whole kingdom. The Lepchas called the land **Nye-mae-el** ("Paradise") and Tibetans **Drenjong** ("Valley of Rice"); the British first spelled it *Sukkim*. The dynasty was founded in **1642** at Yuksom's **Norbugang Coronation Throne**.
 
-![Ruins of the Rabdentse palace, Sikkim](images/place-rabdentse-sikkim.jpg)
+![Ruins of the Rabdentse palace, Sikkim](images/place-rabdentse-sikkim.jpg){: .place-thumb }
 
 - **Tamil Nadu**: "Land of the Tamils" (*Nadu* = land, homeland).
 - **Telangana**: from **Trilinga Desha** ("Land of Three Lingas"), the three Shiva temples that marked its borders:
@@ -49,14 +49,14 @@ summary: "How every Indian state, union territory and capital got its name, plus
     - **Mallikarjuna Swamy Temple**, Srisailam (Andhra Pradesh)
     - **Bhimeswara Swamy Temple**, Draksharamam (Andhra Pradesh)
 
-![Kaleshwaram temple gopuram](images/place-kaleshwaram-temple.jpg) ![Bhimeswara Swamy temple, Draksharamam](images/place-draksharamam-temple.jpg)
+![Kaleshwaram temple gopuram](images/place-kaleshwaram-temple.jpg){: .place-thumb } ![Bhimeswara Swamy temple, Draksharamam](images/place-draksharamam-temple.jpg){: .place-thumb }
 
 ## Union territories
 
 - **Andaman and Nicobar Islands**: **Andaman** appears in 9th-century Arab travelogues as *Angamanain* and in **Marco Polo** as *Angamanian*, from *Handuman*, the Malay form of **Hanuman**. **Nicobar** comes from Tamil **Nakkavaram** ("Land of the Naked"), in 11th-century **Chola** inscriptions.
 - **Chandigarh**: when Lahore went to Pakistan in 1947, **Nehru** commissioned a new capital for Indian Punjab at the foot of the Shivaliks. Instead of naming it after a leader, planners named it after **Chandi Mandir**, a temple to Goddess Chandi (a fierce form of Durga) just outside the city, + *Garh* (fort): "Fort of Chandi". It is the capital of both **Punjab and Haryana**.
 
-![Chandi Mandir, Chandigarh](images/place-chandi-mandir.jpg)
+![Chandi Mandir, Chandigarh](images/place-chandi-mandir.jpg){: .place-thumb }
 
 - **Dadra and Nagar Haveli and Daman and Diu**: four former Portuguese enclaves, merged into one UT in **2020**:
     - **Dadra**: Gujarati *dadra* (steps), for the stepped banks of the Daman Ganga.
@@ -69,7 +69,7 @@ summary: "How every Indian state, union territory and capital got its name, plus
     - **Jammu**: founded by **Raja Jambu Lochan** (9th century), who saw a lion and a goat drinking peacefully together from the **Tawi**. His brother **Raja Bahu Lochan** built **Bahu Fort** on the opposite bank, and Jambu Lochan founded *Jambupura* (later Jammu) across the river.
     - **Kashmir**: from *Kashyapa-Mira* ("Lake of Kashyapa"). In the *Nilamata Purana* and *Rajatarangini*, the valley was a lake ruled by a demon until **Sage Kashyapa** drained it and Goddess Parvati dropped a pebble that crushed the demon and became **Hari Parbat** in Srinagar, now topped by the Sharika Devi Temple and a Mughal-era fort.
 
-![Bahu Fort on the Tawi, Jammu](images/place-bahu-fort-jammu.jpg)
+![Bahu Fort on the Tawi, Jammu](images/place-bahu-fort-jammu.jpg){: .place-thumb }
 
 - **Ladakh**: Tibetan *La* (mountain pass) + *Dags* (land), "Land of High Passes". It was historically called **Maryul** ("Red Land" or "Lowland").
 - **Lakshadweep**: "One Hundred Thousand Islands" (*Laksha* = 1,00,000, *Dweep* = island). Part of **Chera** territory in Sangam literature and *Dibajat* to Arab sailors, it was the **Laccadive, Minicoy and Amindivi Islands** until it was renamed in **1973**.
@@ -103,13 +103,13 @@ summary: "How every Indian state, union territory and capital got its name, plus
 - **Gandhinagar** (Gujarat): when Bombay State split in **1960**, Ahmedabad was the temporary capital. A planned capital was built **23 km north** on the Sabarmati and named after **Mahatma Gandhi**.
 - **Mumbai** (Maharashtra): after **Mumba Devi**, patron goddess of the **Koli** fishing community, + *Aai* (Marathi: mother). Her original temple stood at Bori Bunder (near today's CSMT) until it moved to **Bhuleshwar** in **1737**. The Portuguese took the islands in **1534** and called them *Bom Bahia* ("Good Bay"); the British (from **1661**) made it *Bombay*, and the city became Mumbai again in **1995**.
 
-![Mumba Devi Temple, Mumbai](images/place-mumba-devi-temple.jpg)
+![Mumba Devi Temple, Mumbai](images/place-mumba-devi-temple.jpg){: .place-thumb }
 
 - **Nagpur** (Maharashtra, winter): founded in the early 18th century by the Gond king **Bakht Buland Shah** of Deogarh, named after the **Nag River**, itself named after the ancient **Naga** people.
 - **Panaji** (Goa): from **Panjani** ("ferry"), a riverside crossing on the **Mandovi**. The Portuguese called it **Pangim**, then **Nova Goa** after it replaced plague-hit **Old Goa** as capital in **1843**.
 - **Bhopal** (Madhya Pradesh): the 11th-century Paramara king **Raja Bhoja** built a huge earthen dam (*pal*) across the Kolans river to create the **Upper Lake (Bhojtal)**. The settlement became **Bhojpal** ("Bhoja's Dam"), then Bhopal; **Dost Mohammad Khan** founded the modern city in the 1720s.
 
-![Raja Bhoja statue in the Upper Lake, Bhopal](images/place-raja-bhoja-bhopal.jpg)
+![Raja Bhoja statue in the Upper Lake, Bhopal](images/place-raja-bhoja-bhopal.jpg){: .place-thumb }
 
 - **Raipur** (Chhattisgarh): founded in the late 14th century by **Raja Ramachandra** (or his son **Rai Singh**) of the Ratanpur Kalachuris, on the **Kharun** river: "City of Rai".
 
@@ -119,11 +119,11 @@ summary: "How every Indian state, union territory and capital got its name, plus
 - **Ranchi** (Jharkhand): from **Archi**, a Mundari word for "bamboo grove", the name of an Oraon and Munda village. It became the headquarters of the South-West Frontier Agency in **1834**, and *Archi* turned into Ranchi.
 - **Kolkata** (West Bengal): in **1690**, **Job Charnock** merged **Sutanuti, Govindapur and Kalikata**. *Kalikata* comes from **Kalikshetra** ("Field of Kali"), the land around the **Kalighat temple**, one of the **51 Shakti Peethas**, on the Adi Ganga, or from Bengali *Khal* (canal) + *Kata* (dug). It was **Calcutta** until **2001**.
 
-![Kalighat Kali Temple, Kolkata](images/place-kalighat-temple.jpg)
+![Kalighat Kali Temple, Kolkata](images/place-kalighat-temple.jpg){: .place-thumb }
 
 - **Bhubaneswar** (Odisha): from **Tribhubaneswar**, "Lord of the Three Worlds", the form of Shiva worshipped at the 11th-century **Lingaraj Temple**. Ancient texts call it **Ekamra Kshetra** ("Land of One Mango Tree").
 
-![Lingaraj Temple, Bhubaneswar](images/place-lingaraj-temple.jpg)
+![Lingaraj Temple, Bhubaneswar](images/place-lingaraj-temple.jpg){: .place-thumb }
 
 - **Gangtok** (Sikkim): Bhutia/Tibetan for "hilltop". A hamlet until **Enchey Monastery** was built in the 1840s, it became the capital when the royal family moved from **Tumlong** in **1894**.
 - **Dispur** (Assam): Assam moved its capital here, a suburb of Guwahati, after **Shillong** went to the new state of Meghalaya in 1972. Possibly from *Disha-pur* ("City of Direction") or a remnant of **Pragjyotishpura**, the ancient capital of Kamarupa.†
