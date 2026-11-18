@@ -109,7 +109,7 @@ summary: "Desserts, dishes and cocktails named after people and places, and the 
 
 *\* From general knowledge; cocktail origins are usually disputed legend.*
 
-## India and Kerala food stories
+## Indian food stories
 
 ### Kerala and Thrissur (expect at least one)
 
@@ -181,6 +181,37 @@ summary: "Desserts, dishes and cocktails named after people and places, and the 
 - **Feni**: Goa's **cashew** liquor (GI-tagged). Goa declared it a **heritage drink** (2016).\*
 
 ![A bottle of cashew feni](images/dish-feni.jpg){: .place-thumb }
+
+### Across India: more food facts
+
+- **Filter coffee** (Karnataka): Sufi saint **Baba Budan** is said to have smuggled **seven coffee beans** from **Mocha, Yemen**, strapped to his chest, and planted them in the **Chandragiri hills of Chikmagalur** (17th century). The range is now called **Baba Budangiri**.\*
+- **Rava idli** (Bengaluru): invented by **MTR (Mavalli Tiffin Rooms, 1924)** during **World War II**, when rice was scarce and semolina stood in.\*
+- **Masala dosa and Udupi**: Udupi hotels, run by cooks trained around the **Krishna Matha**, spread the dosa and the South Indian "tiffin" across India.\*
+- **Idli**: food historian **K.T. Achaya** traced it to **Indonesia's *kedli***, which came with cooks of visiting kings (8th–12th century). Still debated.\*
+- **Samosa**: came from **Central Asia** as the *sanbosag*. **Amir Khusrau** and **Ibn Battuta** describe it at Delhi Sultanate courts. The potato filling came only after the **Portuguese** brought potatoes.\*
+- **Chillies, potatoes, tomatoes**: all **New World** crops brought by the **Portuguese** (16th century). Before them, Indian heat came from **black pepper** and **long pepper**.\*
+- **Vindaloo** (Goa): from the Portuguese ***carne de vinha d'alhos*** (meat in **wine** and **garlic**). It has nothing to do with *aloo* (potato).\*
+- **Bebinca** (Goa): a layered coconut-and-egg dessert, traditionally **7 to 16 layers**, each baked separately. Legend credits a nun, **Sister Bebiana**.\*
+- **Alphonso mango**: named after **Afonso de Albuquerque**, the Portuguese general who conquered Goa (1510). The Portuguese introduced grafting.\*
+- **Gulab jamun and jalebi**: both have Persian roots. *Gulab* (rose water) + *jamun* (the fruit it resembles); jalebi from the Persian/Arabic **zulbiya / zalabiya**.\*
+- **Sandesh and rasgulla**: Bengal's *chhena* (split-milk) sweets grew after the **Portuguese** showed how to curdle milk, which older Hindu custom had avoided.\*
+- **Chhena poda** (Odisha): "burnt cheese", credited to **Sudarshan Sahoo** of **Nayagarh** (1940s), who left sweetened chhena in a cooling oven overnight.\*
+- **Dum pukht** (Lucknow): legend says **Nawab Asaf-ud-Daula** fed workers building the **Bara Imambara** (a famine-relief project, 1784) from huge sealed pots cooked slowly over embers.\*
+- **Nihari** (Old Delhi and Lucknow): from Arabic *nahar* (morning). A slow-cooked stew eaten after the **Fajr** prayer.\*
+- **Wazwan** (Kashmir): a feast of up to **36 courses** cooked by a master chef, the ***vaste waza***. **Rogan josh** and **gushtaba** are staples.\*
+- **Tandoori chicken**: **Kundan Lal Gujral** of **Moti Mahal**, who moved from **Peshawar** to **Daryaganj, Delhi** after Partition (1947).\*
+- **Hyderabadi haleem**: the first **non-vegetarian** dish in India to get a **GI tag** (2010).\*
+- **Bikaneri bhujia** (Rajasthan): GI-tagged (2010). **Haldiram's** began in **Bikaner (1937)**, with **Ganga Bishan Agarwal**, nicknamed "Haldiram".\*
+- **Dharwad pedha** (Karnataka): GI-tagged; made by the **Thakur** family, who came from **Unnao (UP)** in the 19th century.\*
+- **Tirupati laddu**: GI-tagged (2009), made in the temple kitchen (*potu*). A **2024** row over adulterated ghee became a national story.\*
+- **Karachi Bakery** (Hyderabad): founded in **1953** by **Khanchand Ramnani**, a **Sindhi** who came to India after Partition. Famous for **fruit biscuits**.\*
+- **Amul** (Anand, Gujarat): the 1946 co-operative behind **Operation Flood**, led by **Verghese Kurien**. The **Amul girl** ads ("Utterly Butterly Delicious") began in **1966** (Sylvester da Cunha).\*
+- **Parle-G** (1939): launched as **Parle Gluco**; the **G** stood for **glucose** (later "Genius").\*
+- **Assam tea**: **Robert Bruce** was shown the native tea plant by **Singpho** chief **Bessa Gam** (1823). It ended China's monopoly.\*
+- **Bhut jolokia** (Assam and Nagaland): named the **world's hottest chilli** by Guinness in **2007**. GI-tagged.\*
+- **Kadaknath** (Jhabua, Madhya Pradesh): an all-**black** chicken (black meat too). MP won the GI tag in **2018** over Chhattisgarh's claim.\*
+- **Hing (asafoetida)**: India is the biggest user but grew none until **2020**, when **CSIR-IHBT** planted it in **Lahaul–Spiti** (Himachal).\*
+- **Petha** (Agra): ash-gourd sweet, linked by legend to **Shah Jahan**'s cooks during the building of the **Taj Mahal**.\*
 
 *\* From general knowledge; check before relying on it.*
 
