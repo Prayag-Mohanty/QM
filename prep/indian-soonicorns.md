@@ -218,5 +218,3 @@ Logos are cropped from the Inc42 image you shared, so they are small and low-res
 - Digantara: [Business Standard via Magzter](https://www.magzter.com/de/stories/newspaper/Business-Standard/FROM-PETRI-DISH-TO-PAYLOAD-INDIAS-NEXT-BIG-BANG), [Broadcast and CableSat](https://www.broadcastandcablesat.co.in/?p=58475)
 - [M2P formerly YAP (Craft)](https://craft.co/m2p-fintech)
 - [BookMyShow history (Markhub)](https://www.markhub24.com/post/how-bookmyshow-turned-a-drunk-text-and-a-south-african-rugby-ad-into-india-s-rs-1-400-crore-entertai)
-
-The founder names, histories and trivia in the sector tables come from reference knowledge, not sources checked for this doc, except where a link appears. Verify any you plan to set as a question.

@@ -359,8 +359,6 @@ The coastal Karnataka belt (Udupi and Mangaluru) gave India **Syndicate, Corpora
 
 ## Sources
 
-The 2025–26 deals and appointments were checked against the pages below. Founding stories and taglines are standard Indian banking history; confirm any single founding year or tagline before relying on it. Bank heads with no source are from general knowledge.
-
 - [Cabinet clears ₹52,877 crore IDBI Bank stake sale to Fairfax (Outlook Money)](https://www.outlookmoney.com/news/cabinet-clears-rs-52877-crore-idbi-bank-stake-sale-to-fairfax)
 - [IDBI Bank and CSB Bank shares after the Fairfax approval (Business Today)](https://www.businesstoday.in/markets/stocks/story/idbi-bank-shares-jump-13-csb-bank-also-gain-6-after-fairfax-approval-heres-why-561592-2026-10-14)
 - [Emirates NBD's Indian branches to merge with RBL Bank from 1 Dec (Business Today)](https://www.businesstoday.in/latest/corporate/story/emirates-nbds-indian-branches-to-merge-with-rbl-bank-from-december-1-562208-2026-10-17)

@@ -176,5 +176,3 @@ summary: "Colours that brands own (or tried to): Tiffany Blue, Louboutin red, Ca
 - [Asia IP: Whiskas purple registered after Federal Court appeal](https://asiaiplaw.com/article/whiskas-purple-successfully-registered-after-a-cat-fight-in-federal-court)
 - [Bloomberg Law: Russia denies colour mark for Whiskas](https://news.bloomberglaw.com/ip-law/russian-agency-denies-color-trademark-for-whiskas-cat-food)
 - [FindLaw: Qualitex, colours alone may be registered](https://corporate.findlaw.com/intellectual-property/u-s-supreme-court-decides-colors-alone-may-be-registered-as-a.html)
-
-The origin stories are brand lore from general knowledge, marked \*.

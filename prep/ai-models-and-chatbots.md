@@ -99,7 +99,3 @@ A short, quizzable set — rarer than you would expect.
 | **Google Pay** | In India it launched as **Tez** — Hindi for "**fast**" — before the 2018 global unification. The lineage runs Google Wallet (2011) → Android Pay (2015) → Tez (2017) → Google Pay. |
 | **Paytm** | "**Pay Through Mobile**", founded 2010 by Vijay Shekhar Sharma, originally just mobile recharges. |
 | **PhonePe** | Founded by **Sameer Nigam** and **Rahul Chari** after watching Flipkart's payment systems fail during a 2014 sale. Flipkart bought it a year later for under $20 million; Walmart inherited it in 2018. |
-
-## Sources
-
-Name etymologies come from company statements, founder interviews and product documentation. The Mustang-style disputed cases are flagged in the text. Chatbot rosters and the Rufus retirement date were checked at the update date; corporate AI products are renamed and retired quickly, so confirm anything time-sensitive before using it.

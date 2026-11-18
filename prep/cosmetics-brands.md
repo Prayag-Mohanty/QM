@@ -147,8 +147,6 @@ Slogans and jingles are the most common way to set a beauty question: quote the 
 
 ## Sources
 
-CEOs were checked against 2025–26 reports. The older history and slogans come from standard brand histories, so verify any single detail before using it in a tie-breaker.
-
 - [L'Oréal 2025 annual results](https://www.globenewswire.com/news-release/2026/02/12/3237534/0/en/2025-annual-results.html)
 - [Estée Lauder names Stéphane de La Faverie CEO (GCI)](https://www.gcimagazine.com/brands-products/news/news/22924695/its-official-the-este-lauder-companies-new-ceo-stphane-de-la-faverie)
 - [Priya Nair takes over as HUL CEO (Outlook Business)](https://www.outlookbusiness.com/markets/hindustan-unilever-shares-surge-5-as-priya-nair-takes-over-as-ceo-analysts-see-a-new-chapter-unfolding)

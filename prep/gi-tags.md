@@ -144,5 +144,3 @@ GI Kerala lists **31 products** (20 agricultural, 11 handicraft). Spices Board t
 - [GI Kerala: list of Kerala GI products](https://www.gikerala.in/about)
 - [The Federal: Kerala tops India's GI list in FY 2022–23](https://thefederal.com/news/kerala-tops-indias-gi-tag-list-in-fy-2022-23)
 - [IP India: state-wise registered GIs (official PDF)](https://ipindia.gov.in/frontend/pdf/gi/registered/State_wise_Registered_GI_of_India.pdf)
-
-The counts, Kerala list and 2026 additions come from these sources. The disputes and world GIs are from general knowledge (marked \*).

@@ -151,8 +151,6 @@ The big 2026 change is at the US Federal Reserve: **Kevin Warsh** replaced Jerom
 
 ## Sources
 
-The 2025–26 items were checked against the pages below. Bank histories and name stories are standard banking lore; CEOs listed without a source are from general knowledge and should be confirmed before relying on them.
-
 - [World's 10 biggest banks ranked (Business Today, Oct 2026, citing S&P Global)](https://www.businesstoday.in/latest/world/story/worlds-10-biggest-banks-ranked-china-takes-top-four-spots-us-banks-follow-562610-2026-10-20)
 - [SBI and HDFC Bank: India's only banks in the world's top 100 (ThePrint)](https://theprint.in/economy/sbi-hdfc-only-indian-banks-in-worlds-100-largest-by-assets-sp-global-market-intelligence/2591669)
 - [Kevin Warsh sworn in as Federal Reserve chair](https://seekingalpha.com/news/4596371-kevin-warsh-is-sworn-in-as-federal-reserve-chair)

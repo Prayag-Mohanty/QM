@@ -78,8 +78,6 @@ The two big Indian films of the autumn are both sequels: Ajay Devgn's ***Drishya
 
 ## Sources
 
-Box-office figures move daily; those here are as of late October or early November 2026. Older trivia (Sun Pictures' car gifts, *Sheep Without a Shepherd*, Antony Perumbavoor's start) is standard film lore and was not re-checked.
-
 - [Weekend box office, 30 Oct 2026 (The Numbers)](https://www.the-numbers.com/weekend-box-office-chart)
 - [Weekend box office, 16 Oct 2026 (The Numbers)](https://www.the-numbers.com/box-office-chart/weekend/2026/10/16)
 - [Weekend box office, 2 Oct 2026 (The Numbers)](https://www.the-numbers.com/box-office-chart/weekend/2026/10/02)

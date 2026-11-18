@@ -70,7 +70,3 @@ Once the **best-selling beer on earth** (1934), on the slogan "the beer that mad
 | **Vernors** | Detroit's ginger ale, aged in oak — the barrel-aging story is tied to its founder's Civil War service. |
 
 Spirits, beers and cocktails have their own page: see [Alcohol Brands](../alcohol-brands/), where Angostura's accidental label, Wild Turkey's hunting-trip name, Chicago's Malört and Chernobyl's Atomik vodka now sit.
-
-## Sources
-
-Brand histories and name origins are standard drinks history, cross-checked against company heritage material and reporting. The Zyman "kamikaze" account comes from his own later interviews. Figures such as survey percentages and sales shares are as reported at the update date.

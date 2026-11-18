@@ -275,7 +275,3 @@ Warren Buffett's favourite, *The Intelligent Investor*, is the most-asked financ
 | ***Ratan N. Tata: The Authorized Biography*** (2024) | **Thomas Mathew** | Published soon after Ratan Tata's death (Oct 2024). Mathew is a Kerala-born former IAS officer. |
 | ***Tata Log*** (2012) | Harish Bhat | Eight stories from inside Tata: the Nano, Titan, Tetley and others. |
 | ***Connect the Dots (2009)*** | Rashmi Bansal | Twenty entrepreneurs without MBAs, the follow-up to Stay Hungry Stay Foolish. |
-
-## Sources
-
-This doc is built from standard management and business history rather than new research, so there are no fresh 2026 figures here except where noted from earlier docs. Confirm any single date before using it in a tie-breaker. The origin stories most often disputed are SWOT (Humphrey vs Harvard), the Hawthorne findings, the dabbawalas' "Six Sigma" rating and the Eisenhower quote.

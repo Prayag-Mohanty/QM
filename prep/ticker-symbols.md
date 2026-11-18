@@ -192,5 +192,3 @@ Thrissur alone is home to **South Indian Bank, CSB, Dhanlaxmi and ESAF**, which 
 - [EchoStar: changing ticker SATS to ECHO](https://ir.echostar.com/news-releases/news-release-details/echostar-changing-stocker-ticker-sats-echo-marking-companys-next)
 - [Stock Titan: Skillz becomes Firy (FIRY)](https://www.stocktitan.net/sec-filings/SKLZ/8-k-skillz-inc-reports-material-event-8fdba784f6e0.html)
 - [NPR: Shein IPO on the Hong Kong exchange (1 Sep 2026)](https://www.npr.org/2026/09/01/g-s1-141410/shein-ipo-hong-kong-stock-exchange)
-
-The rest is general knowledge (marked \*). Ticker stories are stable, but recheck any figure you plan to bank on.

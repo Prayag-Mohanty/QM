@@ -174,8 +174,6 @@ Kerala is India's gold-loan and chit-fund capital, and Thrissur is at its centre
 
 ## Sources
 
-The 2025–26 items were checked against the pages below. Firm histories and name origins are standard finance lore, so confirm any single date before using it in a tie-breaker.
-
 - [Warren Buffett stays chairman as Greg Abel takes over as CEO in 2026 (PBS)](https://www.pbs.org/newshour/amp/nation/warren-buffett-will-remain-berkshire-hathaway-chairman-after-greg-abel-takes-over-as-ceo-in-2026)
 - [SEBI bars Jane Street and impounds ₹4,843 crore (ThePrint)](https://theprint.in/economy/sebi-bans-us-based-jane-street-from-securities-mkt-impounds-illegal-gains-of-rs-4843-cr/2679517/)
 - [Jane Street vs SEBI: tribunal adjourns hearing (Business Today, Feb 2026)](https://www.businesstoday.in/markets/story/jane-street-vs-sebi-sat-adjourns-hearing-in-market-manipulation-case-517925-2026-02-25)

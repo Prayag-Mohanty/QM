@@ -210,8 +210,6 @@ Twenty questions written the way he writes them: shared names, name origins, an 
 
 ## Sources
 
-His question style comes from your two recollected prelims. The news items were checked against the pages below; company histories in the Kerala table are standard, but confirm a founding year before using it in a tie-breaker.
-
 - [Christ Com Quiz 2026 Prelims (your QM site)](https://prayag-mohanty.github.io/QM/quiz/christ-com-quiz-2026-prelims-by-major-chandrakant-nair/)
 - [The Monty Quiz 8.0 Prelims 1 (your QM site)](https://prayag-mohanty.github.io/QM/quiz/the-monty-quiz-8-0-prelims-1-by-major-chandrakant-nair/)
 - [Chandrakant Nair: The Question of a Question (TED)](https://www.ted.com/talks/chandrakant_nair_the_question_of_a_question)

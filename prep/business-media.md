@@ -137,8 +137,6 @@ The connects to know: *Business Standard* is owned by the **Kotak** family. *Min
 
 ## Sources
 
-The 2026 ownership deals and The Ken's lineup were checked against the pages below. Founding dates, column namesakes and owners of older titles are standard media history; confirm any single date before using it in a tie-breaker.
-
 - [Canadian billionaire Stephen Smith buys 27% stake in The Economist (Irish Times)](https://www.irishtimes.com/business/2026/03/17/canadian-billionaire-stephen-smith-buys-27-stake-in-the-economist/)
 - [Axel Springer buys the UK's Telegraph for $766 m (Dawn)](https://www.dawn.com/news/1979140)
 - [James Murdoch acquires Vox Media brands and New York magazine (Fortune)](https://fortune.com/2026/05/21/james-murdoch-acquires-vox-media-brands-podcast-new-york-magazine/)

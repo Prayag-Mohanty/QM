@@ -21,7 +21,6 @@ One caution: the quad labels are not always clean. In GW5, the Martha Stewart an
 
 The 72 quads fall into eight families. History and finance is the largest, but no family takes more than 21% of the season, so broad coverage beats depth in any one area.
 
-
 | Family | Quads, by game week |
 | --- | --- |
 | Business and finance history | Bubbles, patent wars, news-agency founders (GW6); secret formulas, early search engines (GW1); printing techniques, VC firms (GW2); fallen tech brands, World's Fair debuts, payment cards (GW3); stock-exchange origins, internet and digital firsts (GW4); informal money transfer, Bombay Plan signatories, ancient trade routes (GW5) |
@@ -225,7 +224,6 @@ Twelve quads of four answers each, scattered across six rounds. The question num
 | 10 | Packaging and bottle design | Toblerone | Tropicana | Coca-Cola | Glenfiddich |
 | 11 | Bubbles and manias | Bubble Act | Railway Mania | Windhandel | Mississippi Bubble |
 | 12 | Indian startup parent names | One97 (Paytm) | FSN / Nykaa | ANI (Ola) | Resilient (BharatPe) |
-
 
 The chart is the real lesson: a business quiz is less about companies than about the vocabulary, places and people around them.
 
@@ -589,4 +587,4 @@ BBQL Season 3 sets: [GW1](https://gospring.ai/forreaders/12ee0b4e-8185-49fb-8d88
 
 Checked in the verification pass: [Haier name origin](https://en.wikipedia.org/wiki/Haier) · [BSE and Dalal Street, 1874](https://www.thenationalnews.com/business/bse-s-transition-from-banyan-shade-to-mighty-site-in-india-1.295462) · [Booker Prize origin](https://en.wikipedia.org/wiki/Booker_Prize) · [Cushman & Wakefield 2025 main streets](https://www.cushmanwakefield.com/en/india/news/2025/11/delhi-khan-market-retains-spot-among-worlds-most-expensive-retail-destinations) · [Meesho rename](https://inc42.com/?p=519381) · [AceVector listing](https://inc42.com/buzz/snapdeal-parent-acevector-lists-at-11-6-discount-on-bse/) · [Eternal (Zomato)](https://en.wikipedia.org/wiki/Eternal_Limited) · [Swiggy and Zepto renames](https://yourstory.com/2025/04/meesho-renames-company-brand-ipo-hypervalue-ecommerce) · [FirstCry / Brainbees](https://en.wikipedia.org/wiki/FirstCry) · [Unacademy / Sorting Hat](https://en.wikipedia.org/wiki/Unacademy) · [BookMyShow / Big Tree](https://en.wikipedia.org/wiki/BookMyShow)
 
-Verification pass (29 Oct 2026): the time-sensitive and less-certain extension facts were checked against the sources below, and four were corrected. Snapdeal's parent is now AceVector, Meesho dropped the Fashnear name, New Bond Street overtook Via Montenapoleone in 2025, and Sandoz left Novartis in 2023. Two weak items were cut: Salar Jung, which is not a tycoon's museum, and an unconfirmed richest-person claim. The remaining long-standing reference facts (dates of old patent cases, logo stories, art records) were not individually sourced; verify any you plan to set.
+*\* From general knowledge.*
