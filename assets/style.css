@@ -616,6 +616,7 @@ body.embed .stage { flex: 1; width: 100%; max-height: calc(100vh - 55px); }
 .prep-prose p > img { max-width: 100%; height: auto; border-radius: 8px; }
 /* Small, equal-size photos (prep pages): every picture is cropped to the same 4:3 frame. */
 .prep-prose p > img.place-thumb { width: 209px; height: 157px; max-width: 100%; object-fit: cover; object-position: center 30%; margin: 4px 8px 4px 0; vertical-align: top; display: inline-block; }
+.prep-prose td img.place-thumb { width: 209px; height: 157px; max-width: none; border-radius: 8px; object-fit: cover; object-position: center 30%; margin: 2px 0 8px; display: block; }
 .prep-note { margin-top: 2.5em; padding-top: 14px; border-top: 1px solid var(--line); font-size: .88rem; }
 .prep-pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-top: 18px; }
 .prep-pager .btn { white-space: normal; text-align: left; line-height: 1.3; }
